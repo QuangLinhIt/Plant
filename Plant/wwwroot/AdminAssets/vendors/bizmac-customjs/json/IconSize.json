@@ -1,0 +1,31 @@
+﻿[
+  {
+    "value": "[20,31]",
+    "name": "Nhỏ",
+    "langKey": "vi"
+  },
+  {
+    "value": "[30,41]",
+    "name": "Vừa",
+    "langKey": "vi"
+  },
+  {
+    "value": "[40,51]",
+    "name": "Lớn",
+    "langKey": "vi"
+  } , {
+    "value": "[20,31]",
+    "name": "Small",
+    "langKey": "en"
+  },
+  {
+    "value": "[30,41]",
+    "name": "Medium",
+    "langKey": "en"
+  },
+  {
+    "value": "[40,51]",
+    "name": "Large",
+    "langKey": "en"
+  }
+]

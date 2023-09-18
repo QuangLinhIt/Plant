@@ -1,0 +1,68 @@
+﻿@model Plant.Models.BlogTranslation
+
+@{
+    ViewData["Title"] = "AddLanguages";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Tin tức</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách tin tức</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dịch bản tin tức</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Dịch tin tức</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <form asp-action="AddLanguages">
+                <section class="hk-sec-wrapper">
+                    <input asp-for="BlogId" hidden />
+                    <div class="form-group row col-md-4">
+                        <label asp-for="LangId" class="mb-1 text-primary"><i class="far fa-globe"></i> Ngôn ngữ</label>
+                        <select asp-for="LangId" class="form-control" asp-items=ViewBag.Languages></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-1 text-primary"><i class="far fa-font"></i> Tiêu đề</label>
+                        <input asp-for="Title" type="text" class="form-control" id="control1" placeholder="Tên trang tin tức">
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-1 text-primary"><i class="far fa-align-left"></i> Mô tả ngắn</label>
+                        <textarea rows="5" class="form-control" placeholder="Description" asp-for="ShortDes"></textarea>
+                        <small class="form-text text-muted">Mô tả ngắn cho bài viết và không quá 200 từ.</small>
+                    </div>
+                    <div class="my-3"></div>
+                    <div class="mt-4 pt-3">
+                        <h6 class="text-primary mb-2"><i class="far fa-align-left"></i> Nội dung chi tiết</h6>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="tinymce-wrap">
+                                    <textarea class="tinymce" asp-for="Description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-2 d-flex align-items-center">
+                        <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                        <input type="submit" name="" value="Cập nhật &#xf00c" class="btn btn-success mr-2 fa-input">
+                    </div>
+                </section>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+
+}

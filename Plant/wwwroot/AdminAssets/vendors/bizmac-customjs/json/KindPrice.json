@@ -1,0 +1,20 @@
+﻿[
+  {
+    "id": "1",
+    "slug": "toan-dien-tich",
+    "name": "Toàn diện tích",
+    "langkey": "vi"
+  },
+  {
+    "id": "2",
+    "slug": "m2",
+    "name": "m2",
+    "langkey": "vi"
+  },
+  {
+    "id": "3",
+    "slug": "cong",
+    "name": "Công",
+    "langkey": "vi"
+  }
+]

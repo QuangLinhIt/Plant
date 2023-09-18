@@ -1,0 +1,107 @@
+﻿@model Plant.ModelDto.BlogDto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Tin tức</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách tin tức</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa tin tức</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Thêm mới tin tức</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input asp-for="BlogId" hidden />
+                <section class="hk-sec-wrapper">
+                    <div class="form-group row col-md-4">
+                        <label asp-for="LangId" class="mb-1 text-primary"><i class="far fa-globe"></i> Ngôn ngữ</label>
+                        <select asp-for="LangId" class="form-control" asp-items=ViewBag.Languages></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-1 text-primary"><i class="far fa-font"></i> Tiêu đề</label>
+                        <input asp-for="Title" type="text" class="form-control" id="control1" placeholder="Tên trang tin tức">
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-1 text-primary"><i class="far fa-align-left"></i> Mô tả ngắn</label>
+                        <textarea rows="5" class="form-control" placeholder="Description" asp-for="ShortDes"></textarea>
+                        <small class="form-text text-muted">Mô tả ngắn cho bài viết và không quá 200 từ.</small>
+                    </div>
+                    <h5 class="hk-sec-title">Figures</h5>
+                    <div class="row">
+                        <div class="col-sm">
+                            <figure class="figure mb-15">
+                                <img src="~/image/blog/@Model.ImageName" class="figure-img w-200p mr-40 img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="mb-1 text-primary"><i class="far fa-camera"></i> Hình ảnh</label>
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control text-truncate" data-trigger="fileinput">
+                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                    <span class="fileinput-filename"></span>
+                                </div>
+                                <span class="input-group-append">
+                                    <span class=" btn btn-primary btn-file">
+                                        <span class="fileinput-new">Chọn file</span>
+                                        <span class="fileinput-exists">Thay đổi</span>
+                                        <input type="file" accept=".gif,.png, .jpg, .jpeg" asp-for="ImageFile">
+                                    </span>
+                                    <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Xoá</a>
+                                </span>
+                            </div>
+                            <small class="form-text text-muted">Định dạng ảnh (.gif, .png, .jpg, .jpeg)</small>
+                        </div>
+                    </div>
+                    <label class="mb-1 text-primary"><i class="far fa-calendar-alt"></i> Thuộc danh mục</label>
+                    <p class="mb-40">Vui lòng chọn danh mục chứa tin tức</p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.ListBoxFor(model => model.CategoryNewIds, new MultiSelectList(Model.ListCategoryNews, "Value", "Text"), new { @class = "form-control", multiple = "multiple", id = "input_tags" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3"></div>
+                    <div class="mt-4 pt-3">
+                        <h6 class="text-primary mb-2"><i class="far fa-align-left"></i> Nội dung chi tiết</h6>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="tinymce-wrap">
+                                    <textarea class="tinymce" asp-for="Description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-2 d-flex align-items-center">
+                        <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                        <input type="submit" name="" value="Cập nhật &#xf00c" class="btn btn-success mr-2 fa-input">
+                    </div>
+                </section>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+
+}

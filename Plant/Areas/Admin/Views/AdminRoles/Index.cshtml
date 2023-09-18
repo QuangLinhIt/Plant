@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Plant.Models.Role>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Quản lí hệ thống</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Danh sách quyền truy cập</li>
+    </ol>
+</nav>
+<!-- /Breadcrumb -->
+<section class="hk-sec-wrapper mb-3">
+    <a class="btn btn-info mb-2" asp-action="Create">
+        Add
+    </a>
+    <div class="row">
+        <div class="col-sm">
+            <div class="table-wrap">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="py-3">#Mã</th>
+                                <th class="py-3">Quyền truy cập</th>
+                                <th class="py-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>#@item.RoleId</td>
+                                    <td>@item.RoleName</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.RoleId" class="mx-2" data-toggle="tooltip" data-original-title="Edit"><i class="far fa-sliders-h text-dark"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.RoleId" data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

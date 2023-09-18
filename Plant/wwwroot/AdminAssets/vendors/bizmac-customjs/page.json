@@ -1,0 +1,72 @@
+﻿[
+  {
+    "id": "1",
+    "name": "Trang chủ",
+    "lang": "vi"
+  },
+  {
+    "id": "1",
+    "name": "Home",
+    "lang": "en"
+  },
+  {
+    "id": "2",
+    "name": "Giới thiệu",
+    "lang": "vi"
+  },
+  {
+    "id": "2",
+    "name": "About",
+    "lang": "en"
+  },
+  {
+    "id": "3",
+    "name": "Dự án",
+    "lang": "vi"
+  },
+  {
+    "id": "3",
+    "name": "Project",
+    "lang": "en"
+  },
+  {
+    "id": "4",
+    "name": "Dịch vụ",
+    "lang": "vi"
+  },
+  {
+    "id": "4",
+    "name": "Services",
+    "lang": "en"
+  },
+  {
+    "id": "5",
+    "name": "Tin tức",
+    "lang": "vi"
+  },
+  {
+    "id": "5",
+    "name": "News",
+    "lang": "en"
+  },
+  {
+    "id": "6",
+    "name": "Tuyển dụng",
+    "lang": "vi"
+  },
+  {
+    "id": "6",
+    "name": "Recuiment",
+    "lang": "en"
+  },
+  {
+    "id": "7",
+    "name": "Liên hệ",
+    "lang": "vi"
+  },
+  {
+    "id": "7",
+    "name": "Contact",
+    "lang": "en"
+  }
+]

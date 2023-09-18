@@ -1,0 +1,483 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Container -->
+<div class="container-fluid px-lg-4 mt-xl-50 mt-sm-30 mt-15">
+    <!-- Title -->
+    <div class="hk-pg-header align-items-top">
+        <div>
+            <h2 class="hk-pg-title font-weight-600 mb-10">Welcome Back!</h2>
+            <p>Questions about onboarding lead data? <a href="#">Learn more.</a></p>
+        </div>
+        <div class="d-flex w-500p">
+            <select class="form-control custom-select custom-select-sm mr-15">
+                <option selected="">Latest Products</option>
+                <option value="1">CRM</option>
+                <option value="2">Projects</option>
+                <option value="3">Statistics</option>
+            </select>
+            <select class="form-control custom-select custom-select-sm mr-15">
+                <option selected="">USA</option>
+                <option value="1">USA</option>
+                <option value="2">India</option>
+                <option value="3">Australia</option>
+            </select>
+            <select class="form-control custom-select custom-select-sm">
+                <option selected="">December</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="1">April</option>
+                <option value="2">May</option>
+                <option value="3">June</option>
+                <option value="1">July</option>
+                <option value="2">August</option>
+                <option value="3">September</option>
+                <option value="1">October</option>
+                <option value="2">November</option>
+                <option value="3">December</option>
+            </select>
+        </div>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <!-- Block 1 -->
+            <div class="hk-row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card card-sm bg-warning text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-5">
+                                <div>
+                                    <span class="d-block font-15 text-dark font-weight-500">Users</span>
+                                </div>
+                                <div>
+                                    <span class="text-success font-14 font-weight-500">+10%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="d-block display-4 text-dark mb-5">168M</span>
+                                <small class="d-block">172,458 Target Users</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card card-sm bg-info text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-5">
+                                <div>
+                                    <span class="d-block font-15 text-dark font-weight-500">Campaign Leads</span>
+                                </div>
+                                <div>
+                                    <span class="text-success font-14 font-weight-500">+12.5%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="d-block display-4 text-dark mb-5"><span class="counter-anim">168,856</span></span>
+                                <small class="d-block">472,458 Targeted</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card card-sm bg-dark text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-5">
+                                <div>
+                                    <span class="d-block font-15 text-dark font-weight-500">New Contacts</span>
+                                </div>
+                                <div>
+                                    <span class="text-warning font-14 font-weight-500">-2.8%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="d-block display-4 text-dark mb-5">73</span>
+                                <small class="d-block">100 Targeted</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card card-sm bg-primary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-5">
+                                <div>
+                                    <span class="d-block font-15 text-dark font-weight-500">Win/Loss Ratio</span>
+                                </div>
+                                <div>
+                                    <span class="text-danger font-14 font-weight-500">-75%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="d-block display-4 text-dark mb-5">48:65</span>
+                                <small class="d-block">42:32 Targeted</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 2 -->
+            <div class="d-flex align-items-center justify-content-between mt-30 mb-10">
+                <h5>Project Status</h5>
+                <button class="btn btn-sm btn-link">view all</button>
+            </div>
+            <div class="hk-row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header card-header-action">
+                            <h5>Balance Sheet Statistics</h5>
+                            <div class="d-flex align-items-center card-action-wrap">
+                                <div class="d-flex align-items-center card-action-wrap">
+                                    <a href="#" class="inline-block full-screen mr-15">
+                                        <i class="ion ion-md-expand"></i>
+                                    </a>
+                                    <a class="inline-block card-close" href="#" data-effect="fadeOut">
+                                        <i class="ion ion-md-close"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Special title treatment</h6>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-secondary btn-sm">Go somewhere</a>
+                            <a href="#" class="text-link ml-2">Visited me</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header card-header-action">
+                            <h5>Balance Sheet Statistics</h5>
+                            <div class="d-flex align-items-center card-action-wrap">
+                                <div class="d-flex align-items-center card-action-wrap">
+                                    <a href="#" class="inline-block full-screen mr-15">
+                                        <i class="ion ion-md-expand"></i>
+                                    </a>
+                                    <a class="inline-block card-close" href="#" data-effect="fadeOut">
+                                        <i class="ion ion-md-close"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Special title treatment</h6>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-secondary btn-sm">Go somewhere</a>
+                            <a href="#" class="text-link ml-2">Visited me</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header card-header-action">
+                            <h5>Balance Sheet Statistics</h5>
+                            <div class="d-flex align-items-center card-action-wrap">
+                                <div class="d-flex align-items-center card-action-wrap">
+                                    <a href="#" class="inline-block full-screen mr-15">
+                                        <i class="ion ion-md-expand"></i>
+                                    </a>
+                                    <a class="inline-block card-close" href="#" data-effect="fadeOut">
+                                        <i class="ion ion-md-close"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Special title treatment</h6>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-secondary btn-sm">Go somewhere</a>
+                            <a href="#" class="text-link ml-2">Visited me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 3 -->
+            <div class="hk-row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body pa-0">
+                            <div class="table-wrap">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div class="custom-control custom-checkbox checkbox-primary">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck4">
+                                                        <label class="custom-control-label" for="customCheck4">Lead Title</label>
+                                                    </div>
+                                                </th>
+                                                <th>Sales</th>
+                                                <th>Company</th>
+                                                <th>Date Created</th>
+                                                <th>Lead Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-control custom-checkbox checkbox-primary">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck41" checked="">
+                                                        <label class="custom-control-label" for="customCheck41"><span class="w-130p d-block text-truncate">connar_weiked@ae.com</span></label>
+                                                    </div>
+                                                </td>
+                                                <td>$2000</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                        <div class="media-img-wrap d-flex mr-10">
+                                                            <div class="avatar avatar-xs">
+                                                                <span class="avatar-text avatar-text-primary rounded-circle"><span class="initial-wrap"><span>A</span></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="d-block">American Express</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    22/10/2018
+                                                </td>
+                                                <td><span class="badge badge-primary">On track</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-control custom-checkbox checkbox-primary">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck42">
+                                                        <label class="custom-control-label" for="customCheck42"><span class="w-130p d-block text-truncate">express_notingham@em.au</span></label>
+                                                    </div>
+                                                </td>
+                                                <td>$1600</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                        <div class="media-img-wrap d-flex mr-10">
+                                                            <div class="avatar avatar-xs">
+                                                                <span class="avatar-text avatar-text-danger rounded-circle"><span class="initial-wrap"><span>M</span></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="d-block">Exxon Mobil</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    15/09/2018
+                                                </td>
+                                                <td><span class="badge badge-primary">On track</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-control custom-checkbox checkbox-primary">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck43">
+                                                        <label class="custom-control-label" for="customCheck43"><span class="w-130p d-block text-truncate">locast12_host@nova.com</span></label>
+                                                    </div>
+                                                </td>
+                                                <td>$1265</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                        <div class="media-img-wrap d-flex mr-10">
+                                                            <div class="avatar avatar-xs">
+                                                                <span class="avatar-text avatar-text-teal rounded-circle"><span class="initial-wrap"><span>B</span></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="d-block">Big Blackship</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    30/08/2018
+                                                </td>
+                                                <td><span class="badge badge-danger">Behind</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-control custom-checkbox checkbox-primary">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck44">
+                                                        <label class="custom-control-label" for="customCheck44"><span class="w-130p d-block text-truncate">grillmac@sundance.co.in</span></label>
+                                                    </div>
+                                                </td>
+                                                <td>$4562</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                        <div class="media-img-wrap d-flex mr-10">
+                                                            <div class="avatar avatar-xs">
+                                                                <span class="avatar-text avatar-text-indigo rounded-circle"><span class="initial-wrap"><span>F</span></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="d-block">Folkswagan</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    14/03/2018
+                                                </td>
+                                                <td><span class="badge badge-purple">Negotiation</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-control custom-checkbox checkbox-primary">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck45">
+                                                        <label class="custom-control-label" for="customCheck45"><span class="w-130p d-block text-truncate">admin@novotel.inc</span></label>
+                                                    </div>
+                                                </td>
+                                                <td>$5012</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                        <div class="media-img-wrap d-flex mr-10">
+                                                            <div class="avatar avatar-xs">
+                                                                <span class="avatar-text avatar-text-purple rounded-circle"><span class="initial-wrap"><span>N</span></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="d-block">Novotel</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    21/02/2018
+                                                </td>
+                                                <td><span class="badge badge-orange">Offer Made</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-control custom-checkbox checkbox-primary">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck46">
+                                                        <label class="custom-control-label" for="customCheck46"><span class="w-130p d-block text-truncate">displaypic@ho.au</span></label>
+                                                    </div>
+                                                </td>
+                                                <td>$1245</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                        <div class="media-img-wrap d-flex mr-10">
+                                                            <div class="avatar avatar-xs">
+                                                                <span class="avatar-text avatar-text-pink rounded-circle"><span class="initial-wrap"><span>D</span></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="d-block">Displaypic</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    3/02/2018
+                                                </td>
+                                                <td><span class="badge badge-orange">Offer Made</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-control custom-checkbox checkbox-primary">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck47">
+                                                        <label class="custom-control-label" for="customCheck47"><span class="w-130p d-block text-truncate">manager@cobito.com</span></label>
+                                                    </div>
+                                                </td>
+                                                <td>$1245</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                        <div class="media-img-wrap d-flex mr-10">
+                                                            <div class="avatar avatar-xs">
+                                                                <span class="avatar-text avatar-text-yellow rounded-circle"><span class="initial-wrap"><span>C</span></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="d-block">Cobito co.</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    18/01/2018
+                                                </td>
+                                                <td><span class="badge badge-danger">Behind</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header card-header-action">
+                            <h5>Card Header</h5>
+                            <div class="d-flex align-items-center card-action-wrap">
+                                <div class="dropdown">
+                                    <button aria-expanded="false" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle " type="button">Dropdown <span class="caret"></span></button>
+                                    <div role="menu" class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pa-0">
+                            <div class="table-wrap">
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Username</th>
+                                                <th>Role</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Brincker123</td>
+                                                <td><span class="badge badge-danger">admin</span> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Hay123</td>
+                                                <td><span class="badge badge-info">member</span> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Hay123</td>
+                                                <td><span class="badge badge-warning">admin</span> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Hay123</td>
+                                                <td><span class="badge badge-success">member</span> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Hay123</td>
+                                                <td><span class="badge badge-primary">admin</span> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Hay123</td>
+                                                <td><span class="badge badge-secondary">member</span> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Hay123</td>
+                                                <td><span class="badge badge-dark">member</span> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+<!-- /Container -->

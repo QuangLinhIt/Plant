@@ -1,0 +1,25 @@
+﻿[
+  {
+    "value": "1",
+    "name": "Sơ đồ 15",
+    "langKey": "vi"
+  },
+  {
+    "value": "2",
+    "name": "Giấy chứng nhận",
+    "langKey": "vi"
+  },
+  {
+    "value": "3",
+    "name": "Xác nhận nguồn gốc",
+    "langKey": "vi"
+  } , {
+    "value": "4",
+    "name": "Giấy hẹn ra sổ",
+    "langKey": "vi"
+  }, {
+    "value": "5",
+    "name": "Khác",
+    "langKey": "vi"
+  }
+]

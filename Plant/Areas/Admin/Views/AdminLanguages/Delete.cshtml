@@ -1,0 +1,55 @@
+﻿@model Plant.Models.Language
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Quản lí hệ thống</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Ngôn ngữ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Xóa ngôn ngữ</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Xóa ngôn ngữ</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label asp-for="LangId" class="control-label">#Mã</label>
+                                    <input asp-for="LangId" class="form-control" readonly />
+                                    <span asp-validation-for="LangId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LangName" class="control-label">Ngôn ngữ</label>
+                                    <input asp-for="LangName" class="form-control" readonly />
+                                    <span asp-validation-for="LangName" class="text-danger"></span>
+                                </div>
+                                <form asp-action="Delete">
+                                    <input type="hidden" asp-for="LangId" />
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                    <a class="btn btn-dark" asp-action="Index">Back</a>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- /Container -->

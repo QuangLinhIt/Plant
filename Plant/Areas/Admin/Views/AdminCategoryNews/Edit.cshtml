@@ -1,0 +1,68 @@
+﻿@model Plant.ModelDto.CategoryNewDto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Tin tức</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh mục tin tức</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa danh mục tin tức</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Chỉnh sửa danh mục tin tức</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <form asp-action="Edit">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="CategoryNewId" hidden />
+                        <input asp-for="CategoryNewTranslationId" hidden />
+                        <input asp-for="LangId" hidden />
+
+                        <div class="form-group col-md-3 col-sm-12">
+                            <label asp-for="LangName" class="control-label">Ngôn ngữ</label>
+                            <input asp-for="LangName" class="form-control" readonly />
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label asp-for="CategoryNewName" class="control-label">Danh mục tin tức</label>
+                            <input asp-for="CategoryNewName" class="form-control" />
+                            <span asp-validation-for="CategoryNewName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-12">
+                            <label asp-for="ParentNewId" class="control-label">Mã danh mục cha</label>
+                            <input asp-for="ParentNewId" class="form-control" type="number" />
+                            <span asp-validation-for="ParentNewId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-1 col-sm-12">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                        <div class="form-group col-md-1 col-sm-12">
+                            <a class="btn btn-dark" asp-action="Index">Back</a>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </section>
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+}
+

@@ -1,0 +1,21 @@
+﻿[
+  {
+    "value": "1",
+    "name": "Chuyển nhượng",
+    "langKey": "vi"
+  },
+  {
+    "value": "2",
+    "name": "Cho thuê",
+    "langKey": "vi"
+  },
+  {
+    "value": "3",
+    "name": "Định giá",
+    "langKey": "vi"
+  } , {
+    "value": "4",
+    "name": "Khác",
+    "langKey": "vi"
+  }
+]

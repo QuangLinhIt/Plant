@@ -1,0 +1,74 @@
+﻿@model Plant.Models.BlogTranslation
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Tin tức</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách tin tức</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Xóa tin tức</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Xóa tin tức</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <div class="form-group">
+                    <label class="mb-1 text-primary"><i class="far fa-font"></i> Tiêu đề</label>
+                    <input asp-for="Title" type="text" class="form-control" id="control1" placeholder="Tên trang tin tức" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="mb-1 text-primary"><i class="far fa-align-left"></i> Mô tả ngắn</label>
+                    <textarea rows="5" class="form-control" placeholder="Description" asp-for="ShortDes" readonly></textarea>
+                    <small class="form-text text-muted">Mô tả ngắn cho bài viết và không quá 200 từ.</small>
+                </div>
+                <h5 class="hk-sec-title">Figures</h5>
+                <div class="row">
+                    <div class="col-sm">
+                        <figure class="figure mb-15">
+                            <img src="~/image/blog/@Model.Blog.BlogImg" class="figure-img w-200p mr-40 img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                        </figure>
+                    </div>
+                </div>
+                <div class="my-3"></div>
+                <div class="mt-4 pt-3">
+                    <h6 class="text-primary mb-2"><i class="far fa-align-left"></i> Nội dung chi tiết</h6>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="tinymce-wrap">
+                                <textarea class="tinymce" asp-for="Description" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form asp-action="Delete">
+                    <div class="form-group my-2 d-flex align-items-center">
+                        <input asp-for="BlogId" hidden />
+                        <input asp-for="LangId" hidden />
+                        <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                        <input type="submit" name="" value="Delete &#xf00c" class="btn btn-danger mr-2 fa-input">
+                    </div>
+                </form>
+
+            </section>
+
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+
+}

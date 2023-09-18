@@ -1,0 +1,12 @@
+﻿[
+  {
+    "id": "1",
+    "slug": "nhan-vien",
+    "name": "Nhân viên"
+  },
+  {
+    "id": "2",
+    "slug": "ctv",
+    "name": "Cộng tác viên"
+  }
+]

@@ -1,0 +1,96 @@
+﻿[
+  {
+    "value": "1",
+    "name": "Để ở",
+    "langKey": "vi"
+  },
+  {
+    "value": "2",
+    "name": "Khách sạn",
+    "langKey": "vi"
+  },
+  {
+    "value": "3",
+    "name": "Dịch vụ",
+    "langKey": "vi"
+  } , {
+    "value": "4",
+    "name": "Phân lô",
+    "langKey": "vi"
+  },
+  {
+    "value": "5",
+    "name": "Cho thuê đất",
+    "langKey": "vi"
+  },
+  {
+    "value": "6",
+    "name": "Cây xăng",
+    "langKey": "vi"
+  },
+  {
+    "value": "7",
+    "name": "Cafe",
+    "langKey": "vi"
+  },
+  {
+    "value": "8",
+    "name": "Điểm tham quan",
+    "langKey": "vi"
+  },
+  {
+    "value": "9",
+    "name": "Resort",
+    "langKey": "vi"
+  },
+  {
+    "value": "10",
+    "name": "Bungalow",
+    "langKey": "vi"
+  },
+  {
+    "value": "11",
+    "name": "Nhà hàng",
+    "langKey": "vi"
+  },
+  {
+    "value": "12",
+    "name": "Showroom",
+    "langKey": "vi"
+  },
+  {
+    "value": "13",
+    "name": "HomeStay",
+    "langKey": "vi"
+  },
+  {
+    "value": "14",
+    "name": "Nhà trọ",
+    "langKey": "vi"
+  },
+  {
+    "value": "15",
+    "name": "Thương mại",
+    "langKey": "vi"
+  },
+  {
+    "value": "16",
+    "name": "Khu du lịch",
+    "langKey": "vi"
+  },
+  {
+    "value": "17",
+    "name": "Cửa hàng",
+    "langKey": "vi"
+  },
+  {
+    "value": "18",
+    "name": "Lưu trú",
+    "langKey": "vi"
+  },
+  {
+    "value": "19",
+    "name": "Chung cư",
+    "langKey": "vi"
+  }
+]
