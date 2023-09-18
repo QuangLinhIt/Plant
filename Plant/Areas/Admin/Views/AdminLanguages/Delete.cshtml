@@ -40,8 +40,10 @@
                                 </div>
                                 <form asp-action="Delete">
                                     <input type="hidden" asp-for="LangId" />
-                                    <input type="submit" value="Delete" class="btn btn-danger" />
-                                    <a class="btn btn-dark" asp-action="Index">Back</a>
+                                    <div class="form-group my-2 d-flex align-items-center">
+                                        <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                                        <input type="submit" name="" value="Delete &#xf00c" class="btn btn-danger mr-2 fa-input">
+                                    </div>
                                 </form>
 
                             </div>

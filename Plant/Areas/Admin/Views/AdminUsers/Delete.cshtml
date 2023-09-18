@@ -5,54 +5,59 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Delete</h1>
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Quản lí hệ thống</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách tài khoản</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Xóa tài khoản</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Xóa tài khoản</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <form asp-action="Delete">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="UserId" hidden />
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label asp-for="UserName" class="control-label">Họ tên</label>
+                            <input asp-for="UserName" class="form-control" readonly/>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label asp-for="Email" class="control-label">Email</label>
+                            <input asp-for="Email" class="form-control" type="email" readonly/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="customCheck4" asp-for="Active" readonly>
+                                <label class="custom-control-label" for="customCheck4">Trạng thái tài khoản</label>
+                            </div>
+                        </div>
+                        <div class="form-group my-2 d-flex align-items-center">
+                            <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                            <input type="submit" name="" value="Xóa &#xf00c" class="btn btn-danger mr-2 fa-input">
+                        </div>
+                    </div>
+                </form>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Role.RoleName)
-        </dd class>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="UserId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+            </section>
+        </div>
+    </div>
 </div>
+<!-- /Container -->
+
+
+@section Scripts {
+}
+

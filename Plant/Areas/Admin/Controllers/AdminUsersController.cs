@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PagedList.Core;
+using Plant.Helper;
 using Plant.Models;
 
 namespace Plant.Areas.Admin.Controllers
@@ -20,13 +22,42 @@ namespace Plant.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminUsers
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1, int RoleId = 0)
         {
-            var plantContext = _context.Users.Include(u => u.Role);
-            return View(await plantContext.ToListAsync());
+            ViewData["Quyentruycap"] = new SelectList(_context.Roles, "RoleId", "RoleName", RoleId);
+            ViewBag.CurrrentRoleId = RoleId;
+            var pageNumber = page;
+            var pageSize = 8;
+            var ListUser = new List<User>();
+            if (RoleId != 0)
+            {
+                ListUser = _context.Users
+                 .AsNoTracking()
+                 .Where(x => x.RoleId == RoleId)
+                 .Include(x => x.Role)
+                 .ToList();
+            }
+            else
+            {
+                ListUser = _context.Users
+                .AsNoTracking()
+                .Include(x => x.Role)
+                .ToList();
+            }
+
+            var models = new PagedList<User>(ListUser.AsQueryable(), pageNumber, pageSize);
+            ViewBag.CurrentPage = pageNumber;
+            return View(models);
+        }
+        public IActionResult Filtter(int RoleId = 0)
+        {
+            var url = $"/Admin/AdminUsers/Index?RoleId={RoleId}";
+            if (RoleId == 0)
+                url = $"/Admin/AdminUsers/Index";
+            return Json(new { status = "success", redirectUrl = url });
         }
 
-       
+
 
         // GET: Admin/AdminUsers/Create
         public IActionResult Create()
@@ -40,10 +71,13 @@ namespace Plant.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Email,UserName,Password,Active,Date,RoleId")] User user)
+        public async Task<IActionResult> Create(User user)
         {
             if (ModelState.IsValid)
             {
+                user.Password = HashPassword.Hash(user.Password);
+                user.Date = DateTime.Now;
+                user.Active = true;
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -74,7 +108,7 @@ namespace Plant.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Email,UserName,Password,Active,Date,RoleId")] User user)
+        public async Task<IActionResult> Edit(int id,User user)
         {
             if (id != user.UserId)
             {

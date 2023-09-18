@@ -5,56 +5,64 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Quản lí hệ thống</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách tài khoản</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa tài khoản</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Chỉnh sửa tài khoản</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <form asp-action="Edit">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="UserId" hidden />
+                        <input asp-for="Password" hidden />
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label asp-for="UserName" class="control-label">Họ tên</label>
+                            <input asp-for="UserName" class="form-control" placeholder="Nhập tên người dùng..." />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label asp-for="Email" class="control-label">Email</label>
+                            <input asp-for="Email" class="form-control" type="email" placeholder="Nhập email..." />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label asp-for="RoleId" class="control-label">Quyền truy cập</label>
+                            <select class="form-control" asp-for="RoleId" asp-items=ViewBag.RoleId></select>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="customCheck4" asp-for="Active">
+                                <label class="custom-control-label" for="customCheck4">Trạng thái tài khoản</label>
+                            </div>
+                        </div>
+                        <div class="form-group my-2 d-flex align-items-center">
+                            <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                            <input type="submit" name="" value="Cập nhật &#xf00c" class="btn btn-success mr-2 fa-input">
+                        </div>
+                    </div>
+                </form>
 
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserId" />
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
-                <span asp-validation-for="RoleId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            </section>
+        </div>
     </div>
 </div>
+<!-- /Container -->
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
