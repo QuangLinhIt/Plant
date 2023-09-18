@@ -26,24 +26,7 @@ namespace Plant.Areas.Admin.Controllers
             return View(await plantContext.ToListAsync());
         }
 
-        // GET: Admin/AdminUsers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.Users
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
-        }
+       
 
         // GET: Admin/AdminUsers/Create
         public IActionResult Create()

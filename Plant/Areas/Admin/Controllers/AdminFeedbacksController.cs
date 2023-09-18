@@ -25,23 +25,7 @@ namespace Plant.Areas.Admin.Controllers
             return View(await _context.Feedbacks.ToListAsync());
         }
 
-        // GET: Admin/AdminFeedbacks/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var feedback = await _context.Feedbacks
-                .FirstOrDefaultAsync(m => m.FeedbackId == id);
-            if (feedback == null)
-            {
-                return NotFound();
-            }
-
-            return View(feedback);
-        }
+      
 
         // GET: Admin/AdminFeedbacks/Create
         public IActionResult Create()

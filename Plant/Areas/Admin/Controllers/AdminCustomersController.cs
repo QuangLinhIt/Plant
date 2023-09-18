@@ -25,23 +25,7 @@ namespace Plant.Areas.Admin.Controllers
             return View(await _context.Customers.ToListAsync());
         }
 
-        // GET: Admin/AdminCustomers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
-        }
+      
 
         // GET: Admin/AdminCustomers/Create
         public IActionResult Create()

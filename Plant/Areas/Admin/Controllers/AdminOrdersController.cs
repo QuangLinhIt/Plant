@@ -26,24 +26,7 @@ namespace Plant.Areas.Admin.Controllers
             return View(await plantContext.ToListAsync());
         }
 
-        // GET: Admin/AdminOrders/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders
-                .Include(o => o.Feedback)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
-        }
+      
 
         // GET: Admin/AdminOrders/Create
         public IActionResult Create()
