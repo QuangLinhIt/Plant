@@ -1,7 +1,7 @@
-﻿@model Plant.ModelDto.CategoryDto
+﻿@model Plant.Models.CategoryTranslation
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "AddLanguages";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -10,50 +10,42 @@
     <ol class="breadcrumb breadcrumb-light bg-transparent">
         <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
         <li class="breadcrumb-item"><a asp-action="Index">Danh mục sản phẩm</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa danh mục sản phẩm</li>
+        <li class="breadcrumb-item active" aria-current="page">Dịch danh mục sản phẩm</li>
     </ol>
 </nav>
 <!-- Container -->
 <div class="container-fluid px-lg-4">
     <!-- Title -->
     <div class="hk-pg-header">
-        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Chỉnh sửa danh mục sản phẩm</h4>
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Dịch danh mục sản phẩm</h4>
     </div>
     <!-- /Title -->
     <!-- Row -->
     <div class="row">
         <div class="col-xl-12">
             <section class="hk-sec-wrapper">
-                <form asp-action="Edit">
+                <form asp-action="AddLanguages">
                     <div class="row">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input asp-for="CategoryId" hidden />
                         <input asp-for="CategoryTranslationId" hidden />
-                        <input asp-for="LangId" hidden />
 
                         <div class="form-group col-md-3 col-sm-12">
-                            <label asp-for="LangName" class="control-label">Ngôn ngữ</label>
-                            <input asp-for="LangName" class="form-control" readonly />
+                            <label asp-for="LangId" class="control-label">Ngôn ngữ</label>
+                            <select asp-for="LangId" class="form-control" asp-items=ViewBag.Languages></select>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label asp-for="CategoryName" class="control-label">Danh mục sản phẩm</label>
                             <input asp-for="CategoryName" class="form-control" />
                             <span asp-validation-for="CategoryName" class="text-danger"></span>
                         </div>
-                        <div class="form-group col-md-3 col-sm-12">
-                            <label asp-for="ParentId" class="control-label">Mã danh mục cha</label>
-                            <input asp-for="ParentId" class="form-control" type="number" />
-                            <span asp-validation-for="ParentId" class="text-danger"></span>
-                        </div>
+                        <div class="col-md-12 col-sm-12"></div>
                         <div class="form-group my-2 d-flex align-items-center">
                             <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
-                            <input type="submit" name="" value="Cập nhật &#xf00c" class="btn btn-success mr-2 fa-input">
+                            <input type="submit" name="" value="Cập nhật ngôn ngữ &#xf00c" class="btn btn-success mr-2 fa-input">
                         </div>
                     </div>
-
-
                 </form>
-
             </section>
         </div>
     </div>

@@ -1,39 +1,62 @@
-﻿@model Plant.Models.Category
+﻿@model Plant.ModelDto.CategoryDto
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>Category</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParentId" class="control-label"></label>
-                <input asp-for="ParentId" class="form-control" />
-                <span asp-validation-for="ParentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Sn</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh mục tin tức</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Thêm mới danh mục tin tức</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Thêm mới danh mục tin tức</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <form asp-action="Create">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group col-md-3 col-sm-12">
+                            <label asp-for="LangId" class="control-label">Ngôn ngữ</label>
+                            <select class="form-control" asp-for="LangId" asp-items=ViewBag.Languages></select>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label asp-for="CategoryName" class="control-label">Danh mục sản phẩm</label>
+                            <input asp-for="CategoryName" class="form-control" />
+                            <span asp-validation-for="CategoryName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-12">
+                            <label asp-for="ParentId" class="control-label">Mã danh mục cha</label>
+                            <input asp-for="ParentId" class="form-control" type="number" />
+                            <span asp-validation-for="ParentId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group my-2 d-flex align-items-center">
+                            <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                            <input type="submit" name="" value="Tạo mới &#xf00c" class="btn btn-success mr-2 fa-input">
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </section>
+        </div>
     </div>
 </div>
+<!-- /Container -->
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

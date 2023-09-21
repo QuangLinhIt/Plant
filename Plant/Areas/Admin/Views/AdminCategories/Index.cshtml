@@ -1,36 +1,105 @@
-﻿@model IEnumerable<Plant.Models.Category>
+﻿@model IEnumerable<Plant.Models.CategoryTranslation>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
-            </td>
-        </tr>
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Danh mục sản phẩm</li>
+    </ol>
+</nav>
+<!-- /Breadcrumb -->
+<!-- Title -->
+<div class="hk-pg-header">
+    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="file-text"></i></span></span>Danh mục sản phẩm</h4>
+</div>
+<!-- /Title -->
+<section class="hk-sec-wrapper mb-3">
+    <div class="row">
+        <div class="form-group col-sm col-md-2 col-lg-2">
+            <select class="form-control" id="txtLangId" name="txtLangId" asp-items="ViewBag.Languages">
+                <option value="0" selected>Chọn ngôn ngữ</option>
+            </select>
+        </div>
+        <div class="form-group col-sm col-md-2 col-lg-2">
+            <a class="btn btn-info" asp-action="Create">
+                Add
+            </a>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="table-wrap">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="py-3">#Mã</th>
+                                <th class="py-3">Ngôn ngữ</th>
+                                <th class="py-3">Danh mục sản phẩm</th>
+                                <th class="py-3">Mã danh mục cha</th>
+                                <th class="py-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>#@item.CategoryId</td>
+                                    <td>@item.Lang.LangName</td>
+                                    <td>@item.CategoryName</td>
+                                    <td>@item.Category.ParentId</td>
+                                    <td>
+                                        <a asp-action="AddLanguages" asp-route-id="@item.CategoryId" asp-route-langId="@item.LangId" data-toggle="tooltip" data-original-title="Translation"><i class="far fa-globe text-dark"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@item.CategoryId" asp-route-langId="@item.LangId" class="mx-2" data-toggle="tooltip" data-original-title="Edit"><i class="far fa-sliders-h text-dark"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.CategoryId"  asp-route-langId="@item.LangId" data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            jQuery("#txtLangId").change(function () {
+                var langId = jQuery(this).children(":selected").attr("value");
+                langId = parseFloat(langId);
+                $('#txtLangId option').removeAttr('selected');
+                $("txtLangId > [value=" + langId + "]").attr("selected", "true");
+                $.ajax({
+                    url: '/Admin/AdminCategories/Filtter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        LangId: langId
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            });
+        })
+    </script>
 }
-    </tbody>
-</table>

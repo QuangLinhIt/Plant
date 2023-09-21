@@ -239,13 +239,11 @@ namespace Plant.Areas.Admin.Controllers
             {
                 try
                 {
-                    var catgoryNew = new CategoryNews()
-                    {
-                        CategoryNewId = dto.CategoryNewId,
-                        ParentNewId = dto.ParentNewId
-                    };
+                    var catgoryNew = _context.CategoryNews.Where(x => x.CategoryNewId == dto.CategoryNewId).FirstOrDefault();
                     if (catgoryNew != null)
                     {
+                        catgoryNew.CategoryNewId = dto.CategoryNewId;
+                        catgoryNew.ParentNewId = dto.ParentNewId;
                         _context.CategoryNews.Update(catgoryNew);
                         await _context.SaveChangesAsync();
                         var categoryNewTran = new CategoryNewTranslation()

@@ -8,7 +8,8 @@ namespace Plant.Models
 {
     public partial class plantContext : DbContext
     {
-       
+      
+
         public plantContext(DbContextOptions<plantContext> options)
             : base(options)
         {
@@ -37,7 +38,7 @@ namespace Plant.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -77,11 +78,6 @@ namespace Plant.Models
                     .HasForeignKey(d => d.LangId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_BlogTranslations_Languages");
-            });
-
-            modelBuilder.Entity<Category>(entity =>
-            {
-                entity.Property(e => e.CategoryId).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<CategoryNewTranslation>(entity =>
@@ -175,6 +171,12 @@ namespace Plant.Models
 
                 entity.Property(e => e.Total).HasColumnType("decimal(18, 0)");
 
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Orders_Customers");
+
                 entity.HasOne(d => d.Feedback)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.FeedbackId)
@@ -183,7 +185,7 @@ namespace Plant.Models
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.Property(e => e.ProductImg).IsRequired();
+                entity.Property(e => e.Image).IsRequired();
             });
 
             modelBuilder.Entity<ProductCategory>(entity =>

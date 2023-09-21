@@ -17,8 +17,8 @@ namespace Plant.Models
         }
 
         public int ProductId { get; set; }
-        public int Voucher { get; set; }
-        public string ProductImg { get; set; }
+        public string Image { get; set; }
+        public int? Voucher { get; set; }
 
         public virtual ICollection<ProductCategory> ProductCategories { get; set; }
         public virtual ICollection<ProductColor> ProductColors { get; set; }

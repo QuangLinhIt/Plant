@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Plant.ModelDto;
 using Plant.Models;
 
 namespace Plant.Areas.Admin.Controllers
@@ -20,15 +21,54 @@ namespace Plant.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminCategories
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int LangId = 0)
         {
-            return View(await _context.Categories.ToListAsync());
+            ViewData["Languages"] = new SelectList(_context.Languages, "LangId", "LangName", LangId);
+            if (LangId != 0)
+            {
+                var result = _context.CategoryTranslations
+                    .Include(x => x.Category)
+                    .Include(x => x.Lang)
+                    .Where(x => x.LangId == LangId)
+                    .ToList();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(result);
+                }
+            }
+            else
+            {
+                var result = _context.CategoryTranslations
+                    .Include(x => x.Category)
+                    .Include(x => x.Lang)
+                    .ToList();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(result);
+                }
+            }
+        }
+        //GET:Admin/AdminCategories/Filtter
+        public IActionResult Filtter(int LangId = 0)
+        {
+            var url = $"/Admin/AdminCategories/Index?LangId={LangId}";
+            if (LangId == 0)
+                url = $"/Admin/AdminCategories/Index";
+            return Json(new { status = "success", redirectUrl = url });
         }
 
-     
         // GET: Admin/AdminCategories/Create
         public IActionResult Create()
         {
+            ViewData["Languages"] = new SelectList(_context.Languages, "LangId", "LangName");
             return View();
         }
 
@@ -37,31 +77,123 @@ namespace Plant.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,ParentId")] Category category)
+        public async Task<IActionResult> Create(CategoryDto dto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                ViewData["Languages"] = new SelectList(_context.Languages, "LangId", "LangName", dto.LangId);
+                var category = new Category()
+                {
+                    ParentId = dto.ParentId
+                };
+                _context.Categories.Add(category);
+                await _context.SaveChangesAsync();
+                var categoryTranslation = new CategoryTranslation()
+                {
+                    CategoryId = category.CategoryId,
+                    CategoryName = dto.CategoryName,
+                    LangId = dto.LangId
+                };
+                _context.CategoryTranslations.Add(categoryTranslation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(dto);
         }
 
-        // GET: Admin/AdminCategories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        //GET: Admin/AdminCategories/AddLanguages
+        public IActionResult AddLanguages(int? id,int? langId)
         {
-            if (id == null)
+            if(id==null && langId == null)
             {
                 return NotFound();
             }
-
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            ViewData["Languages"] = new SelectList(_context.Languages, "LangId", "LangName", langId);
+            var result = (from ct in _context.CategoryTranslations
+                          where ct.CategoryId == id && ct.LangId == langId
+                          select new CategoryTranslation()
+                          {
+                              CategoryTranslationId = ct.CategoryTranslationId,
+                              CategoryId = ct.CategoryId,
+                              LangId = ct.LangId
+                          }).FirstOrDefault();
+            if (result == null)
             {
                 return NotFound();
             }
-            return View(category);
+            else
+            {
+                return View(result);
+            }
+        }
+        //POST:Admin/AdminCategories/AddLanguages
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddLanguages(int id,int langId,CategoryTranslation data)
+        {
+            if (id != data.CategoryId)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                ViewData["Languages"] = new SelectList(_context.Languages, "LangId", "LangName", data.LangId);
+                var exist = _context.CategoryTranslations
+                    .Where(x => x.CategoryId == data.CategoryId && x.LangId == data.LangId)
+                    .FirstOrDefault();
+                if (exist != null)
+                {
+                    _context.CategoryTranslations.Remove(exist);
+                    _context.SaveChanges();
+                    var result = new CategoryTranslation()
+                    {
+                        CategoryId = data.CategoryId,
+                        LangId = data.LangId,
+                        CategoryName = data.CategoryName
+                    };
+                    _context.CategoryTranslations.Add(result);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    var result = new CategoryTranslation()
+                    {
+                        CategoryId = data.CategoryId,
+                        LangId = data.LangId,
+                        CategoryName = data.CategoryName
+                    };
+                    _context.CategoryTranslations.Add(result);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(data);
+        }
+        // GET: Admin/AdminCategories/Edit/5
+        public IActionResult Edit(int? id, int? langId)
+        {
+            if (id == null || langId == null)
+            {
+                return NotFound();
+            }
+            var result = (from c in _context.Categories
+                          join ct in _context.CategoryTranslations on c.CategoryId equals ct.CategoryId
+                          join l in _context.Languages on ct.LangId equals l.LangId
+                          where ct.CategoryId == id && l.LangId == langId
+                          select new CategoryDto()
+                          {
+                              CategoryId = c.CategoryId,
+                              ParentId = c.ParentId,
+                              CategoryTranslationId = ct.CategoryTranslationId,
+                              LangId = l.LangId,
+                              LangName = l.LangName,
+                              CategoryName = ct.CategoryName
+                          }).FirstOrDefault();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return View(result);
         }
 
         // POST: Admin/AdminCategories/Edit/5
@@ -69,9 +201,9 @@ namespace Plant.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,ParentId")] Category category)
+        public async Task<IActionResult> Edit(int id, int langId, CategoryDto dto)
         {
-            if (id != category.CategoryId)
+            if (id != dto.CategoryId)
             {
                 return NotFound();
             }
@@ -80,51 +212,86 @@ namespace Plant.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.CategoryId))
+                    var category = _context.Categories.Where(x => x.CategoryId == dto.CategoryId).FirstOrDefault();
+                    if (category == null)
                     {
                         return NotFound();
                     }
                     else
                     {
-                        throw;
+                        category.CategoryId = dto.CategoryId;
+                        category.ParentId = dto.ParentId;
+                        _context.Categories.Update(category);
+                        await _context.SaveChangesAsync();
+                        var cartegoryTranslation = _context.CategoryTranslations.Where(x => x.CategoryId == dto.CategoryId && x.LangId == dto.LangId).FirstOrDefault();
+                        if (cartegoryTranslation == null)
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            cartegoryTranslation.CategoryTranslationId = dto.CategoryTranslationId;
+                            cartegoryTranslation.CategoryId = dto.CategoryId;
+                            cartegoryTranslation.LangId = dto.LangId;
+                            cartegoryTranslation.CategoryName = dto.CategoryName;
+                            _context.CategoryTranslations.Update(cartegoryTranslation);
+                            await _context.SaveChangesAsync();
+                        }
                     }
+                }
+                catch
+                {
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(dto);
         }
 
         // GET: Admin/AdminCategories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, int? langId)
         {
-            if (id == null)
+            if (id == null || langId == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
+            var result = await _context.CategoryTranslations.Include(x => x.Category).Include(x => x.Lang).Where(x => x.CategoryId == id && x.LangId == langId).FirstOrDefaultAsync();
+            if (result == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(result);
         }
 
         // POST: Admin/AdminCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int langId)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            var categoryTranslation = await _context.CategoryTranslations.Where(x => x.CategoryId == id).ToListAsync();
+            if (categoryTranslation == null)
+            {
+                var category = await _context.Categories.Where(x => x.CategoryId == id).FirstOrDefaultAsync();
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    _context.Categories.Remove(category);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                _context.CategoryTranslations.RemoveRange(categoryTranslation);
+                await _context.SaveChangesAsync();
+                var category = await _context.Categories.Where(x => x.CategoryId == id).FirstOrDefaultAsync();
+                _context.Categories.Remove(category);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

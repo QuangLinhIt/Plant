@@ -25,6 +25,7 @@ namespace Plant.Models
         public string OrderStatus { get; set; }
         public bool Deleted { get; set; }
 
+        public virtual Customer Customer { get; set; }
         public virtual Feedback Feedback { get; set; }
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }
