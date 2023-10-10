@@ -8,7 +8,7 @@ namespace Plant.Models
 {
     public partial class plantContext : DbContext
     {
-      
+       
 
         public plantContext(DbContextOptions<plantContext> options)
             : base(options)
@@ -38,7 +38,7 @@ namespace Plant.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+           
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -242,9 +242,9 @@ namespace Plant.Models
 
             modelBuilder.Entity<ProductTranslation>(entity =>
             {
-                entity.Property(e => e.OriginalPrice).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.OriginalPrice).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.ProductName).IsRequired();
 

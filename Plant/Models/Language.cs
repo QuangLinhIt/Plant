@@ -17,6 +17,8 @@ namespace Plant.Models
 
         public int LangId { get; set; }
         public string LangName { get; set; }
+        public string SignLanguages { get; set; }
+        public string CurrencyUnit { get; set; }
 
         public virtual ICollection<BlogTranslation> BlogTranslations { get; set; }
         public virtual ICollection<CategoryNewTranslation> CategoryNewTranslations { get; set; }

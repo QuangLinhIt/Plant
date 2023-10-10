@@ -1,0 +1,79 @@
+﻿@model Plant.ModelDto.ProductImageDto
+
+@{
+    ViewData["Title"] = "Picture";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách sản phẩm</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Hình ảnh phụ của sản phẩm</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Hình ảnh phụ sản phẩm</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <form asp-action="Picture" method="post" enctype="multipart/form-data">
+                <section class="hk-sec-wrapper">
+                    <input asp-for="ProductId" hidden />
+                    <input asp-for="LangId" hidden />
+                    <input asp-for="ProductName" hidden />
+                    <h5 class="hk-sec-title">@Model.ProductName</h5>
+                    <p class="mb-25">Tất cả hình ảnh liên quan đến sản phẩm: <u>@Model.ProductName</u> </p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                @foreach (var item in Model.ListImageName)
+                                {
+                                    <div class="col-sm-6 col-md-3 mt-15">
+                                        <img src="~/image/listProduct/@item" class="img-fluid" alt="img">
+                                    </div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="mb-1 text-primary font-weight-bold"><i class="far fa-camera"></i> Chỉnh sửa hình ảnh phụ của sản phẩm</label>
+                                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                        <div class="form-control text-truncate" data-trigger="fileinput">
+                                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                            <span class="fileinput-filename"></span>
+                                        </div>
+                                        <span class="input-group-append">
+                                            <span class=" btn btn-primary btn-file">
+                                                <span class="fileinput-new">Chọn file</span>
+                                                <span class="fileinput-exists">Thay đổi</span>
+                                                <input type="file" accept=".gif,.png, .jpg, .jpeg" asp-for="ListImageFile" multiple>
+                                            </span>
+                                            <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Xoá</a>
+                                        </span>
+                                    </div>
+                                    <small class="form-text text-muted">Định dạng ảnh (.gif, .png, .jpg, .jpeg)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-2 d-flex align-items-center">
+                        <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                        <input type="submit" name="" value="Cập nhật &#xf00c" class="btn btn-success mr-2 fa-input">
+                    </div>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+
+}

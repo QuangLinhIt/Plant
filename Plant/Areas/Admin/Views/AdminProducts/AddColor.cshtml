@@ -1,0 +1,72 @@
+﻿@model Plant.ModelDto.ProductColorDto
+
+@{
+    ViewData["Title"] = "AddColor";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách sản phẩm</a></li>
+        <li class="breadcrumb-item"><a asp-action="Color" asp-route-id="@ViewBag.ProductId" asp-route-langId="@ViewBag.Languages">Danh sách màu sắc sản phẩm</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Thêm mới màu sắc</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Thêm mới màu sắc</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <form asp-action="AddColor" method="post">
+                <section class="hk-sec-wrapper">
+                    <input asp-for="ProductId" hidden value="@ViewBag.ProductId" />
+                    <input asp-for="LangId" hidden value="@ViewBag.Languages" />
+                    <h5 class="hk-sec-title">Màu sắc</h5>
+                    <p class="mb-40">Vui lòng chọn màu sắc phân loại sản phẩm</p>
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-6">
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-font"></i> Chọn màu sắc</label>
+                            <select class="form-control custom-select" asp-for="Color">
+                                <option value="Default">Default</option>
+                                <option value="white">Trắng</option>
+                                <option value="yellow">Vàng</option>
+                                <option value="orange">Cam</option>
+                                <option value="pink">Hồng</option>
+                                <option value="purple">Tím</option>
+                                <option value="red">Đỏ</option>
+                                <option value="green">Xanh lá</option>
+                                <option value="blue">Xanh biển</option>
+                                <option value="gray">Xám</option>
+                                <option value="brown">Nâu</option>
+                                <option value="black">Đen</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-6">
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-font"></i> Lượng hàng</label>
+                            <input asp-for="Stock" type="number" class="form-control" id="control1" placeholder="Nhập số lượng sản phẩm trong kho...">
+                        </div>
+                    </div>
+                    <div class="form-group my-2 d-flex align-items-center">
+                        <a asp-action="Color" asp-route-id="@ViewBag.ProductId" asp-route-langId="@ViewBag.Languages" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                        <input type="submit" name="" value="Tạo mới &#xf00c" class="btn btn-success mr-2 fa-input">
+                    </div>
+                </section>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+
+}

@@ -1,4 +1,7 @@
-﻿  <!--slider area start-->
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+    <!--slider area start-->
 <section class="slider_section mb-30">
     <div class="slider_area owl-carousel">
         <div class="single_slider d-flex align-items-center" data-bgimg="/LayoutAssets/img/slider/slider3.jpg">
@@ -6,9 +9,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="slider_content">
-                            <h1>Lovely Plants </h1>
-                            <p>Discount <span>20% Off </span> For Lukani Members </p>
-                            <a class="button" href="shop.html">Discover Now </a>
+                            <h1 style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["potted plant"] </h1>
+                            <p style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["discount"] <span>20% </span> @Localizer["luckybamboo member"]</p>
+                            <a class="button" href="shop.html">@Localizer["discover now"] </a>
                         </div>
                     </div>
                 </div>
@@ -19,9 +22,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="slider_content">
-                            <h1>BIG SALE</h1>
-                            <p>Discount <span>20% Off </span> For Lukani Members </p>
-                            <a class="button" href="shop.html">Discover Now </a>
+                            <h1 style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["big sale"]</h1>
+                            <p style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["discount"] <span>20% </span> @Localizer["luckybamboo member"]</p>
+                            <a class="button" href="shop.html">@Localizer["discover now"] </a>
                         </div>
                     </div>
                 </div>
@@ -32,9 +35,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="slider_content">
-                            <h1>TOP SALE</h1>
-                            <p>Discount <span>20% Off </span> For Lukani Members </p>
-                            <a class="button" href="shop.html">Discover Now </a>
+                            <h1 style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["top sale"]</h1>
+                            <p style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["discount"] <span>20% </span> @Localizer["luckybamboo member"]</p>
+                            <a class="button" href="shop.html">@Localizer["discover now"] </a>
                         </div>
                     </div>
                 </div>
@@ -43,46 +46,72 @@
     </div>
 </section>
 <!--slider area end-->
-<!--banner area start-->
-<div class="banner_area">
+
+<div class="lukani_store_title">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <figure class="single_banner">
-                    <div class="banner_thumb">
-                        <a href="shop.html"><img src="~/LayoutAssets/img/bg/banner1.jpg" alt=""></a>
-                        <div class="banner_content">
-                            <h3>CÁC SẢN PHẨM</h3>
-                            <h2>Phân bón <br>và thuốc</h2>
-                            <a href="shop.html">Shop Now</a>
-                        </div>
-                    </div>
-                </figure>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <figure class="single_banner">
-                    <div class="banner_thumb">
-                        <a href="shop.html"><img src="~/LayoutAssets/img/bg/banner2.jpg" alt=""></a>
-                        <div class="banner_content">
-                            <h3>CÁC SẢN PHẨM</h3>
-                            <h2>Dụng cụ <br>chăm sóc cây</h2>
-                            <a href="shop.html">Shop Now</a>
-                        </div>
-                    </div>
-                </figure>
+            <div class="col-12">
+                <div class="section_title lstore_title">
+                    <h2>Lucky BamBoo Store</h2>
+                    <p>
+                        @Localizer["welcome"]
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!--banner area end-->
-<!--product area start-->
-<div class="product_area  mb-95">
+<!--lukani store titlev end-->
+<!--shipping area start-->
+<div class="shipping_area shipping_two">
     <div class="container">
         <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="single_shipping">
+                    <div class="shipping_icone">
+                        <img src="~/LayoutAssets/img/about/shipping1.png" alt="">
+                    </div>
+                    <div class="shipping_content">
+                        <h3>@Localizer["Free Delivery"]</h3>
+                        <p>@Localizer["Free shipping"]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single_shipping col_2">
+                    <div class="shipping_icone">
+                        <img src="~/LayoutAssets/img/about/shipping2.png" alt="">
+                    </div>
+                    <div class="shipping_content">
+                        <h3>@Localizer["Safe Payment"]</h3>
+                        <p>@Localizer["Payment"]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single_shipping col_3">
+                    <div class="shipping_icone">
+                        <img src="~/LayoutAssets/img/about/shipping3.png" alt="">
+                    </div>
+                    <div class="shipping_content">
+                        <h3>@Localizer["Friendly Services"]</h3>
+                        <p>@Localizer["return goods"]</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--shipping area end-->
+<!--product area start-->
+<div class="product_area  mb-95 ">
+    <div class="container">
+        <div class="row pt-5">
             <div class="col-12">
                 <div class="product_header">
                     <div class="section_title">
-                        <h2>Tất cả sản phẩm của chúng tôi</h2>
+                        <h2>@Localizer["featured products"]</h2>
                     </div>
                     <div class="product_tab_btn">
                         <ul class="nav" role="tablist" id="nav-tab">
@@ -101,7 +130,7 @@
                             <li>
                                 <a data-bs-toggle="tab" href="#plant3" role="tab" aria-controls="plant3"
                                    aria-selected="false">
-                                    Phân bón và thuốc
+                                    @Localizer["fertilizers"] @Localizer["medicines"]
                                 </a>
                             </li>
                         </ul>
@@ -1799,13 +1828,13 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="banner_fullwidth_content">
-                    <h2>Cây trồng là một sự lựa chọn hoàn hảo</h2>
-                    <p>Giảm giá 20% với những khách hàng mới</p>
-                    <a href="#">Mua ngay</a>
+                    <h2>@Localizer["choice plant"]</h2>
+                    <p>@Localizer["discount"] <span>20% </span> @Localizer["luckybamboo member"]</p>
+                    <a href="#">@Localizer["discover now"]</a>
                 </div>
             </div>
             <div class="earth col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-center">
-                <img src="~/LayoutAssets/img/blog/earth.jpg" />
+                <img src="~/LayoutAssets/img/blog/snapedit_1696239622506.png" style="height:350px;width:350px;" />
             </div>
         </div>
     </div>
@@ -1817,7 +1846,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section_title">
-                    <h2>Khách hàng nói gì về chúng tôi?</h2>
+                    <h2>@Localizer["customer say"]</h2>
                 </div>
             </div>
         </div>
@@ -1896,7 +1925,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section_title">
-                    <h2>Các sản phẩm giảm giá trong hôm nay</h2>
+                    <h2>@Localizer["today deals"]</h2>
                 </div>
             </div>
         </div>
@@ -2118,7 +2147,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section_title">
-                    <h2>Bài viết mới nhất của chúng tôi</h2>
+                    <h2>@Localizer["our latest posts"]</h2>
                 </div>
             </div>
         </div>
@@ -2235,7 +2264,7 @@
                             <input id="mc-email" type="email" autocomplete="off" placeholder="Enter you email" />
                             <button id="mc-submit">Subscribe</button>
                             <div class="email_icon">
-                                <i class="fa-regular fa-envelope"></i>
+                                <i class="fa-solid fa-envelope"></i>
                             </div>
                         </form>
                         <!-- mailchimp-alerts Start -->

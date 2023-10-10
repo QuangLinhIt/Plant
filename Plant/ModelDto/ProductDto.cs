@@ -14,14 +14,12 @@ namespace Plant.ModelDto
         public string LangName { get; set; }
         public int? Voucher { get; set; }
         public string ProductName { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
         public string ShortDes { get; set; }
         public string Description { get; set; }
         public IFormFile ImageFile { get; set; }
         public string ImageName { get; set; }
-        public List<IFormFile> ListImageFile { get; set; }
-        public string[] ListImageName { get; set; }
         public List<SelectListItem> ListCategory { get; set; }
         public int[] CategoryIds { get; set; }
     }

@@ -1,1 +1,126 @@
-﻿
+﻿@model Plant.ModelDto.ProductDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách sản phẩm</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa sản phẩm</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Chỉnh sửa sản phẩm</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <section class="hk-sec-wrapper">
+                    <input asp-for="ProductId" hidden />
+                    <input asp-for="ImageName" hidden />
+                    <div class="form-group row col-md-3">
+                        <label asp-for="LangId" class="mb-1 text-primary font-weight-bold"><i class="far fa-globe"></i> Ngôn ngữ</label>
+                        <select asp-for="LangId" class="form-control" asp-items=ViewBag.Languages></select>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-font"></i> Tên sản phẩm</label>
+                            <input asp-for="ProductName" type="text" class="form-control" id="control1" placeholder="Nhập tên sản phẩm...">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-money-bill-alt"></i> Giá nhập</label>
+                            <input asp-for="OriginalPrice" class="form-control" id="control1">
+                            <small class="form-text text-muted">Số thập phân được ngăn cách bởi dấu chấm</small>
+                            <input asp-for="Price" class="form-control" value="10" hidden>
+
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-chart-line"></i> Giảm giá</label>
+                            <input asp-for="Voucher" type="number" class="form-control" id="control1" placeholder="Nhập mức giảm giá...">
+                            <small class="form-text text-muted">Tính theo giá trị phần trăm %</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="mb-1 text-primary font-weight-bold"><i class="far fa-align-left"></i> Mô tả ngắn</label>
+                        <textarea rows="5" class="form-control" placeholder="Description" asp-for="ShortDes"></textarea>
+                        <small class="form-text text-muted">Mô tả ngắn cho bài viết và không quá 200 từ.</small>
+                    </div>
+                    <label class="mb-1 text-primary font-weight-bold"><i class="far fa-picture-o"></i> Hình ảnh</label>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-3 mt-15">
+                                    <img src="~/image/product/@Model.ImageName" class="img-fluid" alt="img">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-camera"></i> Hình ảnh chính của sản phẩm </label>
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control text-truncate" data-trigger="fileinput">
+                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                    <span class="fileinput-filename"></span>
+                                </div>
+                                <span class="input-group-append">
+                                    <span class=" btn btn-primary btn-file">
+                                        <span class="fileinput-new">Chọn file</span>
+                                        <span class="fileinput-exists">Thay đổi</span>
+                                        <input type="file" accept=".gif,.png, .jpg, .jpeg" asp-for="ImageFile" />
+                                    </span>
+                                    <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Xoá</a>
+                                </span>
+                            </div>
+                            <small class="form-text text-muted">Định dạng ảnh (.gif, .png, .jpg, .jpeg)</small>
+                        </div>
+                    </div>
+
+                    <label class="mb-1 text-primary font-weight-bold"><i class="far fa-calendar-alt"></i> Thuộc danh mục</label>
+                    <p class="mb-20">Vui lòng chọn danh mục chứa tin tức</p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.ListBoxFor(model => model.CategoryIds, new MultiSelectList(Model.ListCategory, "Value", "Text"), new { @class = "form-control", multiple = "multiple", id = "input_tags" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3"></div>
+                    <div class="mt-4 pt-3">
+                        <h6 class="text-primary font-weight-bold mb-2"><i class="far fa-align-left"></i> Nội dung chi tiết</h6>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="tinymce-wrap">
+                                    <textarea class="tinymce" asp-for="Description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-2 d-flex align-items-center">
+                        <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                        <input type="submit" name="" value="Cập nhật &#xf00c" class="btn btn-success mr-2 fa-input">
+                    </div>
+                </section>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+
+}

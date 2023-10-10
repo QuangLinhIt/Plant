@@ -1,0 +1,68 @@
+﻿@model Plant.ModelDto.ProductColorDto
+
+@{
+    ViewData["Title"] = "DeleteColor";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách sản phẩm</a></li>
+        <li class="breadcrumb-item"><a asp-action="Color" asp-route-id="@Model.ProductId" asp-route-langId="@Model.LangId">Danh sách màu sắc sản phẩm</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Xóa màu sắc</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Xóa màu sắc</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <form asp-action="DeleteColor" method="post">
+                <section class="hk-sec-wrapper">
+                    <input asp-for="ProductColorId" hidden />
+                    <input asp-for="ProductId" hidden />
+                    <input asp-for="LangId" hidden />
+                    <h5 class="hk-sec-title">Color Picker</h5>
+                    <p class="mb-40">A flat, simple, responsive and hackable Color-Picker. No dependencies, no jQuery.</p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label class="mb-1 text-primary font-weight-bold"><i class="far fa-font"></i> Sản phẩm</label>
+                                    <input asp-for="ProductName" type="text" class="form-control" id="control1" readonly>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="mb-1 text-primary font-weight-bold"><i class="far fa-font"></i> Màu sắc</label>
+                                    <input asp-for="Color" type="text" class="form-control" id="control1">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="mb-1 text-primary font-weight-bold"><i class="far fa-font"></i> Lượng hàng</label>
+                                    <input asp-for="Stock" type="number" class="form-control" id="control1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group my-2 d-flex align-items-center">
+                        <a asp-action="Color" asp-route-id="@Model.ProductId" asp-route-langId="@Model.LangId" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                        <input type="submit" name="" value="Delete &#xf00c" class="btn btn-danger mr-2 fa-input">
+                    </div>
+                </section>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+
+}

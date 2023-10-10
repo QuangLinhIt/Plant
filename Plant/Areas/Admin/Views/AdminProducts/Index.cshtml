@@ -1,5 +1,5 @@
 ﻿@using PagedList.Core.Mvc
-@model PagedList.Core.IPagedList<Plant.ModelDto.ProductDto>
+@model PagedList.Core.IPagedList<Plant.Models.ProductTranslation>
 
 @{
     int CurrentPage = ViewBag.CurrentPage;
@@ -11,84 +11,112 @@
 <!-- Breadcrumb -->
 <nav class="hk-breadcrumb" aria-label="breadcrumb">
     <ol class="breadcrumb breadcrumb-light bg-transparent">
-        <li class="breadcrumb-item"><a asp-action="Index"></a>Sản phẩm</li>
+        <li class="breadcrumb-item"><a asp-action="Index">Sản phẩm</a></li>
         <li class="breadcrumb-item active" aria-current="page">Danh sách sản phẩm</li>
     </ol>
 </nav>
 <!-- /Breadcrumb -->
-<!-- Title -->
-<div class="hk-pg-header">
-    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="file-text"></i></span></span>Danh sách sản phẩm</h4>
-</div>
-<!-- /Title -->
-
-<section class="hk-sec-wrapper mb-3">
-    <div class="row">
-        <div class="form-group col-sm col-md-4 col-lg-3">
-            <select class="form-control" id="txtLangId" name="txtLangId" asp-items="ViewBag.Languages">
-                <option value="0" selected>Chọn ngôn ngữ</option>
-            </select>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header mb-10">
+        <div>
+            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="book"></i></span></span>Danh sách sản phẩm</h4>
         </div>
-        <div class="form-group col-sm col-md-2 col-lg-2">
-            <a class="btn btn-info" asp-action="Create">
-                Add
-            </a>
+        <div class="d-flex">
+            <a class="btn btn-info" asp-action="Create"> Create New</a>
         </div>
     </div>
+    <!-- /Title -->
+    <section class="hk-sec-wrapper mb-3">
+        <div class="row">
+            <div class="form-group col-sm col-md-3 col-lg-2">
+                <select class="form-control" id="txtLangId" name="txtLangId" asp-items="ViewBag.Languages">
+                    <option value="0" selected>Chọn ngôn ngữ</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="table-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="py-3">#Mã</th>
+                                    <th class="py-3">Ngôn ngữ</th>
+                                    <th class="py-3">Hình ảnh</th>
+                                    <th class="py-3">Tên</th>
+                                    <th class="py-3">Giá nhập</th>
+                                    <th class="py-3">Giảm giá</th>
+                                    <th class="py-3">Giá bán</th>
+                                    <th class="py-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>#@item.ProductId</td>
+                                        <td>@item.Lang.LangName</td>
+                                        <td><div class="avatar avatar-xs rounded"><img src="~/image/product/@item.Product.Image" style="height:50px;width:50px;" /></div></td>
+                                        <td>@item.ProductName</td>
+                                        <td>
+                                            @if (item.OriginalPrice >= 1000)
+                                            {
+                                                @item.OriginalPrice.ToString("# ### ### ### ###") @item.Lang.CurrencyUnit
+                                            }
+                                            else
+                                            {
+                                                @item.OriginalPrice @item.Lang.CurrencyUnit
+
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.Product.Voucher != null)
+                                            {
+                                                <span class="text-red">@item.Product.Voucher %</span>
+                                            }
+                                            else
+                                            {
+                                                <span>No</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.Price >= 1000)
+                                            {
+                                                @item.Price.ToString("# ### ### ### ###") @item.Lang.CurrencyUnit
+                                            }
+                                            else
+                                            {
+                                                @item.Price @item.Lang.CurrencyUnit
+
+                                            }
+                                        </td>
+                                        <td>
+                                            <a asp-action="AddLanguages" asp-route-id="@item.ProductId" asp-route-langId="@item.LangId" class="mx-2" data-toggle="tooltip" data-original-title="Translation"><i class="far fa-globe text-dark"></i></a>
+                                            <a asp-action="Picture" asp-route-id="@item.ProductId" asp-route-langId="@item.LangId" class="mx-2" data-toggle="tooltip" data-original-title="Picture"><i class="far fa-image text-dark"></i></a>
+                                            <a asp-action="Color" asp-route-id="@item.ProductId" asp-route-langId="@item.LangId" class="mx-2" data-toggle="tooltip" data-original-title="Color"><i class="far fa-palette text-dark"></i></a>
+                                            <a asp-action="Edit" asp-route-id="@item.ProductId" asp-route-langId="@item.LangId" class="mx-2" data-toggle="tooltip" data-original-title="Edit"><i class="far fa-sliders-h text-dark"></i></a>
+                                            <a asp-action="Delete" asp-route-id="@item.ProductId" asp-route-langId="@item.LangId" data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                }
 
 
-    <div class="row">
-        <div class="col-sm">
-            <div class="table-wrap">
-                <div class="table-responsive">
-                    <table class="table table-sm table-hover mb-0">
-                        <thead class="thead-light">
-                            <tr>
-                                <th class="py-3">#Mã</th>
-                                <th class="py-3">Hình ảnh</th>
-                                <th class="py-3">Tên</th>
-                                <th class="py-3">Giá nhập</th>
-                                <th class="py-3">Giảm giá</th>
-                                <th class="py-3">Giá bán</th>
-                                <th class="py-3">Màu sắc</th>
-                                <th class="py-3">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                            <tr>
-                                <td>#@item.ProductId</td>
-                                <td><div class="avatar avatar-xs rounded"><img src="~/image/product/@item.ImageFile" style="height:50px;width:50px;" /></div></td>
-                                <td>@item.ProductName</td>
-                                <td>@item.OriginalPrice</td>
-                                <td>@item.Voucher</td>
-                                <td>@item.Price</td>
-                                <td>
-                                    <div class="avatar avatar-xs rounded" style="background-color:green;"></div>
-                                </td>
-                                
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.ProductId" class="mx-2" data-toggle="tooltip" data-original-title="Edit"><i class="far fa-sliders-h text-dark"></i></a>
-                                    <a asp-action="Delete" asp-route-id="@item.ProductId" data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
-                                </td>
-                            </tr>
-                            }
-
-
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="mt-3 row col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" aria-label="Page navigation example">
-        <ul class="pagination">
-            <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index" asp-route-LangId="@ViewBag.CurrrentLangId" />
-        </ul>
-    </div>
-</section>
-
+        <div class="mt-3 row col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" aria-label="Page navigation example">
+            <ul class="pagination">
+                <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index" asp-route-LangId="@ViewBag.CurrrentLangId" />
+            </ul>
+        </div>
+    </section>
+</div>
 
 
 @section Scripts{

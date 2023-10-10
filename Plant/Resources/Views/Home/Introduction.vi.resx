@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="100% Money Back Guarantee" xml:space="preserve">
+    <value>Đảm bảo hoàn tiền 100%</value>
+  </data>
+  <data name="Creative Design" xml:space="preserve">
+    <value>Thiết kế sáng tạo</value>
+  </data>
+  <data name="doi ngu nhan vien" xml:space="preserve">
+    <value>Với đội ngũ nhân viên tâm huyết, nhiệt tình, năng động, sáng tạo kết hợp cùng những nghệ nhân dày dặn kinh nghiệm, chúng tôi sẽ mang đến cho khách hàng những sản phẩm ưng ý nhất, rõ nét cả nhu cầu về thẩm mỹ và công năng của công trình.</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>Trang chủ</value>
+  </data>
+  <data name="introduction" xml:space="preserve">
+    <value>Giới Thiệu Chung</value>
+  </data>
+  <data name="ket luan1" xml:space="preserve">
+    <value>Cùng với cửa hàng &lt;u style="color:lawngreen"&gt;Lucky BamBoo&lt;/u&gt; các bạn sẽ thấy con người và tự nhiên là hai thể thống nhất luôn gần gũi cuốn hút và mối quan hệ đó luôn song hành hiện hữu trong  không gian sống của chúng ta. Kiến trúc và Tự nhiên luôn bổ sung cho nhau, gắn bó hữu cơ mật thiết tôn tạo lẫn nhau. Mỗi chậu hoa cảnh luôn là những người bạn thân thiết kiều diễm vô tư, các bạn hãy cùng chúng tôi nỗ lực làm quyến rũ hơn nữa ngôi nhà thân yêu của mình, Thành phố của chúng ta có được môi trường thân thiện chính là công sức của các bạn.</value>
+  </data>
+  <data name="ket luan2" xml:space="preserve">
+    <value>Cửa hàng &lt;u style="color:lawngreen"&gt;Lucky BamBoo&lt;/u&gt; luôn học hỏi, tìm tòi và lao động miệt mài vì sự tốt đẹp của cuộc sống. Chúng  tôi nỗ lực làm nên những tinh hoa, và cởi mở chia sẻ năng lực của mình với cả cộng đồng để luôn Hy vọng về những điều thân thiện.</value>
+  </data>
+  <data name="Online Support 24/7" xml:space="preserve">
+    <value>Hỗ trợ trực tuyến 24/7</value>
+  </data>
+  <data name="sang tao" xml:space="preserve">
+    <value>Với sự sáng tạo của lãnh đạo và các kỹ sư chuyên nghiệp, chúng tôi đã tạo ra nhiều sản phẩm như: giống hoa, chậu hoa, bồn gỗ, khung giàn, đài phun nước, tiểu cảnh…khác biệt mà ít doanh nghiệp nào có được.</value>
+  </data>
+  <data name="text-1" xml:space="preserve">
+    <value>Không chỉ tư vấn thiết kế mà chúng tôi còn thi công và sản xuất cung cấp các sản phẩm liên quan như: các giống hoa cây cảnh, đá cảnh, non bộ, giá sắt nghệ thuật, các loại bồn chậu gỗ cao cấp, composite và các loại dinh dưỡng, giá thể, đất trồng cây sạch và bền vững…Sản xuất, chế tác cây cảnh khô từ gỗ lũa nghệ thuật, thành công trong sản xuất sản phẩm cây thủy sinh độc đáo phù hợp trong trang trí cảnh quan sân vườn hiện đại. &lt;u style="color:lawngreen"&gt;Lucky BamBoo&lt;/u&gt; đã và đang trở thành một doanh nghiệp vững mạnh, hoàn thiện đầy đủ các chức năng.</value>
+  </data>
+  <data name="text-design" xml:space="preserve">
+    <value>Luôn đi đầu trong xu hướng và cập nhật mọi thành tựu trên thế giới</value>
+  </data>
+  <data name="text-introduction" xml:space="preserve">
+    <value>Doanh nghiệp chúng tôi có hơn 25 năm kinh nghiệm hoạt động trong lĩnh vực cảnh quan và sản xuất hoa cây cảnh. Sáng tác và thi công nhiều công trình trọng điểm. Hơn nữa còn nghiên cứu, sưu tầm và lai tạo ra nhiều giống hoa cây cảnh độc đáo.Chính vì vậy, chúng tôi luôn tự tin khẳng định mình là một trong những đơn vị hàng đầu trong lĩnh vực này ở Việt Nam.Là điểm sáng trong sự lựa chọn và tin tưởng của nhiều đối tác trong nước và giới chuyên môn Nghệ thuật vườn cảnh Việt Nam.</value>
+  </data>
+  <data name="text-money-back-guarantee" xml:space="preserve">
+    <value>Áp dụng cho các đơn hàng sau 7 ngày kể từ thời gian nhận</value>
+  </data>
+  <data name="text-online-support" xml:space="preserve">
+    <value>Luôn hỗ trợ khách hàng với các vấn đề liên quan tới đơn hàng</value>
+  </data>
+  <data name="tu van" xml:space="preserve">
+    <value>Sử dụng kinh nghiệm sẵn có, kết hợp cùng sức trẻ, sự nhiệt huyết, doanh nghiệp của chúng tôi luôn đưa đến các giải pháp tư vấn thiết thực nhất cho khách hàng. Giải đáp mọi thắc mắc từ giống hoa, cây cảnh, đất trồng, bệnh cây…cho đến nghệ thuật cảnh quan sinh thái.</value>
+  </data>
+</root>

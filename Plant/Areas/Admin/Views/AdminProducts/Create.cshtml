@@ -26,32 +26,36 @@
             <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <section class="hk-sec-wrapper">
                     <div class="form-group row col-md-3">
-                        <label asp-for="LangId" class="mb-1 text-primary"><i class="far fa-globe"></i> Ngôn ngữ</label>
+                        <label asp-for="LangId" class="mb-1 text-primary font-weight-bold"><i class="far fa-globe"></i> Ngôn ngữ</label>
                         <select asp-for="LangId" class="form-control" asp-items=ViewBag.Languages></select>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="mb-1 text-primary"><i class="far fa-font"></i> Tên sản phẩm</label>
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-font"></i> Tên sản phẩm</label>
                             <input asp-for="ProductName" type="text" class="form-control" id="control1" placeholder="Nhập tên sản phẩm...">
                         </div>
                         <div class="col-md-3 form-group">
-                            <label class="mb-1 text-primary"><i class="far fa-money-bill-alt"></i> Giá nhập</label>
-                            <input asp-for="OriginalPrice" type="number" class="form-control" id="control1">
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-money-bill-alt"></i> Giá nhập</label>
+                            <input asp-for="OriginalPrice" class="form-control" id="control1">
+                            <small class="form-text text-muted">Số thập phân được ngăn cách bởi dấu chấm</small>
+                            <input asp-for="Price" class="form-control" value="10" hidden>
+
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="mb-1 text-primary"><i class="far fa-chart-line"></i> Giảm giá</label>
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-chart-line"></i> Giảm giá</label>
                             <input asp-for="Voucher" type="number" class="form-control" id="control1" placeholder="Nhập mức giảm giá...">
+                            <small class="form-text text-muted">Tính theo giá trị phần trăm %</small>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="mb-1 text-primary"><i class="far fa-align-left"></i> Mô tả ngắn</label>
+                        <label class="mb-1 text-primary font-weight-bold"><i class="far fa-align-left"></i> Mô tả ngắn</label>
                         <textarea rows="5" class="form-control" placeholder="Description" asp-for="ShortDes"></textarea>
                         <small class="form-text text-muted">Mô tả ngắn cho bài viết và không quá 200 từ.</small>
                     </div>
                     <div class="row">
                         <div class="col-md-4 form-group">
-                            <label class="mb-1 text-primary"><i class="far fa-camera"></i> Hình ảnh chính của sản phẩm </label>
+                            <label class="mb-1 text-primary font-weight-bold"><i class="far fa-camera"></i> Hình ảnh chính của sản phẩm </label>
                             <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                 <div class="form-control text-truncate" data-trigger="fileinput">
                                     <i class="glyphicon glyphicon-file fileinput-exists"></i>
@@ -69,15 +73,8 @@
                             <small class="form-text text-muted">Định dạng ảnh (.gif, .png, .jpg, .jpeg)</small>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label class="mb-1 text-primary"><i class="far fa-camera"></i> Các hình ảnh liên quan</label>
-                            <input type="file" accept=".gif,.png, .jpg, .jpeg" asp-for="ListImageFile" multiple />
-                            <small class="form-text text-muted">Định dạng ảnh (.gif, .png, .jpg, .jpeg)</small>
-                        </div>
-                    </div>
-                    <label class="mb-1 text-primary"><i class="far fa-calendar-alt"></i> Thuộc danh mục</label>
-                    <p class="mb-40">Vui lòng chọn danh mục chứa tin tức</p>
+                    <label class="mb-1 text-primary font-weight-bold"><i class="far fa-calendar-alt"></i> Thuộc danh mục</label>
+                    <p class="mb-15">Vui lòng chọn danh mục chứa tin tức</p>
                     <div class="row">
                         <div class="col-sm">
                             <div class="row">
@@ -89,7 +86,7 @@
                     </div>
                     <div class="my-3"></div>
                     <div class="mt-4 pt-3">
-                        <h6 class="text-primary mb-2"><i class="far fa-align-left"></i> Nội dung chi tiết</h6>
+                        <h6 class="text-primary font-weight-bold mb-2"><i class="far fa-align-left"></i> Nội dung chi tiết</h6>
                         <div class="row">
                             <div class="col-sm">
                                 <div class="tinymce-wrap">

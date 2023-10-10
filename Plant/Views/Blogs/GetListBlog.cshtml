@@ -1,0 +1,168 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Plant.ViewModels
+@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<Plant.ViewModels.BlogVm>
+@inject IViewLocalizer Localizer
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int CurrentPage = ViewBag.CurrentPage;
+    List<CategoryNewViewModels> category = ViewBag.CategoryNew;
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/7ccf18e278095b6ce81bd245ad53963f77be9800-2000x1080.jpg'); ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3 style="font-weight: 800; color: black;">@Localizer["blog"]</h3>
+                    <ul>
+                        <li style="font-weight: 600; color: black;"><a asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
+                        <li style="font-weight: 600; color: forestgreen;">@Localizer["blog"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--blog area start-->
+<div class="blog_page_section blog_reverse mt-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-12">
+                <div class="blog_sidebar_widget">
+                    <div class="widget_list widget_search">
+                        <div class="widget_title">
+                            <h3>@Localizer["search"]</h3>
+                        </div>
+                        <form action="#">
+                            <input placeholder="@Localizer["search"]..." type="text">
+                            <button type="submit">@Localizer["search"]</button>
+                        </form>
+                    </div>
+                    <div class="widget_list widget_categories">
+                        <div class="widget_title">
+                            <h3>@Localizer["category"]</h3>
+                        </div>
+                        <ul>
+                            @foreach (var item in category)
+                            {
+                                foreach (var cate in Model.Take(1))
+                                {
+                                    if (item.ParentNewId == null)
+                                    {
+                                        if (item.CategoryNewId == cate.CategoryNewId)
+                                        {
+                                            <li>
+                                                <a style="color: lawngreen;" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i> @item.CategoryNewName</a>
+                                                <ul>
+                                                    @foreach (var child in category)
+                                                    {
+                                                        if (child.ParentNewId == item.CategoryNewId)
+                                                        {
+                                                            <li>
+                                                                <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i> @item.CategoryNewName</a>
+                                                <ul>
+                                                    @foreach (var child in category)
+                                                    {
+                                                        if (child.ParentNewId == item.CategoryNewId)
+                                                        {
+                                                            if (child.CategoryNewId == cate.CategoryNewId)
+                                                            {
+                                                                <li>
+                                                                    <a style="color: lawngreen;" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
+                                                                </li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li>
+                                                                    <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
+                                                                </li>
+                                                            }
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div><img src="~/LayoutAssets/img/blog/crop-hands-with-sprouts_23-2147826198.jpg" style="height:auto;width:100%;margin-top:20px;border-radius:15px;" /></div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <figure>
+                    <figcaption class="about_content1">
+                        <img src="~/LayoutAssets/img/icon/475906.png" style="height:50px;width:50px;" />
+                        @foreach (var cate in category)
+                        {
+                            foreach (var item in Model.Take(1))
+                            {
+                                if (cate.CategoryNewId == item.CategoryNewId)
+                                {
+                                    <h1>@cate.CategoryNewName</h1>
+                                }
+                            }
+                        }
+                    </figcaption>
+                </figure>
+                <div class="blog_wrapper blog_wrapper_sidebar">
+                    @foreach (var item in Model)
+                    {
+                        <article class="single_blog">
+                            <figure>
+                                <div class="blog_thumb">
+                                    <a href="blog-details.html"><img src="~/image/blog/@item.BlogImg" alt=""></a>
+                                </div>
+                                <figcaption class="blog_content">
+                                    <h4 class="post_title">
+                                        <a href="blog-details.html">
+                                            <i class="fa fa-paper-plane"></i>
+                                            @item.Title
+                                        </a>
+                                    </h4>
+                                    <p class="post_desc">
+                                        @item.ShortDes
+                                    </p>
+                                    <footer class="btn_more">
+                                        <a asp-controller="Blogs" asp-action="GetDetailBlog" asp-route-id="@item.BlogId"> @Localizer["read more"]</a>
+                                    </footer>
+                                </figcaption>
+                            </figure>
+                        </article>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--blog area end-->
+<!--blog pagination area start-->
+<div class="blog_pagination">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ul class="pagination">
+                    <pager class="pager-container" list="@Model" asp-controller="Blogs" asp-action="Index" />
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--blog pagination area end-->
+

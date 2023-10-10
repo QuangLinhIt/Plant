@@ -1,0 +1,169 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/fresh-plant-with-morning-sun-shining-through-my-happy-home_972769-430.jpg'); ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3 style="font-weight: 800; color: black; text-shadow: 0 0 0.2em white; ">@Localizer["introduction"]</h3>
+                    <ul>
+                        <li style="font-weight: 600; color: black; text-shadow: 0 0 0.2em white; "><a asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
+                        <li style="font-weight: 600; color: forestgreen; text-shadow: 0 0 0.2em white;">@Localizer["introduction"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--about section area -->
+<section class="about_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <figure>
+                    <figcaption class="about_content">
+                        <img src="~/LayoutAssets/img/icon/475906.png" style="height:50px;width:50px;" />
+                        <h1>@Localizer["introduction"]</h1>
+                        <p>
+                            @Localizer["text-introduction"]
+                        </p>
+                    </figcaption>
+                    <div class="about_thumb">
+                        <img src="~/LayoutAssets/img/about/the-plant-point-may-2022-ellie-hodgson-09-copy.jpg" alt="" />
+                    </div>
+                    <figcaption class="about_content">
+                        <p>
+                            @Localizer["text-1"]
+                        </p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+<!--about section end-->
+<!--services img area-->
+<div class="about_gallery_section">
+    <div class="container">
+        <div class="about_gallery_container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <article class="single_gallery_section">
+                        <figure>
+                            <div class="gallery_thumb">
+                                <img src="~/LayoutAssets/img/about/nganh-khoa-hoc-cay-trong.jpg" alt="" />
+                            </div>
+                            <figcaption class="about_gallery_content">
+                                <p>
+                                    @Localizer["sang tao"]
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <article class="single_gallery_section">
+                        <figure>
+                            <div class="gallery_thumb">
+                                <img src="~/LayoutAssets/img/about/GettyImages-1346143621_509499_gvs2mb.png" alt="" />
+                            </div>
+                            <figcaption class="about_gallery_content">
+                                <p>
+                                    @Localizer["doi ngu nhan vien"]
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <article class="single_gallery_section">
+                        <figure>
+                            <div class="gallery_thumb">
+                                <img src="~/LayoutAssets/img/about/how-to-repot-a-indoor-plant.png" alt="" />
+                            </div>
+                            <figcaption class="about_gallery_content">
+                                <p>
+                                    @Localizer["tu van"]
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--services img end-->
+<!--chose us area start-->
+<div class="choseus_area" data-bgimg="assets/img/about/about-us-policy-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="single_chose">
+                    <div class="chose_icone">
+                        <img src="~/LayoutAssets/img/about/About_icon1.png" alt="">
+                    </div>
+                    <div class="chose_content">
+                        <h3>@Localizer["Creative Design"]</h3>
+                        <p>
+                            @Localizer["text-design"]
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="single_chose">
+                    <div class="chose_icone">
+                        <img src="~/LayoutAssets/img/about/About_icon2.png" alt="">
+                    </div>
+                    <div class="chose_content">
+                        <h3>@Localizer["100% Money Back Guarantee"]</h3>
+                        <p>
+                            @Localizer["text-money-back-guarantee"]
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="single_chose">
+                    <div class="chose_icone">
+                        <img src="~/LayoutAssets/img/about/About_icon3.png" alt="">
+                    </div>
+                    <div class="chose_content">
+                        <h3>@Localizer["Online Support 24/7"]</h3>
+                        <p>
+                            @Localizer["text-online-support"]
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--chose us area end-->
+<!--testimonial area start-->
+<div class="faq-client-say-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6" style="padding-top:26px;">
+                <img src="~/LayoutAssets/img/about/bao-ve-moi-truong-19.jpg" />
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <figure>
+                    <figcaption class="about_content" ">
+                        <p>@Localizer["ket luan1"]</p>
+                        <p>@Localizer["ket luan2"]</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</div>
+<!--testimonial area end-->

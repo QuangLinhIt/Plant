@@ -268,13 +268,29 @@ namespace Plant.Areas.Admin.Controllers
                     var blog = _context.Blogs.Include(x => x.BlogCategories).Where(x => x.BlogId == dto.BlogId).FirstOrDefault();
                     //find BlogTranslation and update
                     var blogTranslation = _context.BlogTranslations.Where(x => x.BlogId == dto.BlogId && x.LangId == dto.LangId).FirstOrDefault();
-                    blogTranslation.BlogId = dto.BlogId;
-                    blogTranslation.LangId = dto.LangId;
-                    blogTranslation.Title = dto.Title;
-                    blogTranslation.ShortDes = dto.ShortDes;
-                    blogTranslation.Description = dto.Description;
-                    _context.BlogTranslations.Update(blogTranslation);
-                    _context.SaveChanges();
+                    if (blogTranslation != null)
+                    {
+                        blogTranslation.BlogId = dto.BlogId;
+                        blogTranslation.LangId = dto.LangId;
+                        blogTranslation.Title = dto.Title;
+                        blogTranslation.ShortDes = dto.ShortDes;
+                        blogTranslation.Description = dto.Description;
+                        _context.BlogTranslations.Update(blogTranslation);
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        var blogTran = new BlogTranslation()
+                        {
+                            BlogId = dto.BlogId,
+                            LangId = dto.LangId,
+                            Title = dto.Title,
+                            ShortDes = dto.ShortDes,
+                            Description = dto.Description
+                        };
+                        _context.BlogTranslations.Add(blogTran);
+                        _context.SaveChanges();
+                    }
                     //Find list BlogCategory and remove
                     var listBlogCategory = new List<BlogCategory>();
                     blog.BlogCategories.ToList().ForEach(result => listBlogCategory.Add(result));

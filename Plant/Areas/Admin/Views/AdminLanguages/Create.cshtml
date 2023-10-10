@@ -26,22 +26,30 @@
             <section class="hk-sec-wrapper">
                 <div class="row">
                     <div class="col-sm">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <form asp-action="Create">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="form-group">
-                                        <label asp-for="LangName" class="control-label">Ngôn ngữ</label>
-                                        <input asp-for="LangName" class="form-control" />
-                                        <span asp-validation-for="LangName" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group my-2 d-flex align-items-center">
-                                        <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
-                                        <input type="submit" name="" value="Tạo mới &#xf00c" class="btn btn-success mr-2 fa-input">
-                                    </div>
-                                </form>
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="LangName" class="control-label">Ngôn ngữ</label>
+                                    <input asp-for="LangName" class="form-control" />
+                                    <span asp-validation-for="LangName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="SignLanguages" class="control-label">Kí hiệu</label>
+                                    <input asp-for="SignLanguages" class="form-control" />
+                                    <span asp-validation-for="SignLanguages" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="CurrencyUnit" class="control-label">Đơn vị tiền tệ</label>
+                                    <input asp-for="CurrencyUnit" class="form-control" />
+                                    <span asp-validation-for="CurrencyUnit" class="text-danger"></span>
+                                </div>
+                                <div class="form-group my-2 d-flex align-items-center">
+                                    <a asp-action="Index" class="btn btn-dark mr-1">Đóng <i class="far fa-times"></i></a>
+                                    <input type="submit" name="" value="Tạo mới &#xf00c" class="btn btn-success mr-2 fa-input">
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </section>

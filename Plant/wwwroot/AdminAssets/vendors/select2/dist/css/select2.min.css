@@ -263,7 +263,7 @@
     }
 
     .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #0a79cf;
+        background-color: forestgreen;
         border: 1px solid #aaa;
         border-radius: 4px;
         cursor: default;
@@ -349,7 +349,7 @@
 }
 
 .select2-container--default .select2-results__option[aria-selected=true] {
-    background-color: #ddd
+    background-color: white;
 }
 
 .select2-container--default .select2-results__option .select2-results__option {
@@ -386,7 +386,7 @@
                     }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #5897fb;
+    background-color: green;
     color: white
 }
 
