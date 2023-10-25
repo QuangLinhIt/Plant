@@ -15,6 +15,7 @@ namespace Plant.Models
         public int FeedbackId { get; set; }
         public string FeedbackContent { get; set; }
         public string StoreFeedback { get; set; }
+        public DateTime? CreateDay { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }

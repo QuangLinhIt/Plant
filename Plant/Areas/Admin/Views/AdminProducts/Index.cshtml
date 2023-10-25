@@ -62,15 +62,7 @@
                                         <td><div class="avatar avatar-xs rounded"><img src="~/image/product/@item.Product.Image" style="height:50px;width:50px;" /></div></td>
                                         <td>@item.ProductName</td>
                                         <td>
-                                            @if (item.OriginalPrice >= 1000)
-                                            {
                                                 @item.OriginalPrice.ToString("# ### ### ### ###") @item.Lang.CurrencyUnit
-                                            }
-                                            else
-                                            {
-                                                @item.OriginalPrice @item.Lang.CurrencyUnit
-
-                                            }
                                         </td>
                                         <td>
                                             @if (item.Product.Voucher != null)
@@ -83,15 +75,7 @@
                                             }
                                         </td>
                                         <td>
-                                            @if (item.Price >= 1000)
-                                            {
-                                                @item.Price.ToString("# ### ### ### ###") @item.Lang.CurrencyUnit
-                                            }
-                                            else
-                                            {
-                                                @item.Price @item.Lang.CurrencyUnit
-
-                                            }
+                                            @item.Price.ToString("# ### ### ### ###") @item.Lang.CurrencyUnit
                                         </td>
                                         <td>
                                             <a asp-action="AddLanguages" asp-route-id="@item.ProductId" asp-route-langId="@item.LangId" class="mx-2" data-toggle="tooltip" data-original-title="Translation"><i class="far fa-globe text-dark"></i></a>
@@ -112,7 +96,7 @@
         </div>
         <div class="mt-3 row col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" aria-label="Page navigation example">
             <ul class="pagination">
-                <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index" asp-route-LangId="@ViewBag.CurrrentLangId" />
+                <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" asp-route-LangId="@ViewBag.CurrrentLangId" />
             </ul>
         </div>
     </section>

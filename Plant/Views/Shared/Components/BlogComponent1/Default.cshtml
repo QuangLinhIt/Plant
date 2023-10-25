@@ -5,18 +5,7 @@
         if (item.ParentNewId == null)
         {
             <li>
-                <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i> @item.CategoryNewName</a>
-                <ul class="sub_menu pages">
-                    @foreach (var child in Model)
-                    {
-                        if (child.ParentNewId == item.CategoryNewId)
-                        {
-                            <li>
-                                <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId"><i class="fa-solid fa-minus"></i> @child.CategoryNewName</a>
-                            </li>
-                        }
-                    }
-                </ul>
+                <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId">  @item.CategoryNewName</a>
             </li>
         }
     }

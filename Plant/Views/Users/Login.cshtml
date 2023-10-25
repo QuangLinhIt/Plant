@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- customer login start -->
+<div class="customer_login">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <img src="~/LayoutAssets/img/icon/giphy.gif" alt="" />
+            </div>
+
+            <!--login area start-->
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="account_form">
+                    <form action="#">
+                        <h2>@Localizer["login"]</h2>
+                        <p>
+                            <input type="text" placeholder="@Localizer["emai/sdt"]">
+                        </p>
+                        <p>
+                            <input type="password" placeholder="@Localizer["password"]">
+                        </p>
+                        <div class="login_submit">
+                            <a href="#">@Localizer["forgot"]</a>
+                            <button type="submit">@Localizer["login"]</button>
+                        </div>
+                        <br />
+                        <div class="account_form_different row">
+                            <div class="col-lg-5 col-md-5 col-sm-5" style="padding: 1% 0; border: 1px solid rgba(0,0,0,.26);text-align:center;">
+                                <img src="~/LayoutAssets/img/icon/Facebook-logo-blue-circle-large-transparent-png.png" alt="" />
+                                <span>Facebook</span>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2"></div>
+                            <div class="col-lg-5 col-md-5 col-sm-5" style="padding: 1% 0; border: 1px solid rgba(0,0,0,.26);text-align:center;">
+                                <img src="~/LayoutAssets/img/icon/5847f9cbcef1014c0b5e48c8.png" alt="" />
+                                <span>Google</span>
+                            </div>
+                            <div class="col-lg-12 col-md-12" style="text-align:center;margin-top:6%;">
+                                <p>@Localizer["new know"]<a style="color:lawngreen;" asp-controller="Users" asp-action="Register"> @Localizer["register"]</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--login area start-->
+        </div>
+    </div>
+</div>
+<!-- customer login end -->

@@ -28,6 +28,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\image\listProduct\" />
     <Folder Include="wwwroot\image\product\" />
+    <Folder Include="wwwroot\LayoutAssets\js\vendor\" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +20,9 @@ namespace Plant.ModelDto
         public decimal OriginalPrice { get; set; }
         public string ShortDes { get; set; }
         public string Description { get; set; }
+        public string TakeCare { get; set; }
+        public string Application { get; set; }
+
         public IFormFile ImageFile { get; set; }
         public string ImageName { get; set; }
         public List<SelectListItem> ListCategory { get; set; }

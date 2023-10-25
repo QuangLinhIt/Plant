@@ -1,0 +1,271 @@
+﻿@using Plant.Models
+@using Plant.ViewModels
+@using Microsoft.AspNetCore.Mvc.Localization
+@model Plant.ViewModels.ProductVm
+@inject IViewLocalizer Localizer
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ProductColor> listColor = ViewBag.ProductColor;
+    List<ProductImg> listImg = ViewBag.ProductImg;
+    List<ProductVm> productDifferent = ViewBag.ProductDifferent;
+}
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/uploads_1595672124171-_INTERIOR_PLANTS_PACK.jpg') ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3 style="font-weight: 800; color: white; text-shadow: 0 0 0.2em black; ">@Localizer["product"]</h3>
+                    <ul>
+                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
+                        <li style="font-weight: 600; color: yellowgreen; text-shadow: 0 0 0.2em black; ">@Localizer["product"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--product details start-->
+<div class="product_details mt-100 mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product-details-tab">
+                    <div id="img-1" class="zoomWrapper single-zoom">
+                        <a>
+                            <img id="main_product" src="~/image/product/@Model.Image"
+                                 data-zoom-image="~/image/product/@Model.Image" alt="">
+                        </a>
+                    </div>
+                    <div class="single-zoom-thumb">
+                        <ul class="s-tab-zoom owl-carousel single-product-active" id="list_prouduct_img">
+                            @foreach (var item in listImg)
+                            {
+                                <li>
+                                    <a class="elevatezoom-gallery" data-update=""
+                                       data-image="~/image/listProduct/@item.Img"
+                                       data-zoom-image="~/image/listProduct/@item.Img">
+                                        <img src="~/image/listProduct/@item.Img" alt="" />
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="product_d_right">
+                        <h1><a href="#">@Model.ProductName</a></h1>
+                        <div class="price_box">
+                            @if (Model.Voucher == null || Model.Voucher <= 0)
+                            {
+                                <span class="current_price">@Model.Price.ToString("# ### ### ### ###")@Model.CurrencyUnit</span>
+                            }
+                            @if (Model.Voucher > 0)
+                            {
+                                <span class="current_price">@Model.Price.ToString("# ### ### ### ###")@Model.CurrencyUnit</span>
+                                <span class="old_price">@Model.OriginalPrice.ToString("# ### ### ### ###")@Model.CurrencyUnit</span>
+                            }
+
+                        </div>
+                        <div class="product_desc">
+                            <p>
+                                @Model.ShortDes
+                            </p>
+                        </div>
+
+                        <div class="product_variant color">
+                            @foreach (var item in listColor)
+                            {
+                                if (item.Color != "Default")
+                                {
+                                    <h3>@Localizer["choose color"]</h3>
+                                }
+                                break;
+                            }
+
+
+                            <ul>
+                                @foreach (var item in listColor)
+                                {
+                                    if (item.Color != "Default")
+                                    {
+                                        <li style="background-color:@item.Color;opacity:0.3;"><a href="#"></a></li>
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+                        <div class="product_variant quantity">
+                            <label>@Localizer["quantity"]</label>
+
+                            <input min="1" max="100" value="1" type="number" id="htmlQuantity"/>
+                            <button class="button" onclick="AddToCart(@Model.ProductId,@Model.Price.ToString,@Model.OriginalPrice)">@Localizer["add to cart"]</button>
+                        </div>
+                    <div class="priduct_social">
+                        <ul>
+                            <li>
+                                <a class="facebook" href="#" title="facebook">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                    Like
+                                </a>
+                            </li>
+                            <li>
+                                <a class="twitter" href="#" title="twitter">
+                                    <i class="fa-brands fa-twitter"></i>
+                                    tweet
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pinterest" href="#" title="pinterest">
+                                    <i class="fa-brands fa-pinterest-p"></i>
+                                    save
+                                </a>
+                            </li>
+                            <li>
+                                <a class="google-plus" href="#" title="google +">
+                                    <i class="fa-brands fa-google"></i>
+                                    share
+                                </a>
+                            </li>
+                            <li>
+                                <a class="linkedin" href="#" title="linkedin">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                    linked
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--product details end-->
+<!--product info start-->
+<div class="product_d_info mb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="product_d_inner">
+                    <div class="product_info_button">
+                        <ul class="nav" role="tablist" id="nav-tab">
+                            @if (Model.Description != null)
+                            {
+                                <li>
+                                    <a class="active" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info"
+                                       aria-selected="false">@Localizer["description"]</a>
+                                </li>
+                            }
+                            @if (Model.TakeCare != null)
+                            {
+                                <li>
+                                    <a data-bs-toggle="tab" href="#sheet" role="tab" aria-controls="sheet"
+                                       aria-selected="false">@Localizer["takecare"]</a>
+                                </li>
+                            }
+                            @if (Model.Application != null)
+                            {
+                                <li>
+                                    <a data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
+                                       aria-selected="false">@Localizer["application"]</a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="info" role="tabpanel">
+                            <div class="product_info_content">
+                                @Html.Raw(Model.Description)
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="sheet" role="tabpanel">
+                            <div class="product_info_content">
+                                @Html.Raw(Model.TakeCare)
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="reviews" role="tabpanel">
+                            <div class="reviews_wrapper">
+                                @Html.Raw(Model.Application)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--product info end-->
+<!--product area start-->
+<section class="product_area related_products">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_title">
+                    <h2>@Localizer["product other"] </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="product_carousel product_column4 owl-carousel">
+                @foreach (var item in productDifferent)
+                {
+                    <div class="col-lg-3">
+                        <article class="single_product">
+                            <figure>
+                                <div class="product_thumb">
+                                    <a class="primary_img" href="product-details.html">
+                                        <img src="~/image/product/@item.Image" alt="">
+                                    </a>
+                                    <div class="label_product">
+                                        <span class="label_sale">-@item.Voucher%</span>
+                                    </div>
+                                </div>
+                                <figcaption class="product_content">
+                                    <h4 class="product_name"><a href="product-details.html">@item.ProductName </a></h4>
+                                    <div class="price_box">
+                                        @if (item.Voucher == null || item.Voucher <= 0)
+                                        {
+                                            <span class="current_price">@item.Price.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
+                                        }
+                                        @if (item.Voucher > 0)
+                                        {
+                                            <span class="current_price">@item.Price.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
+                                            <span class="old_price">@item.OriginalPrice.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
+                                        }
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </article>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--product area end-->
+@section Scripts{
+    <script>
+        // Get all the <li> elements
+        var liElements = document.querySelectorAll("#list_prouduct_img li");
+
+        // Add click event listener to each <li> element
+        liElements.forEach(function (li) {
+            li.addEventListener("mouseover", function () {
+                // Get the image URL from the clicked <li> element
+                var imageUrl = li.querySelector("img").getAttribute("src");
+
+                // Update the src attribute of the main product image
+                document.getElementById("main_product").setAttribute("src", imageUrl);
+            });
+        });
+        console.log(@Model.OriginalPrice);
+    </script>
+}

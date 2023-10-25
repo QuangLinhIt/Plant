@@ -19,10 +19,30 @@ namespace Plant.Controllers
         }
 
         // GET: Contacts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Contacts.ToListAsync());
+            return View();
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(Contact data)
+        {
+            if (ModelState.IsValid)
+            {
+                var contact = new Contact()
+                {
+                    Name = data.Name,
+                    Phone = data.Phone,
+                    Email = data.Email,
+                    Title = data.Title,
+                    Description = data.Description,
+                    CreateDay = DateTime.Today
+                };
+                _context.Contacts.Add(contact);
+                _context.SaveChanges();
+                return View();
+            }
+            return View(data);
+        }
     }
 }

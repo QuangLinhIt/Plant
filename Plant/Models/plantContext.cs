@@ -38,7 +38,7 @@ namespace Plant.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -121,6 +121,8 @@ namespace Plant.Models
 
             modelBuilder.Entity<Contact>(entity =>
             {
+                entity.Property(e => e.CreateDay).HasColumnType("date");
+
                 entity.Property(e => e.Description).IsRequired();
 
                 entity.Property(e => e.Email).IsRequired();
@@ -151,6 +153,8 @@ namespace Plant.Models
 
             modelBuilder.Entity<Feedback>(entity =>
             {
+                entity.Property(e => e.CreateDay).HasColumnType("date");
+
                 entity.Property(e => e.FeedbackContent).IsRequired();
             });
 

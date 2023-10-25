@@ -15,6 +15,8 @@ namespace Plant.Models
         public decimal OriginalPrice { get; set; }
         public string ShortDes { get; set; }
         public string Description { get; set; }
+        public string TakeCare { get; set; }
+        public string Application { get; set; }
 
         public virtual Language Lang { get; set; }
         public virtual Product Product { get; set; }

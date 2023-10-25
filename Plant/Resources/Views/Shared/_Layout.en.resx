@@ -120,6 +120,9 @@
   <data name="call support" xml:space="preserve">
     <value>Call Support:</value>
   </data>
+  <data name="category" xml:space="preserve">
+    <value>Categories</value>
+  </data>
   <data name="contact" xml:space="preserve">
     <value>Contact</value>
   </data>

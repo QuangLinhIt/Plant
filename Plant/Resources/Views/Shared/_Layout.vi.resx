@@ -120,6 +120,9 @@
   <data name="call support" xml:space="preserve">
     <value>Liên lạc:</value>
   </data>
+  <data name="category" xml:space="preserve">
+    <value>Danh mục sản phẩm</value>
+  </data>
   <data name="contact" xml:space="preserve">
     <value>Liên hệ</value>
   </data>

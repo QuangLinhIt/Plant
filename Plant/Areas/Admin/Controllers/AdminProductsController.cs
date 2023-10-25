@@ -38,6 +38,7 @@ namespace Plant.Areas.Admin.Controllers
                      .Include(x => x.Product)
                      .Include(x => x.Lang)
                      .Where(x => x.LangId == LangId)
+                     .OrderByDescending(x => x.ProductId)
                      .AsNoTracking()
                      .ToList();
             }
@@ -46,6 +47,7 @@ namespace Plant.Areas.Admin.Controllers
                 listProduct = _context.ProductTranslations
                       .Include(x => x.Product)
                       .Include(x => x.Lang)
+                      .OrderByDescending(x => x.ProductId)
                       .AsNoTracking()
                       .ToList();
             }
@@ -110,6 +112,8 @@ namespace Plant.Areas.Admin.Controllers
                 productTranslation.ProductName = dto.ProductName;
                 productTranslation.ShortDes = dto.ShortDes;
                 productTranslation.Description = dto.Description;
+                productTranslation.TakeCare = dto.TakeCare;
+                productTranslation.Application = dto.Application;
                 if (dto.Voucher == null)
                 {
                     productTranslation.Price = dto.OriginalPrice;
@@ -157,6 +161,8 @@ namespace Plant.Areas.Admin.Controllers
                 dto.OriginalPrice = productTranslation.OriginalPrice;
                 dto.ShortDes = productTranslation.ShortDes;
                 dto.Description = productTranslation.Description;
+                dto.TakeCare = productTranslation.TakeCare;
+                dto.Application = productTranslation.Application;
                 dto.ImageName = product.Image;
                 dto.CategoryIds = categoryIds.ToArray();
                 dto.ListCategory = _context.CategoryTranslations.Where(x => x.LangId == 1).Select(x => new SelectListItem { Text = x.CategoryName, Value = x.CategoryId.ToString() }).ToList();
@@ -187,7 +193,7 @@ namespace Plant.Areas.Admin.Controllers
                     product.Voucher = dto.Voucher;
                     if (dto.ImageFile != null)
                     {
-                        string filePath = Path.Combine(_hostEnvironment.WebRootPath, "image\\blog", product.Image);
+                        string filePath = Path.Combine(_hostEnvironment.WebRootPath, "image\\product", product.Image);
                         System.IO.File.Delete(filePath);
                         product.Image = ProcessUploadedFile(dto);
                     }
@@ -228,6 +234,8 @@ namespace Plant.Areas.Admin.Controllers
                         productTranslation.OriginalPrice = dto.OriginalPrice;
                         productTranslation.ShortDes = dto.ShortDes;
                         productTranslation.Description = dto.Description;
+                        productTranslation.TakeCare = dto.TakeCare;
+                        productTranslation.Application = dto.Application;
                         if (dto.Voucher == null)
                         {
                             productTranslation.Price = productTranslation.OriginalPrice;
@@ -247,6 +255,8 @@ namespace Plant.Areas.Admin.Controllers
                         productTranslation.OriginalPrice = dto.OriginalPrice;
                         productTranslation.ShortDes = dto.ShortDes;
                         productTranslation.Description = dto.Description;
+                        productTranslation.TakeCare = dto.TakeCare;
+                        productTranslation.Application = dto.Application;
                         if (dto.Voucher == null)
                         {
                             productTranslation.Price = productTranslation.OriginalPrice;
@@ -338,6 +348,8 @@ namespace Plant.Areas.Admin.Controllers
                             result.OriginalPrice = data.OriginalPrice;
                             result.ShortDes = data.ShortDes;
                             result.Description = data.Description;
+                            result.TakeCare = data.TakeCare;
+                            result.Application = data.Application;
                             if (product.Voucher == null)
                             {
                                 result.Price = data.OriginalPrice;
@@ -358,6 +370,8 @@ namespace Plant.Areas.Admin.Controllers
                             result.OriginalPrice = data.OriginalPrice;
                             result.ShortDes = data.ShortDes;
                             result.Description = data.Description;
+                            result.TakeCare = data.TakeCare;
+                            result.Application = data.Application;
                             if (product.Voucher == null)
                             {
                                 result.Price = data.OriginalPrice;
@@ -666,7 +680,7 @@ namespace Plant.Areas.Admin.Controllers
         // POST: Admin/AdminProducts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id,int langId)
+        public async Task<IActionResult> DeleteConfirmed(int id, int langId)
         {
             var product = _context.Products.Where(x => x.ProductId == id).FirstOrDefault();
             var productCategory = _context.ProductCategories.Where(x => x.ProductId == id).ToList();
@@ -674,7 +688,7 @@ namespace Plant.Areas.Admin.Controllers
             var productTranslation = _context.ProductTranslations.Where(x => x.ProductId == id).ToList();
             var productImg = _context.ProductImgs.Where(x => x.ProductId == id).ToList();
             //delete productImages from wwwroot
-            foreach(var item in productImg)
+            foreach (var item in productImg)
             {
                 var CurrentProductImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\image\\listProduct", item.Img);
                 _context.ProductImgs.Remove(item);

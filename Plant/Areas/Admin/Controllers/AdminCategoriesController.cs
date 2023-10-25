@@ -30,6 +30,7 @@ namespace Plant.Areas.Admin.Controllers
                     .Include(x => x.Category)
                     .Include(x => x.Lang)
                     .Where(x => x.LangId == LangId)
+                    .OrderBy(x=>x.CategoryId)
                     .ToList();
                 if (result == null)
                 {
@@ -45,6 +46,7 @@ namespace Plant.Areas.Admin.Controllers
                 var result = _context.CategoryTranslations
                     .Include(x => x.Category)
                     .Include(x => x.Lang)
+                    .OrderBy(x => x.CategoryId)
                     .ToList();
                 if (result == null)
                 {

@@ -32,22 +32,22 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="mb-1 text-primary font-weight-bold"><i class="far fa-font"></i> Tên sản phẩm</label>
-                            <input asp-for="ProductName" type="text" class="form-control" id="control1" placeholder="Nhập tên sản phẩm...">
+                            <input asp-for="ProductName" type="text" class="form-control" placeholder="Nhập tên sản phẩm...">
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="mb-1 text-primary font-weight-bold"><i class="far fa-money-bill-alt"></i> Giá nhập</label>
-                            <input asp-for="OriginalPrice" class="form-control" id="control1">
+                            <input asp-for="OriginalPrice" class="form-control"  type="number">
                             <small class="form-text text-muted">Số thập phân được ngăn cách bởi dấu chấm</small>
                             <input asp-for="Price" class="form-control" value="10" hidden>
 
                         </div>
                         <div class="form-group col-md-3">
                             <label class="mb-1 text-primary font-weight-bold"><i class="far fa-chart-line"></i> Giảm giá</label>
-                            <input asp-for="Voucher" type="number" class="form-control" id="control1" placeholder="Nhập mức giảm giá...">
+                            <input asp-for="Voucher" type="number" class="form-control" placeholder="Nhập mức giảm giá...">
                             <small class="form-text text-muted">Tính theo giá trị phần trăm %</small>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="mb-1 text-primary font-weight-bold"><i class="far fa-align-left"></i> Mô tả ngắn</label>
                         <textarea rows="5" class="form-control" placeholder="Description" asp-for="ShortDes"></textarea>
@@ -86,11 +86,33 @@
                     </div>
                     <div class="my-3"></div>
                     <div class="mt-4 pt-3">
-                        <h6 class="text-primary font-weight-bold mb-2"><i class="far fa-align-left"></i> Nội dung chi tiết</h6>
+                        <h6 class="text-primary font-weight-bold mb-2"><i class="far fa-align-left"></i> Đặc điểm</h6>
                         <div class="row">
                             <div class="col-sm">
                                 <div class="tinymce-wrap">
                                     <textarea class="tinymce" asp-for="Description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3"></div>
+                    <div class="mt-4 pt-3">
+                        <h6 class="text-primary font-weight-bold mb-2"><i class="far fa-align-left"></i> Cách trồng, chăm sóc</h6>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="tinymce-wrap">
+                                    <textarea class="tinymce" asp-for="TakeCare"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3"></div>
+                    <div class="mt-4 pt-3">
+                        <h6 class="text-primary font-weight-bold mb-2"><i class="far fa-align-left"></i> Ý nghĩa, ứng dụng</h6>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="tinymce-wrap">
+                                    <textarea class="tinymce" asp-for="Application"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -109,5 +131,6 @@
 
 
 @section Scripts {
+   
 
 }

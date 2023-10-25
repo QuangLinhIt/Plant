@@ -55,7 +55,7 @@ body {
 
 body {
     line-height: 24px;
-    font-size: 15px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     visibility: visible;
@@ -693,8 +693,8 @@ textarea:-ms-input-placeholder {
     .offcanvas_main_menu li ul.sub-menu {
         padding-left: 20px;
     }
-   
-   
+
+
 
 .offcanvas_footer {
     margin-top: 50px;
@@ -911,13 +911,13 @@ textarea:-ms-input-placeholder {
 /*header css heer*/
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .main_header {
-        padding: 30px 0;
+        padding: 0;
     }
 }
 
 @media only screen and (max-width: 767px) {
     .main_header {
-        padding: 25px 0;
+        padding: 0;
     }
 }
 
@@ -1597,17 +1597,7 @@ textarea:-ms-input-placeholder {
     }
 }
 
-.main_menu nav > ul > li:hover ul.sub_menu {
-    visibility: visible;
-    max-height: 360px;
-    padding: 24px 20px;
-}
 
-.main_menu nav > ul > li:hover .mega_menu {
-    visibility: visible;
-    max-height: 300px;
-    padding: 25px 30px 30px 30px;
-}
 
 .main_menu nav > ul > li:hover > a {
     color: antiquewhite;
@@ -1656,7 +1646,6 @@ textarea:-ms-input-placeholder {
 .main_menu nav > ul > li ul.sub_menu {
     position: absolute;
     min-width: 300px;
-    padding: 0 20px;
     background: #ffffff;
     box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.1);
     max-height: 0;
@@ -1673,77 +1662,33 @@ textarea:-ms-input-placeholder {
     text-align: left;
 }
 
+.main_menu nav > ul > li:hover ul.sub_menu {
+    visibility: visible;
+    max-height: 360px;
+}
+
 .main_menu nav > ul > li ul.sub_menu li a {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     display: block;
     line-height: 32px;
     text-transform: capitalize;
+    padding: 0 20px;
 }
 
-    .main_menu nav > ul > li ul.sub_menu li a:hover {
-        color: #79a206;
-    }
-
-.main_menu nav > ul > li.mega_items {
-    position: static;
+.main_menu nav > ul > li > ul li:hover {
+    background-color: cornsilk;
 }
 
-.main_menu nav > ul > li .mega_menu {
-    position: absolute;
-    min-width: 100%;
-    padding: 0 30px 0 30px;
-    background: #ffffff;
-    box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.1);
-    max-height: 0;
-    -webkit-transform-origin: 0 0 0;
-    transform-origin: 0 0 0;
-    left: 0;
-    right: auto;
-    visibility: hidden;
-    overflow: hidden;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    z-index: 99;
-    top: 101%;
-    text-align: left;
+.main_menu nav > ul > li ul.sub_menu li a:hover {
+    color: #79a206;
 }
 
-.mega_menu_inner {
-    display: flex;
-    justify-content: space-between;
+.main_menu nav > ul > li ul.sub_menu li:hover a::before {
+    font-family: FontAwesome;
+    content: "\f061";
 }
 
-    .mega_menu_inner > li > a {
-        font-size: 15px;
-        line-height: 24px;
-        text-transform: capitalize;
-        font-weight: 700;
-        display: block;
-        margin-bottom: 12px;
-    }
-
-        .mega_menu_inner > li > a:hover {
-            color: #79a206;
-        }
-
-    .mega_menu_inner > li ul li {
-        display: block;
-    }
-
-        .mega_menu_inner > li ul li a {
-            font-size: 14px;
-            font-weight: 400;
-            display: block;
-            line-height: 30px;
-            text-transform: capitalize;
-        }
-
-            .mega_menu_inner > li ul li a:hover {
-                color: #79a206;
-            }
-
-/*main menu css end*/
 /*mini cart css here*/
 .mini_cart_wrapper {
     position: relative;
@@ -1937,7 +1882,6 @@ textarea:-ms-input-placeholder {
     cursor: pointer;
     height: 54px;
     line-height: 54px;
-    border-right: 1px solid #e1e1e1;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -1960,42 +1904,31 @@ textarea:-ms-input-placeholder {
     }
 }
 
-.categories_title::before {
-    content: "\e907";
-    font-family: 'plaza-icon';
-    color: #222222;
-    display: inline-block;
-    position: absolute;
-    font-size: 22px;
-    line-height: 0px;
-    left: 0;
-    top: 50%;
-    transform: translatey(-50%);
-}
+
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .categories_title::before {
+    .categories_title i {
         left: 27px;
         color: #fff;
     }
 }
 
 @media only screen and (max-width: 767px) {
-    .categories_title::before {
+    .categories_title i {
         left: 23px;
         color: #fff;
     }
 }
 
 .categories_title h2 {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 26px;
     cursor: pointer;
     margin-bottom: 0;
     display: inline-block;
     text-transform: uppercase;
-    padding-left: 53px;
+    padding-left: 20px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2024,8 +1957,7 @@ textarea:-ms-input-placeholder {
     top: 100%;
     z-index: 9;
     display: none;
-    padding: 15px 0;
-    box-shadow: 0px 0px 5.76px 0.24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 5.76px 0.24px rgba(0, 0, 0, 0.5);
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2048,14 +1980,24 @@ textarea:-ms-input-placeholder {
     position: relative;
 }
 
+    .categories_menu_toggle > ul > li:hover {
+        background-color: cornsilk;
+    }
+
     .categories_menu_toggle > ul > li > a {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 40px;
         text-transform: capitalize;
         font-weight: 400;
         display: block;
         cursor: pointer;
         padding: 0 20px 0 30px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .categories_menu_toggle > ul > li:hover > a::before {
+        font-family: FontAwesome;
+        content: "\f061";
     }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -2084,27 +2026,16 @@ textarea:-ms-input-placeholder {
     -webkit-transition: .3s;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .categories_menu_toggle > ul > li > a i.fa-angle-right {
-        display: none;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    .categories_menu_toggle > ul > li > a i.fa-angle-right {
-        display: none;
-    }
-}
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .categories_menu_toggle > ul > li > a:hover {
-        color: #79a206;
+        color: lawngreen;
     }
 }
 
 @media only screen and (max-width: 767px) {
     .categories_menu_toggle > ul > li > a:hover {
-        color: #79a206;
+        color: lawngreen;
     }
 }
 
@@ -2119,7 +2050,7 @@ textarea:-ms-input-placeholder {
 }
 
 .categories_menu_toggle > ul > li:hover > a {
-    color: #14663b;
+    color: forestgreen;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2137,9 +2068,8 @@ textarea:-ms-input-placeholder {
 .categories_menu_toggle > ul > li ul.categories_mega_menu {
     position: absolute;
     left: 120%;
-    width: 500px;
+    width: 300px;
     background: #ffffff;
-    padding: 25px 20px 23px;
     overflow: hidden;
     top: 0;
     -webkit-transition: .3s;
@@ -2147,8 +2077,9 @@ textarea:-ms-input-placeholder {
     z-index: 99;
     opacity: 0;
     visibility: hidden;
-    display: flex;
+    display: block;
     justify-content: space-between;
+    box-shadow: 0px 0px 5.76px 0.24px rgba(0, 0, 0, 0.5);
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -2197,7 +2128,7 @@ textarea:-ms-input-placeholder {
 }
 
 .categories_menu_toggle > ul > li ul.categories_mega_menu > li {
-    padding: 0 15px;
+    padding: 0;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2214,14 +2145,13 @@ textarea:-ms-input-placeholder {
 
 .categories_menu_toggle > ul > li ul.categories_mega_menu > li > a {
     line-height: 30px;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-size: 16px;
     display: block;
+    padding: 0 20px;
 }
 
     .categories_menu_toggle > ul > li ul.categories_mega_menu > li > a:hover {
-        color: #14663b;
+        color: forestgreen;
     }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2269,46 +2199,10 @@ textarea:-ms-input-placeholder {
     .categories_menu_toggle ul li.menu_item_children > a {
         position: relative;
     }
-
-        .categories_menu_toggle ul li.menu_item_children > a::before {
-            position: absolute;
-            content: "+";
-            right: 15px;
-            top: 50%;
-            transform: translatey(-50%);
-            font-size: 20px;
-        }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .categories_menu_toggle ul li.menu_item_children.open > a::before {
-        display: none;
-    }
 
-    .categories_menu_toggle ul li.menu_item_children.open > a::after {
-        position: absolute;
-        content: "-";
-        right: 15px;
-        top: 50%;
-        transform: translatey(-50%);
-        font-size: 30px;
-    }
-}
 
-@media only screen and (max-width: 767px) {
-    .categories_menu_toggle ul li.menu_item_children.open > a::before {
-        display: none;
-    }
-
-    .categories_menu_toggle ul li.menu_item_children.open > a::after {
-        position: absolute;
-        content: "-";
-        right: 15px;
-        top: 50%;
-        transform: translatey(-50%);
-        font-size: 30px;
-    }
-}
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .categorie_sub_menu {
@@ -2333,7 +2227,7 @@ textarea:-ms-input-placeholder {
 }
 
     .categorie_sub_menu li a:hover {
-        color: #14663b;
+        color: forestgreen;
     }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2407,12 +2301,21 @@ textarea:-ms-input-placeholder {
 }
 
     .categories_menu_toggle ul li.has-sub ul.categorie_sub li a:hover {
-        color: #14663b;
+        color: forestgreen;
     }
 
 .categories_menu_toggle ul li ul.categories_mega_menu > li:first-child {
     padding-left: 0;
 }
+
+.categories_menu_toggle ul li ul.categories_mega_menu > li:hover {
+    background-color: cornsilk;
+}
+
+    .categories_menu_toggle ul li ul.categories_mega_menu > li:hover a::before {
+        font-family: FontAwesome;
+        content: "\f061";
+    }
 
 .categories_menu_toggle ul li ul.categories_mega_menu > li:last-child {
     padding-right: 0;
@@ -3985,9 +3888,9 @@ textarea:-ms-input-placeholder {
 }
 
     .product_content h4 {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 16px;
-        font-weight: 400;
+        font-weight: 700;
         text-transform: capitalize;
         margin: 0;
     }
@@ -5766,7 +5669,7 @@ textarea:-ms-input-placeholder {
 }
 
     .breadcrumb_content h3 {
-        font-size: 42px;
+        font-size: 50px;
         line-height: 50px;
         font-family: "Lora", serif;
         margin-bottom: 9px;
@@ -5782,7 +5685,7 @@ textarea:-ms-input-placeholder {
 .breadcrumb_content ul li {
     display: inline-block;
     text-transform: capitalize;
-    font-size: 14px;
+    font-size: 17px;
     margin-right: 3px;
     padding-right: 13px;
     position: relative;
@@ -5841,6 +5744,11 @@ textarea:-ms-input-placeholder {
         padding: 0 20px;
     }
 
+        .widget_list.widget_categories > ul > li > a::before {
+            content: "\f068";
+            font-family: FontAwesome;
+        }
+
         .widget_list.widget_categories > ul > li > a:hover {
             color: #79a206;
         }
@@ -5853,41 +5761,34 @@ textarea:-ms-input-placeholder {
         position: relative;
     }
 
-        .widget_list.widget_categories > ul > li.widget_sub_categories > a::before {
-            content: '+';
-            cursor: pointer;
-            font-size: 12px;
-            position: absolute;
-            right: 21px;
-            top: 50%;
-            transform: translatey(-50%);
-        }
-
-        .widget_list.widget_categories > ul > li.widget_sub_categories > a.active::before {
-            content: '-';
-            cursor: pointer;
-            font-size: 12px;
-            position: absolute;
-            right: 21px;
-            top: 50%;
-            transform: translatey(-50%);
-        }
+    .widget_list.widget_categories > ul > li.widget_sub_categories i {
+        float: right;
+    }
 
     .widget_list.widget_categories > ul > li ul {
         padding-left: 30px;
         display: none;
     }
 
-        .widget_list.widget_categories > ul > li ul li a {
-            font-size: 13px;
-            line-height: 30px;
-            display: block;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .widget_list.widget_categories > ul > li:hover ul {
+        display: block;
+    }
+
+    .widget_list.widget_categories > ul > li ul li a {
+        font-size: 13px;
+        line-height: 30px;
+        display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+        .widget_list.widget_categories > ul > li ul li a::before {
+            font-family: FontAwesome;
+            content: "\f067";
         }
 
-            .widget_list.widget_categories > ul > li ul li a:hover {
-                color: #79a206;
-            }
+        .widget_list.widget_categories > ul > li ul li a:hover {
+            color: #79a206;
+        }
 
     .widget_list:last-child {
         margin-bottom: 0;
@@ -6364,10 +6265,13 @@ textarea:-ms-input-placeholder {
     line-height: 38px;
 }
 
+.blog_sidebar_img {
+    display: block;
+}
 /* shop page css here*/
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .shop_reverse .row {
-        flex-direction: column-reverse;
+@media only screen and (max-width: 767px) {
+    .blog_sidebar_img {
+        display: none;
     }
 }
 
@@ -6388,17 +6292,17 @@ textarea:-ms-input-placeholder {
 }
 
     .shop_toolbar_btn > button.btn-grid-3 {
-        background: url(../img/icon/bkg_grid.png) no-repeat scroll center center;
+        background: url(../../LayoutAssets/img/icon/bkg_grid.png) no-repeat scroll center center;
         width: 20px;
         height: 20px;
     }
 
         .shop_toolbar_btn > button.btn-grid-3.active {
-            background: url(../img/icon/bkg_grid_hover.png) no-repeat scroll center center !important;
+            background: url(../../LayoutAssets/img/icon/bkg_grid_hover.jpg) no-repeat scroll center center !important;
         }
 
     .shop_toolbar_btn > button.btn-grid-4 {
-        background: url(../img/icon/bkg_grid4.png) no-repeat scroll center center;
+        background: url(../../LayoutAssets/img/icon/bkg_grid4.png) no-repeat scroll center center;
         width: 26px;
         height: 22px;
     }
@@ -6632,6 +6536,7 @@ textarea:-ms-input-placeholder {
 .grid_list .product_content.list_content .product_desc p {
     font-size: 14px;
     line-height: 24px;
+    text-align: justify;
 }
 
 .grid_list .single_product {
@@ -6801,6 +6706,25 @@ textarea:-ms-input-placeholder {
 
 #img-1 {
     border: 1px solid #e1e1e1;
+    max-width: 80%;
+    height: auto;
+    margin-left: 10%;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    #img-1 {
+        max-width: 100%;
+        height: auto;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    #img-1 {
+        max-width: 100%;
+        height: auto;
+        margin-left: 0;
+    }
 }
 
 .header_product {
@@ -6830,6 +6754,8 @@ textarea:-ms-input-placeholder {
 
 .product_d_right h1 a {
     color: #252525;
+    font-weight: 700;
+    font-size: 30px;
 }
 
     .product_d_right h1 a:hover {
@@ -6911,8 +6837,9 @@ textarea:-ms-input-placeholder {
 }
 
 .product_d_right .product_desc p {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 26px;
+    text-align: justify;
 }
 
 .product_d_right .priduct_social ul li {
@@ -8731,7 +8658,7 @@ textarea:-ms-input-placeholder {
 /*wishlist css end*/
 /* 15. contact page css here */
 .contact_area {
-    margin-bottom: 87px;
+    margin: 100px 0 87px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -8927,18 +8854,22 @@ textarea:-ms-input-placeholder {
     font-weight: 700;
     height: 34px;
     line-height: 26px;
-    padding: 5px 20px;
     text-transform: uppercase;
     cursor: pointer;
     -webkit-transition: 0.3s;
     transition: 0.3s;
-    margin-left: 20px;
+    width: 100%;
     border-radius: 20px;
 }
 
     .account_form button:hover {
         background: #222222;
     }
+
+.account_form_different img {
+    max-width: 15%;
+    height: auto;
+}
 
 .login_submit label input[type="checkbox"] {
     width: 15px;
@@ -8962,7 +8893,6 @@ textarea:-ms-input-placeholder {
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .login_submit a {
-        float: none;
         line-height: 18px;
         display: block;
         margin-bottom: 20px;
@@ -8971,7 +8901,6 @@ textarea:-ms-input-placeholder {
 
 @media only screen and (max-width: 767px) {
     .login_submit a {
-        float: none;
         line-height: 18px;
         display: block;
         margin-bottom: 20px;
@@ -9005,8 +8934,16 @@ textarea:-ms-input-placeholder {
     .account_form.register {
         margin-top: 58px;
     }
+
+    .account_form_different img {
+        max-width: 8%;
+        height: auto;
+    }
 }
 
+.account_form_different {
+    margin: 0%;
+}
 /*login page css end */
 /* 16. faq page css here */
 .faq_content_area {
@@ -9414,6 +9351,7 @@ textarea:-ms-input-placeholder {
     padding-top: 26px;
     text-align: justify;
 }
+
 .about_content1 {
     padding-bottom: 15px;
     text-align: justify;
@@ -9424,6 +9362,7 @@ textarea:-ms-input-placeholder {
         padding-top: 20px;
     }
 }
+
 .about_content h1 {
     display: inline-block;
     font-size: 24px;
@@ -9433,6 +9372,7 @@ textarea:-ms-input-placeholder {
     margin-bottom: 21px;
     font-family: "Lora", serif;
 }
+
 .about_content1 h1 {
     display: inline-block;
     font-size: 24px;
@@ -9442,6 +9382,7 @@ textarea:-ms-input-placeholder {
     margin-bottom: 21px;
     font-family: "Lora", serif;
 }
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .about_content h1 {
         font-size: 22px;
@@ -10447,6 +10388,7 @@ textarea:-ms-input-placeholder {
     padding-left: 30px;
     padding-top: 0;
 }
+
 .blog_sidebar_widget {
     background-color: #f3f3f3;
     padding: 20px 10px;
@@ -10463,7 +10405,7 @@ textarea:-ms-input-placeholder {
 }
 
 .blog_wrapper .blog_content h4 {
-    font-size: 28px;
+    font-size: 26px;
     line-height: 33px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -10719,6 +10661,10 @@ textarea:-ms-input-placeholder {
 
     .blog_sidebar_widget .widget_categories .widget_title {
         margin-bottom: 15px;
+    }
+
+    .blog_sidebar_widget .widget_categories > ul > li i {
+        float: right;
     }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
