@@ -61,12 +61,12 @@
                         <div class="price_box">
                             @if (Model.Voucher == null || Model.Voucher <= 0)
                             {
-                                <span class="current_price">@Model.Price.ToString("# ### ### ### ###")@Model.CurrencyUnit</span>
+                                <span class="current_price">@Model.Price @Model.CurrencyUnit</span>
                             }
                             @if (Model.Voucher > 0)
                             {
-                                <span class="current_price">@Model.Price.ToString("# ### ### ### ###")@Model.CurrencyUnit</span>
-                                <span class="old_price">@Model.OriginalPrice.ToString("# ### ### ### ###")@Model.CurrencyUnit</span>
+                                <span class="current_price">@Model.Price @Model.CurrencyUnit</span>
+                                <span class="old_price">@Model.OriginalPrice @Model.CurrencyUnit</span>
                             }
 
                         </div>
@@ -102,7 +102,7 @@
                             <label>@Localizer["quantity"]</label>
 
                             <input min="1" max="100" value="1" type="number" id="htmlQuantity"/>
-                            <button class="button" onclick="AddToCart(@Model.ProductId,@Model.Price.ToString,@Model.OriginalPrice)">@Localizer["add to cart"]</button>
+                            <button class="button" onclick="AddToCart(@Model.ProductId,@Model.Price,@Model.OriginalPrice, document.getElementById('htmlQuantity').value)">@Localizer["add to cart"]</button>
                         </div>
                     <div class="priduct_social">
                         <ul>
@@ -231,12 +231,12 @@
                                     <div class="price_box">
                                         @if (item.Voucher == null || item.Voucher <= 0)
                                         {
-                                            <span class="current_price">@item.Price.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
+                                            <span class="current_price">@item.Price@item.CurrencyUnit</span>
                                         }
                                         @if (item.Voucher > 0)
                                         {
-                                            <span class="current_price">@item.Price.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
-                                            <span class="old_price">@item.OriginalPrice.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
+                                            <span class="current_price">@item.Price@item.CurrencyUnit</span>
+                                            <span class="old_price">@item.OriginalPrice@item.CurrencyUnit</span>
                                         }
                                     </div>
                                 </figcaption>

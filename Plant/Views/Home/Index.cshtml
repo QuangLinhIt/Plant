@@ -152,12 +152,12 @@
                                                 <div class="price_box">
                                                     @if (item.Voucher == null)
                                                     {
-                                                        <span class="current_price">@item.Price.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
+                                                        <span class="current_price">@item.Price@item.CurrencyUnit</span>
                                                     }
                                                     else
                                                     {
-                                                        <span class="current_price">@item.Price.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
-                                                        <span class="old_price">@item.OriginalPrice.ToString("# ### ### ### ###")@item.CurrencyUnit</span>
+                                                        <span class="current_price">@item.Price@item.CurrencyUnit</span>
+                                                        <span class="old_price">@item.OriginalPrice@item.CurrencyUnit</span>
                                                     }
                                                 </div>
                                             </figcaption>

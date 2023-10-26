@@ -246,9 +246,9 @@ namespace Plant.Models
 
             modelBuilder.Entity<ProductTranslation>(entity =>
             {
-                entity.Property(e => e.OriginalPrice).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.OriginalPrice).HasColumnType("decimal(18, 0)");
 
-                entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.ProductName).IsRequired();
 
