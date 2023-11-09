@@ -493,9 +493,8 @@
 
     /*---Category menu---*/
     function categorySubMenuToggle() {
-        $('.categories_menu_toggle li.menu_item_children > a').on('click', function () {
+        $('.categories_menu_toggle li.menu_item_children > a').on('mouseover', function () {
             if ($(window).width() < 991) {
-                $(this).removeAttr('href');
                 var element = $(this).parent('li');
                 if (element.hasClass('open')) {
                     element.removeClass('open');
@@ -516,6 +515,7 @@
     }
     categorySubMenuToggle();
 
+   
 
     /*---shop grid activation---*/
     $('.shop_toolbar_btn > button').on('click', function (e) {

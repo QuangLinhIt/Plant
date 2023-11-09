@@ -41,9 +41,6 @@
                                     <th class="py-3">#Mã</th>
                                     <th class="py-3">Hình ảnh</th>
                                     <th class="py-3">Tên</th>
-                                    <th class="py-3">Giá nhập</th>
-                                    <th class="py-3">Giảm giá</th>
-                                    <th class="py-3">Giá bán</th>
                                     <th class="py-3">Màu sắc</th>
                                     <th class="py-3">Lượng hàng</th>
                                     <th class="py-3">Action</th>
@@ -57,30 +54,7 @@
                                     <td><div class="avatar avatar-xs rounded"><img src="~/image/product/@data.Image" style="height:50px;width:50px;" /></div></td>
                                     <td>@dataTranslation.ProductName</td>
                                     <td>
-                                            @dataTranslation.OriginalPrice @lang.CurrencyUnit
-                                    </td>
-                                    <td>
-                                        @if (data.Voucher != null)
-                                        {
-                                            <span class="text-red">@data.Voucher %</span>
-                                        }
-                                        else
-                                        {
-                                            <span>No</span>
-                                        }
-                                    </td>
-                                    <td>
-                                            @dataTranslation.Price @lang.CurrencyUnit
-                                    </td>
-                                    <td>
-                                        @if (item.Color == "Default")
-                                        {
-                                            <span class="text-red">Default</span>
-                                        }
-                                        else
-                                        {
-                                            <div class="avatar avatar-xs rounded" style="background-color:@item.Color;border:2px solid black;"></div>
-                                        }
+                                        @item.Color
                                     </td>
                                     <td>
                                         @if (item.Stock > 0)

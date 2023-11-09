@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Plant.ViewModels;
+using System.Globalization;
+using System.Threading;
 
 namespace Plant.Components
 {
@@ -21,48 +23,27 @@ namespace Plant.Components
             _context = context;
         }
 
-        public IViewComponentResult Invoke(string id = "vi")
+        public IViewComponentResult Invoke()
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
-            // value languages= extractedCulture
-            if (extractedCulture == id)
-            {
-                var result = (from cn in _context.CategoryNews
-                              join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
-                              join l in _context.Languages on cnt.LangId equals l.LangId
-                              where l.SignLanguages == id
-                              select new CategoryNewViewModels()
-                              {
-                                  CategoryNewId = cn.CategoryNewId,
-                                  ParentNewId = cn.ParentNewId,
-                                  CategoryNewTranslationId = cnt.CategoryNewTranslationId,
-                                  CategoryNewName = cnt.CategoryNewName,
-                                  LangId = l.LangId,
-                                  SignLanguages = l.SignLanguages
-                              }).ToList();
-                return View(result);
-            }
-            else
-            {
-                var result = (from cn in _context.CategoryNews
-                              join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
-                              join l in _context.Languages on cnt.LangId equals l.LangId
-                              where l.SignLanguages == extractedCulture
-                              select new CategoryNewViewModels()
-                              {
-                                  CategoryNewId = cn.CategoryNewId,
-                                  ParentNewId = cn.ParentNewId,
-                                  CategoryNewTranslationId = cnt.CategoryNewTranslationId,
-                                  CategoryNewName = cnt.CategoryNewName,
-                                  LangId = l.LangId,
-                                  SignLanguages = l.SignLanguages
-                              }).ToList();
-                return View(result);
-            }
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
+
+
+            var result = (from cn in _context.CategoryNews
+                          join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
+                          join l in _context.Languages on cnt.LangId equals l.LangId
+                          where l.SignLanguages == culture
+                          select new CategoryNewViewModels()
+                          {
+                              CategoryNewId = cn.CategoryNewId,
+                              ParentNewId = cn.ParentNewId,
+                              CategoryNewTranslationId = cnt.CategoryNewTranslationId,
+                              CategoryNewName = cnt.CategoryNewName,
+                              LangId = l.LangId,
+                              SignLanguages = l.SignLanguages
+                          }).ToList();
+            return View(result);
+
         }
     }
     public class BlogComponent2 : ViewComponent
@@ -74,48 +55,26 @@ namespace Plant.Components
             _context = context;
         }
 
-        public IViewComponentResult Invoke(string id = "vi")
+        public IViewComponentResult Invoke()
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
-            // value languages= extractedCulture
-            if (extractedCulture == id)
-            {
-                var result = (from cn in _context.CategoryNews
-                              join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
-                              join l in _context.Languages on cnt.LangId equals l.LangId
-                              where l.SignLanguages == id
-                              select new CategoryNewViewModels()
-                              {
-                                  CategoryNewId = cn.CategoryNewId,
-                                  ParentNewId = cn.ParentNewId,
-                                  CategoryNewTranslationId = cnt.CategoryNewTranslationId,
-                                  CategoryNewName = cnt.CategoryNewName,
-                                  LangId = l.LangId,
-                                  SignLanguages = l.SignLanguages
-                              }).ToList();
-                return View(result);
-            }
-            else
-            {
-                var result = (from cn in _context.CategoryNews
-                              join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
-                              join l in _context.Languages on cnt.LangId equals l.LangId
-                              where l.SignLanguages == extractedCulture
-                              select new CategoryNewViewModels()
-                              {
-                                  CategoryNewId = cn.CategoryNewId,
-                                  ParentNewId = cn.ParentNewId,
-                                  CategoryNewTranslationId = cnt.CategoryNewTranslationId,
-                                  CategoryNewName = cnt.CategoryNewName,
-                                  LangId = l.LangId,
-                                  SignLanguages = l.SignLanguages
-                              }).ToList();
-                return View(result);
-            }
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
+
+            var result = (from cn in _context.CategoryNews
+                          join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
+                          join l in _context.Languages on cnt.LangId equals l.LangId
+                          where l.SignLanguages == culture
+                          select new CategoryNewViewModels()
+                          {
+                              CategoryNewId = cn.CategoryNewId,
+                              ParentNewId = cn.ParentNewId,
+                              CategoryNewTranslationId = cnt.CategoryNewTranslationId,
+                              CategoryNewName = cnt.CategoryNewName,
+                              LangId = l.LangId,
+                              SignLanguages = l.SignLanguages
+                          }).ToList();
+            return View(result);
+
         }
     }
 

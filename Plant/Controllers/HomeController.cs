@@ -7,7 +7,9 @@ using Plant.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Plant.Controllers
@@ -23,16 +25,15 @@ namespace Plant.Controllers
 
         public IActionResult Index()
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
+            //get selected languages
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
+           
             // value languages= extractedCulture
             var product = (from p in _context.Products
                            join pt in _context.ProductTranslations on p.ProductId equals pt.ProductId
                            join l in _context.Languages on pt.LangId equals l.LangId
-                           where l.SignLanguages == extractedCulture
+                           where l.SignLanguages == culture
                            select new ProductVm()
                            {
                                ProductId = p.ProductId,
@@ -41,10 +42,9 @@ namespace Plant.Controllers
                                ProductTranslationId = pt.ProductTranslationId,
                                LangId = l.LangId,
                                SignLanguages = l.SignLanguages,
-                               CurrencyUnit = l.CurrencyUnit,
                                ProductName = pt.ProductName,
-                               Price = pt.Price,
-                               OriginalPrice = pt.OriginalPrice,
+                               Price = p.Price,
+                               OriginalPrice = p.OriginalPrice,
                                ShortDes = pt.ShortDes,
                            }).ToList();
             ViewData["ListProduct"] = product;
@@ -53,7 +53,7 @@ namespace Plant.Controllers
                         join bt in _context.BlogTranslations on b.BlogId equals bt.BlogId
                         join bc in _context.BlogCategories on b.BlogId equals bc.BlogId
                         join l in _context.Languages on bt.LangId equals l.LangId
-                        where l.SignLanguages == extractedCulture
+                        where l.SignLanguages == culture
                         orderby b.BlogId descending
                         select new BlogVm()
                         {

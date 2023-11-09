@@ -1,10 +1,10 @@
-﻿function AddToCart(productId, price, originalPrice, quantity) {
+﻿function AddToCart(productId, quantity,color,choose) {
     // Retrieve the existing cart items from localStorage
     var existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     // Check if the product already exists in the cart
     var existingCartItem = existingCartItems.find(function (item) {
-        return item.productId === productId;
+        return item.productId === productId && item.color===color;
     });
 
     if (existingCartItem) {
@@ -14,9 +14,9 @@
         // Create a new cart item
         var newCartItem = {
             productId: productId,
-            price: price,
-            originalPrice: originalPrice,
-            quantity: quantity
+            quantity: parseInt(quantity),
+            color: color,
+            choose: choose,
         };
 
         // Add the new item to the cart
@@ -35,12 +35,12 @@ function GetCarts() {
     // Return the cart items
     return cartItems;
 }
-function RemoveCart(productId) {
+function RemoveCart(productId, color) {
     // Retrieve the cart from LocalStorage
     let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     // Find the index of the item to remove
-    let index = cart.findIndex(item => item.productId === productId);
+    let index = cart.findIndex(item => item.productId === productId && item.color===color);
 
     // Remove the item from the cart if found
     if (index !== -1) {
@@ -51,18 +51,19 @@ function RemoveCart(productId) {
     localStorage.setItem('cartItems', JSON.stringify(cart));
     location.reload();
 }
-function UpdateToCartOnOrder(productId, quantity) {
+function UpdateToCartOnOrder(productId, quantity, color, choose) {
     // Retrieve the existing cart items from localStorage
     var existingCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
     // Check if the product already exists in the cart
     var existingCartItem = existingCartItems.find(function (item) {
-        return item.productId === productId;
+        return item.productId === productId && item.color===color;
     });
 
     if (existingCartItem) {
         // Update the quantity of the existing item
         existingCartItem.quantity = parseInt(quantity);
+        existingCartItem.choose = choose;
     }
 
     // Save the updated cart items to localStorage

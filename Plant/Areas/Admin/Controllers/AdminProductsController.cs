@@ -86,11 +86,20 @@ namespace Plant.Areas.Admin.Controllers
             {
                 ViewData["Languages"] = new SelectList(_context.Languages, "LangId", "LangName", dto.LangId);
                 //Add Product
-                var product = new Product()
+                var product = new Product();
+
+                product.Voucher = dto.Voucher;
+                product.Image = ProcessUploadedFile(dto);
+                if (dto.Voucher == null)
                 {
-                    Voucher = dto.Voucher,
-                    Image = ProcessUploadedFile(dto)
-                };
+                    product.Price = dto.OriginalPrice;
+                }
+                else
+                {
+                    product.Price = dto.OriginalPrice * (100 - dto.Voucher.Value) / 100;
+                }
+                product.OriginalPrice = dto.OriginalPrice;
+
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
                 //Add ProductCategory
@@ -114,15 +123,7 @@ namespace Plant.Areas.Admin.Controllers
                 productTranslation.Description = dto.Description;
                 productTranslation.TakeCare = dto.TakeCare;
                 productTranslation.Application = dto.Application;
-                if (dto.Voucher == null)
-                {
-                    productTranslation.Price = dto.OriginalPrice;
-                }
-                else
-                {
-                    productTranslation.Price = dto.OriginalPrice * (100 - dto.Voucher.Value) / 100;
-                }
-                productTranslation.OriginalPrice = dto.OriginalPrice;
+
                 _context.ProductTranslations.Add(productTranslation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -157,8 +158,8 @@ namespace Plant.Areas.Admin.Controllers
                 dto.LangName = productTranslation.Lang.LangName;
                 dto.Voucher = product.Voucher;
                 dto.ProductName = productTranslation.ProductName;
-                dto.Price = productTranslation.Price;
-                dto.OriginalPrice = productTranslation.OriginalPrice;
+                dto.Price = product.Price;
+                dto.OriginalPrice = product.OriginalPrice;
                 dto.ShortDes = productTranslation.ShortDes;
                 dto.Description = productTranslation.Description;
                 dto.TakeCare = productTranslation.TakeCare;
@@ -191,6 +192,15 @@ namespace Plant.Areas.Admin.Controllers
                     var product = _context.Products.Include(x => x.ProductCategories).Where(x => x.ProductId == dto.ProductId).FirstOrDefault();
                     product.ProductId = dto.ProductId;
                     product.Voucher = dto.Voucher;
+                    product.OriginalPrice = dto.OriginalPrice;
+                    if (dto.Voucher == null)
+                    {
+                        product.Price = product.OriginalPrice;
+                    }
+                    else
+                    {
+                        product.Price = dto.OriginalPrice * (100 - dto.Voucher.Value) / 100;
+                    }
                     if (dto.ImageFile != null)
                     {
                         string filePath = Path.Combine(_hostEnvironment.WebRootPath, "image\\product", product.Image);
@@ -231,19 +241,11 @@ namespace Plant.Areas.Admin.Controllers
                         productTranslation.ProductTranslationId = productTranslation.ProductTranslationId;
                         productTranslation.LangId = dto.LangId;
                         productTranslation.ProductName = dto.ProductName;
-                        productTranslation.OriginalPrice = dto.OriginalPrice;
                         productTranslation.ShortDes = dto.ShortDes;
                         productTranslation.Description = dto.Description;
                         productTranslation.TakeCare = dto.TakeCare;
                         productTranslation.Application = dto.Application;
-                        if (dto.Voucher == null)
-                        {
-                            productTranslation.Price = productTranslation.OriginalPrice;
-                        }
-                        else
-                        {
-                            productTranslation.Price = dto.OriginalPrice * (100 - dto.Voucher.Value) / 100;
-                        }
+                       
                         _context.ProductTranslations.Update(productTranslation);
                         _context.SaveChanges();
                     }
@@ -252,36 +254,12 @@ namespace Plant.Areas.Admin.Controllers
                         productTranslation = new ProductTranslation();
                         productTranslation.LangId = dto.LangId;
                         productTranslation.ProductName = dto.ProductName;
-                        productTranslation.OriginalPrice = dto.OriginalPrice;
                         productTranslation.ShortDes = dto.ShortDes;
                         productTranslation.Description = dto.Description;
                         productTranslation.TakeCare = dto.TakeCare;
                         productTranslation.Application = dto.Application;
-                        if (dto.Voucher == null)
-                        {
-                            productTranslation.Price = productTranslation.OriginalPrice;
-                        }
-                        else
-                        {
-                            productTranslation.Price = dto.OriginalPrice * (100 - dto.Voucher.Value) / 100;
-                        }
+                       
                         _context.ProductTranslations.Add(productTranslation);
-                        _context.SaveChanges();
-                    }
-
-                    //update price productTranslation còn lại when voucher change
-                    var change = _context.ProductTranslations.Where(x => x.ProductId == dto.ProductId && x.LangId != dto.LangId).ToList();
-                    foreach (var item in change)
-                    {
-                        if (dto.Voucher != null)
-                        {
-                            item.Price = item.OriginalPrice * (100 - dto.Voucher.Value) / 100;
-                        }
-                        else
-                        {
-                            item.Price = item.OriginalPrice;
-                        }
-                        _context.ProductTranslations.Update(item);
                         _context.SaveChanges();
                     }
                 }
@@ -345,19 +323,10 @@ namespace Plant.Areas.Admin.Controllers
                             result.LangId = data.LangId;
                             result.ProductId = data.ProductId;
                             result.ProductName = data.ProductName;
-                            result.OriginalPrice = data.OriginalPrice;
                             result.ShortDes = data.ShortDes;
                             result.Description = data.Description;
                             result.TakeCare = data.TakeCare;
                             result.Application = data.Application;
-                            if (product.Voucher == null)
-                            {
-                                result.Price = data.OriginalPrice;
-                            }
-                            else
-                            {
-                                result.Price = data.OriginalPrice * (100 - product.Voucher.Value) / 100;
-                            }
                             _context.ProductTranslations.Add(result);
                             _context.SaveChanges();
                         }
@@ -367,19 +336,10 @@ namespace Plant.Areas.Admin.Controllers
                             result.LangId = data.LangId;
                             result.ProductId = data.ProductId;
                             result.ProductName = data.ProductName;
-                            result.OriginalPrice = data.OriginalPrice;
                             result.ShortDes = data.ShortDes;
                             result.Description = data.Description;
                             result.TakeCare = data.TakeCare;
                             result.Application = data.Application;
-                            if (product.Voucher == null)
-                            {
-                                result.Price = data.OriginalPrice;
-                            }
-                            else
-                            {
-                                result.Price = data.OriginalPrice * (100 - product.Voucher.Value) / 100;
-                            }
                             _context.ProductTranslations.Add(result);
                             _context.SaveChanges();
                         }
@@ -413,8 +373,6 @@ namespace Plant.Areas.Admin.Controllers
                                       select new ProductTranslation()
                                       {
                                           ProductName = pt.ProductName,
-                                          OriginalPrice = pt.OriginalPrice,
-                                          Price = pt.Price,
                                           LangId = pt.LangId,
                                       }).FirstOrDefault();
             ViewBag.ProductTranslationData = productTranslation;

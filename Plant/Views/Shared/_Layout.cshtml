@@ -165,7 +165,7 @@
                                     </div>
                                     <div class="header_account-list  mini_cart_wrapper">
                                         <a href="javascript:void(0)">
-                                            <i class="fa-solid fa-cart-shopping"></i><span class="item_count">2</span>
+                                            <i class="fa-solid fa-cart-shopping"></i><span class="item_count" id="countCartItemNav"></span>
                                         </a>
                                         <!--mini cart-->
                                         <div class="mini_cart">
@@ -178,48 +178,10 @@
                                                         <a href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
                                                     </div>
                                                 </div>
-                                                <div class="cart_item">
-                                                    <div class="cart_img">
-                                                        <a href="#">
-                                                            <img src="~/LayoutAssets/img/s-product/product.jpg"
-                                                                 alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart_info">
-                                                        <a href="#">Primis In Faucibus</a>
-                                                        <p>1 x <span> $65.00 </span></p>
-                                                    </div>
-                                                    <div class="cart_remove">
-                                                        <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                                    </div>
+                                                <div id="list_cart_item">
+                                                    @*scrip html*@
                                                 </div>
-                                                <div class="cart_item">
-                                                    <div class="cart_img">
-                                                        <a href="#">
-                                                            <img src="~/LayoutAssets/img/s-product/product2.jpg"
-                                                                 alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart_info">
-                                                        <a href="#">Letraset Sheets</a>
-                                                        <p>1 x <span> $60.00 </span></p>
-                                                    </div>
-                                                    <div class="cart_remove">
-                                                        <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mini_cart_table">
-                                                <div class="cart_table_border">
-                                                    <div class="cart_total">
-                                                        <span>Sub total:</span>
-                                                        <span class="price">$125.00</span>
-                                                    </div>
-                                                    <div class="cart_total mt-10">
-                                                        <span>total:</span>
-                                                        <span class="price">$125.00</span>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <div class="mini_cart_footer">
                                                 <div class="cart_button">
@@ -228,13 +190,6 @@
                                                         cart
                                                     </a>
                                                 </div>
-                                                <div class="cart_button">
-                                                    <a class="active" href="checkout.html">
-                                                        <i class="fa fa-sign-in"></i>
-                                                        Checkout
-                                                    </a>
-                                                </div>
-
                                             </div>
                                         </div>
                                         <!--mini cart end-->
@@ -340,6 +295,58 @@
     <script src="~/LayoutAssets/js/map.js"></script>
     @await RenderSectionAsync("Scripts", required: false);
     <script src="~/localStorage/localStorage.js"></script>
+    <script>
+        function GetProductData(productId,color) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: '/Orders/GetProductById',
+                    dataType: 'JSON',
+                    data: { productId: productId, color:color },
+                    success: function (product) {
+                        // Resolve the promise with the received data
+                        resolve(product);
+                    },
+                    error: function () {
+                        // Reject the promise
+                        reject("Error occurred while retrieving product data.");
+                    }
+                });
+            });
+        }
+
+        var cartItemsNav = GetCarts();
+        var countNav = cartItemsNav.length;
+        var CountNavigation = document.getElementById('countCartItemNav');
+        CountNavigation.textContent = countNav;
+        var listCartNav = document.getElementById('list_cart_item');
+        listCartNav.innerHTML = '';
+        cartItemsNav.forEach(function (item) {
+            GetProductData(item.productId,item.color)
+                .then(function (product) {
+                    // Handle the received data
+                    var itemCartNav = document.createElement('div');
+                    itemCartNav.classList.add('cart_item');
+                    itemCartNav.innerHTML = `
+                                                         <div class="cart_img">
+                                                            <a ><img src="/image/product/${product.image}" alt=""></a>
+                                                        </div>
+                                                        <div class="cart_info">
+                                                            <a href="#">${product.productName}</a >
+                                                            <p>${product.price} đ x ${item.color}</p>
+                                                        </div>
+                                                `;
+                    listCartNav.appendChild(itemCartNav);
+                })
+                .catch(function (error) {
+                    // Handle errors
+                    alert(error);
+                });
+
+        });
+    </script>
+
 </body>
 
 </html>

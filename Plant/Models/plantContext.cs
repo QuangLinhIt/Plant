@@ -27,6 +27,8 @@ namespace Plant.Models
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<PaymentTranslation> PaymentTranslations { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductColor> ProductColors { get; set; }
@@ -185,11 +187,46 @@ namespace Plant.Models
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.FeedbackId)
                     .HasConstraintName("FK_Orders_Feedbacks");
+
+                entity.HasOne(d => d.Lang)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.LangId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Orders_Languages");
+
+                entity.HasOne(d => d.Payment)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.PaymentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Orders_Payments");
+            });
+
+            modelBuilder.Entity<PaymentTranslation>(entity =>
+            {
+                entity.HasKey(e => e.PaymentTranId);
+
+                entity.Property(e => e.PaymentName).IsRequired();
+
+                entity.HasOne(d => d.Lang)
+                    .WithMany(p => p.PaymentTranslations)
+                    .HasForeignKey(d => d.LangId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PaymentTranslations_Languages");
+
+                entity.HasOne(d => d.Payment)
+                    .WithMany(p => p.PaymentTranslations)
+                    .HasForeignKey(d => d.PaymentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PaymentTranslations_Payments");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.Property(e => e.Image).IsRequired();
+
+                entity.Property(e => e.OriginalPrice).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
             });
 
             modelBuilder.Entity<ProductCategory>(entity =>
@@ -236,20 +273,10 @@ namespace Plant.Models
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductOrders_Orders");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductOrders)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductOrders_Products");
             });
 
             modelBuilder.Entity<ProductTranslation>(entity =>
             {
-                entity.Property(e => e.OriginalPrice).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
-
                 entity.Property(e => e.ProductName).IsRequired();
 
                 entity.HasOne(d => d.Lang)

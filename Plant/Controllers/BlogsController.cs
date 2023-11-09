@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,12 +26,10 @@ namespace Plant.Controllers
         // GET: Blogs
         public IActionResult Index(int page = 1)
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
-            // value languages= extractedCulture
+            //get selected languages
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
+
             var pageNumber = page;
             var pageSize = 5;
 
@@ -37,7 +37,7 @@ namespace Plant.Controllers
             var category = (from cn in _context.CategoryNews
                             join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
                             join l in _context.Languages on cnt.LangId equals l.LangId
-                            where l.SignLanguages == extractedCulture
+                            where l.SignLanguages == culture
                             select new CategoryNewViewModels()
                             {
                                 CategoryNewId = cn.CategoryNewId,
@@ -52,7 +52,7 @@ namespace Plant.Controllers
             var result = (from b in _context.Blogs
                           join bt in _context.BlogTranslations on b.BlogId equals bt.BlogId
                           join l in _context.Languages on bt.LangId equals l.LangId
-                          where l.SignLanguages == extractedCulture
+                          where l.SignLanguages == culture
                           orderby b.BlogId descending
                           select new BlogVm()
                           {
@@ -71,12 +71,10 @@ namespace Plant.Controllers
         //GET: list blog
         public IActionResult GetListBlog(int page = 1, int id = 0)
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
-            // value languages= extractedCulture
+            //get selected languages
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
+
             var pageNumber = page;
             var pageSize = 5;
 
@@ -84,7 +82,7 @@ namespace Plant.Controllers
             var category = (from cn in _context.CategoryNews
                             join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
                             join l in _context.Languages on cnt.LangId equals l.LangId
-                            where l.SignLanguages == extractedCulture
+                            where l.SignLanguages == culture
                             select new CategoryNewViewModels()
                             {
                                 CategoryNewId = cn.CategoryNewId,
@@ -100,7 +98,7 @@ namespace Plant.Controllers
                           join bt in _context.BlogTranslations on b.BlogId equals bt.BlogId
                           join bc in _context.BlogCategories on b.BlogId equals bc.BlogId
                           join l in _context.Languages on bt.LangId equals l.LangId
-                          where l.SignLanguages == extractedCulture && bc.CategoryNewId == id
+                          where l.SignLanguages == culture && bc.CategoryNewId == id
                           orderby b.BlogId descending
                           select new BlogVm()
                           {
@@ -120,19 +118,15 @@ namespace Plant.Controllers
         //GET:detail blog
         public IActionResult GetDetailBlog(int id = 0)
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
-            // value languages= extractedCulture
-
+            //get selected languages
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
 
             //view data list category start
             var category = (from cn in _context.CategoryNews
                             join cnt in _context.CategoryNewTranslations on cn.CategoryNewId equals cnt.CategoryNewId
                             join l in _context.Languages on cnt.LangId equals l.LangId
-                            where l.SignLanguages == extractedCulture
+                            where l.SignLanguages == culture
                             select new CategoryNewViewModels()
                             {
                                 CategoryNewId = cn.CategoryNewId,
@@ -149,7 +143,7 @@ namespace Plant.Controllers
                                  join bt in _context.BlogTranslations on b.BlogId equals bt.BlogId
                                  join bc in _context.BlogCategories on b.BlogId equals bc.BlogId
                                  join l in _context.Languages on bt.LangId equals l.LangId
-                                 where l.SignLanguages == extractedCulture && b.BlogId != id
+                                 where l.SignLanguages == culture && b.BlogId != id
                                  orderby b.BlogId descending
                                  select new BlogVm()
                                  {
@@ -167,7 +161,7 @@ namespace Plant.Controllers
                           join bt in _context.BlogTranslations on b.BlogId equals bt.BlogId
                           join bc in _context.BlogCategories on b.BlogId equals bc.BlogId
                           join l in _context.Languages on bt.LangId equals l.LangId
-                          where l.SignLanguages == extractedCulture && b.BlogId == id
+                          where l.SignLanguages == culture && b.BlogId == id
                           select new BlogVm()
                           {
                               BlogId = b.BlogId,

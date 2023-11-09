@@ -57,87 +57,65 @@
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product_d_right">
-                        <h1><a href="#">@Model.ProductName</a></h1>
-                        <div class="price_box">
-                            @if (Model.Voucher == null || Model.Voucher <= 0)
-                            {
-                                <span class="current_price">@Model.Price @Model.CurrencyUnit</span>
-                            }
-                            @if (Model.Voucher > 0)
-                            {
-                                <span class="current_price">@Model.Price @Model.CurrencyUnit</span>
-                                <span class="old_price">@Model.OriginalPrice @Model.CurrencyUnit</span>
-                            }
+                    <h1><a href="#">@Model.ProductName</a></h1>
+                    <div class="price_box">
+                        @if (Model.Voucher == null || Model.Voucher <= 0)
+                        {
+                            <span class="current_price">@Model.Price <u>đ</u></span>
+                        }
+                        @if (Model.Voucher > 0)
+                        {
+                            <span class="current_price">@Model.Price <u>đ</u></span>
+                            <span class="old_price">@Model.OriginalPrice <u>đ</u></span>
+                        }
 
-                        </div>
-                        <div class="product_desc">
-                            <p>
-                                @Model.ShortDes
-                            </p>
-                        </div>
-
-                        <div class="product_variant color">
-                            @foreach (var item in listColor)
-                            {
-                                if (item.Color != "Default")
-                                {
-                                    <h3>@Localizer["choose color"]</h3>
-                                }
-                                break;
-                            }
-
-
-                            <ul>
-                                @foreach (var item in listColor)
-                                {
-                                    if (item.Color != "Default")
-                                    {
-                                        <li style="background-color:@item.Color;opacity:0.3;"><a href="#"></a></li>
-                                    }
-                                }
-
-                            </ul>
-                        </div>
-                        <div class="product_variant quantity">
-                            <label>@Localizer["quantity"]</label>
-
-                            <input min="1" max="100" value="1" type="number" id="htmlQuantity"/>
-                            <button class="button" onclick="AddToCart(@Model.ProductId,@Model.Price,@Model.OriginalPrice, document.getElementById('htmlQuantity').value)">@Localizer["add to cart"]</button>
-                        </div>
-                    <div class="priduct_social">
-                        <ul>
-                            <li>
-                                <a class="facebook" href="#" title="facebook">
-                                    <i class="fa-brands fa-facebook-f"></i>
-                                    Like
-                                </a>
-                            </li>
-                            <li>
-                                <a class="twitter" href="#" title="twitter">
-                                    <i class="fa-brands fa-twitter"></i>
-                                    tweet
-                                </a>
-                            </li>
-                            <li>
-                                <a class="pinterest" href="#" title="pinterest">
-                                    <i class="fa-brands fa-pinterest-p"></i>
-                                    save
-                                </a>
-                            </li>
-                            <li>
-                                <a class="google-plus" href="#" title="google +">
-                                    <i class="fa-brands fa-google"></i>
-                                    share
-                                </a>
-                            </li>
-                            <li>
-                                <a class="linkedin" href="#" title="linkedin">
-                                    <i class="fa-brands fa-linkedin-in"></i>
-                                    linked
-                                </a>
-                            </li>
-                        </ul>
                     </div>
+                    <div class="product_desc">
+                        <p>
+                            @Model.ShortDes
+                        </p>
+                    </div>
+                    @foreach (var item in listColor)
+                    {
+                        if (item.Color == "default")
+                        {
+                            <div class="product_variant quantity">
+                                <label>@Localizer["quantity"]</label>
+                                <input min="1" value="1" max="@item.Stock" type="number" id="htmlQuantity" />
+                                <span>@item.Stock sản phẩm có sẵn</span>
+                            </div>
+                            <div style="color:red;display:none;" id="notiQuantity">Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này</div>
+                            <div class="product_variant quantity">
+                                <button class="button" onclick="AddToCart(@Model.ProductId, document.getElementById('htmlQuantity').value, '@item.Color',false)">@Localizer["add to cart"]</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="product_variant color">
+                                <h4>@Localizer["choose color"]</h4>
+                                <ul>
+                                    @foreach (var child in listColor)
+                                    {
+                                        <li onclick="selectColor(this, @child.Stock)">@child.Color</li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="product_variant quantity">
+                                <label>@Localizer["quantity"]</label>
+                                <input min="1" value="1" type="number" id="htmlQuantity" />
+                                <span id="stockSpanColor"></span>
+                            </div>
+                            <div style="color:red;display:none;" id="notiQuantity">Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này</div>
+                            <div class="product_variant quantity">
+                                <button class="button"
+                                        onclick="AddToCart(@Model.ProductId, document.getElementById('htmlQuantity').value, document.querySelector('.product_variant.color li.selected').textContent, false)">
+                                    @Localizer["add to cart"]
+                                </button>
+                            </div>
+                        }
+                        break;
+                    }
+
 
                 </div>
             </div>
@@ -231,12 +209,12 @@
                                     <div class="price_box">
                                         @if (item.Voucher == null || item.Voucher <= 0)
                                         {
-                                            <span class="current_price">@item.Price@item.CurrencyUnit</span>
+                                            <span class="current_price">@item.Price <u>đ</u></span>
                                         }
                                         @if (item.Voucher > 0)
                                         {
-                                            <span class="current_price">@item.Price@item.CurrencyUnit</span>
-                                            <span class="old_price">@item.OriginalPrice@item.CurrencyUnit</span>
+                                            <span class="current_price">@item.Price <u>đ</u></span>
+                                            <span class="old_price">@item.OriginalPrice <u>đ</u></span>
                                         }
                                     </div>
                                 </figcaption>
@@ -266,6 +244,33 @@
                 document.getElementById("main_product").setAttribute("src", imageUrl);
             });
         });
-        console.log(@Model.OriginalPrice);
+
+        function selectColor(li, stock) {
+            var lis = document.querySelectorAll('.product_variant.color li');
+            lis.forEach(function (item) {
+                item.classList.remove("selected");
+            });
+
+            li.classList.add("selected")
+            document.getElementById('stockSpanColor').innerText = stock + ' sản phẩm có sẵn';
+            var maxQuantity = document.getElementById('htmlQuantity');
+            maxQuantity.max = stock;
+            inputQuantity.value = 1;
+            notiQuantity.style.display = 'none';
+        }
+        var inputQuantity = document.getElementById('htmlQuantity');
+        var notiQuantity = document.getElementById('notiQuantity');
+        inputQuantity.addEventListener('input', function () {
+            if (parseInt(inputQuantity.value) > parseInt(inputQuantity.max)) {
+                inputQuantity.value = inputQuantity.max;
+                notiQuantity.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            } else {
+                notiQuantity.style.display = 'none';
+            }
+        })
+
     </script>
 }

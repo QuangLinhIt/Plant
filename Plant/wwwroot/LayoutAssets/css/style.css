@@ -27,7 +27,7 @@
     23. newsletter popup css here
     24. modal css here
 -----------------------------------------------------------------------------------*/
-@import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i|Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i|Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap");
 
 * {
     box-sizing: border-box;
@@ -42,33 +42,24 @@
 /*----------------------------------------*/
     /*-- Google Font --*/
     /*-- Common Style --*/
-    *,
-    *::after,
-    *::before {
+    *, *::after, *::before {
         box-sizing: border-box;
     }
 
-html,
-body {
+html, body {
     height: 100%;
 }
 
 body {
     line-height: 24px;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     visibility: visible;
-    font-family: "Roboto", sans-serif;
     color: #222222;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     margin-top: 0;
 }
@@ -109,8 +100,7 @@ p:last-child {
     margin-bottom: 0;
 }
 
-a,
-button {
+a, button {
     color: inherit;
     line-height: inherit;
     text-decoration: none;
@@ -121,11 +111,7 @@ button {
     box-shadow: none;
 }
 
-a,
-button,
-img,
-input,
-span {
+a, button, img, input, span {
     transition: all 0.3s ease 0s;
 }
 
@@ -143,8 +129,7 @@ a:hover {
     text-decoration: none;
 }
 
-button,
-input[type="submit"] {
+button, input[type="submit"] {
     cursor: pointer;
 }
 
@@ -203,8 +188,7 @@ figure {
     text-transform: uppercase;
 }
 
-.no-gutters > .col,
-.no-gutters > [class*="col-"] {
+.no-gutters > .col, .no-gutters > [class*="col-"] {
     padding-right: 0;
     padding-left: 0;
     margin: 0;
@@ -264,26 +248,22 @@ figure {
 /*-- 
     - Input Placeholder
 -----------------------------------------*/
-input:-moz-placeholder,
-textarea:-moz-placeholder {
+input:-moz-placeholder, textarea:-moz-placeholder {
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
-input::-moz-placeholder,
-textarea::-moz-placeholder {
+input::-moz-placeholder, textarea::-moz-placeholder {
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
@@ -579,6 +559,7 @@ textarea:-ms-input-placeholder {
     border-radius: 3px;
 }
 
+
 /* 2. Home 1 Header css here */
 /* 01. header css here */
 .off_canvars_overlay {
@@ -695,6 +676,9 @@ textarea:-ms-input-placeholder {
     }
 
 
+.footer_widgets {
+    background-color: beige;
+}
 
 .offcanvas_footer {
     margin-top: 50px;
@@ -814,14 +798,13 @@ textarea:-ms-input-placeholder {
 .canvas_open {
     position: absolute;
     right: 30px;
-    top: 25px;
     z-index: 9;
 }
 
 @media only screen and (max-width: 767px) {
     .canvas_open {
         right: 20px;
-        top: 30px;
+        top: 5px;
     }
 }
 
@@ -1748,6 +1731,8 @@ textarea:-ms-input-placeholder {
     .mini_cart.active {
         transform: translateX(0);
         transition: .5s;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
 @media only screen and (max-width: 767px) {
@@ -2184,15 +2169,6 @@ textarea:-ms-input-placeholder {
     .categories_menu_toggle ul li.menu_item_children > a {
         position: relative;
     }
-
-        .categories_menu_toggle ul li.menu_item_children > a::before {
-            position: absolute;
-            content: "+";
-            right: 15px;
-            top: 50%;
-            transform: translatey(-50%);
-            font-size: 20px;
-        }
 }
 
 @media only screen and (max-width: 767px) {
@@ -3293,7 +3269,7 @@ textarea:-ms-input-placeholder {
 }
 
 .header_bottom.sticky-header {
-    background-color: yellowgreen;
+    background-color: #79a206;
 }
 
 .banner_thumb:hover img {
@@ -3532,7 +3508,7 @@ textarea:-ms-input-placeholder {
     font-size: 60px;
     line-height: 60px;
     font-weight: 400;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
     margin-bottom: 22px;
 }
 
@@ -3682,7 +3658,7 @@ textarea:-ms-input-placeholder {
     margin-bottom: 0;
     text-transform: capitalize;
     position: relative;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
     padding-bottom: 22px;
 }
 
@@ -3753,7 +3729,7 @@ textarea:-ms-input-placeholder {
     line-height: 24px;
     text-transform: uppercase;
     display: inline-block;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
     border-bottom: 2px solid transparent;
 }
 
@@ -4288,7 +4264,7 @@ textarea:-ms-input-placeholder {
     font-size: 40px;
     line-height: 48px;
     font-weight: 400;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
     margin-bottom: 0;
 }
 
@@ -4357,9 +4333,6 @@ textarea:-ms-input-placeholder {
     }
 }
 
-.footer_logo {
-    animation: logoAnimation 5s linear infinite;
-}
 
 @media only screen and (max-width: 767px) {
     .welcome_lukani_footer {
@@ -4615,10 +4588,9 @@ textarea:-ms-input-placeholder {
 
 .blog_content h4 {
     font-size: 18px;
-    text-transform: capitalize;
     line-height: 21px;
     margin-bottom: 5px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -4988,7 +4960,7 @@ textarea:-ms-input-placeholder {
     font-size: 14px;
     line-height: 16px;
     text-transform: capitalize;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
     font-weight: 700;
     margin-bottom: 7px;
 }
@@ -5671,7 +5643,7 @@ textarea:-ms-input-placeholder {
     .breadcrumb_content h3 {
         font-size: 50px;
         line-height: 50px;
-        font-family: "Lora", serif;
+        font-family: "Raleway", serif;
         margin-bottom: 9px;
     }
 
@@ -6978,6 +6950,10 @@ textarea:-ms-input-placeholder {
     margin-bottom: 20px;
 }
 
+    .product_variant.quantity span {
+        margin-left: 2%;
+    }
+
 @media only screen and (max-width: 767px) {
     .product_variant.quantity {
         margin-bottom: 16px;
@@ -7023,7 +6999,6 @@ textarea:-ms-input-placeholder {
 .product_variant.quantity button {
     border: 0;
     font-size: 16px;
-    margin-left: 20px;
     background: #79a206;
     height: 42px;
     line-height: 42px;
@@ -7079,14 +7054,25 @@ textarea:-ms-input-placeholder {
 }
 
 .product_variant.color ul li {
+    cursor: pointer;
     display: inline-block;
-    padding: 2px;
-    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 5px;
     margin-right: 5px;
+    opacity: 0.3;
 }
 
     .product_variant.color ul li:hover {
-        border-color: #E88888;
+        color: red;
+        opacity: 1;
+        border: 1px solid red;
+    }
+
+    .product_variant.color ul li.selected {
+        color: red;
+        opacity: 1;
+        border: 1px solid red;
     }
 
     .product_variant.color ul li:last-child {
@@ -7865,15 +7851,59 @@ textarea:-ms-input-placeholder {
 }
 
 /* 13. cart page css here */
+.shopping_cart_area {
+    display: block;
+}
+
+.shopping_cart_area_phone {
+    padding: 20px 20px 40px;
+}
+
+.shopping_cart_phone {
+    display: none;
+    padding: 10px;
+    background-color: white;
+}
+
+    .shopping_cart_phone .checkbox_cart {
+        display: flex;
+    }
+
+    .shopping_cart_phone .name_cart {
+        font-weight: 500;
+    }
+
+    .shopping_cart_phone .color_cart {
+        background-color: beige;
+    }
+
+    .shopping_cart_phone .price_cart {
+        color: #79A206;
+    }
+
+    .shopping_cart_phone .delete_cart {
+        display: flex;
+        align-items: center;
+    }
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .shopping_cart_area {
         margin-top: 80px;
+    }
+
+    .shopping_cart_phone {
+        display: none;
     }
 }
 
 @media only screen and (max-width: 767px) {
     .shopping_cart_area {
         margin-top: 60px;
+        display: none;
+    }
+
+    .shopping_cart_phone {
+        display: block;
     }
 }
 
@@ -7925,18 +7955,15 @@ textarea:-ms-input-placeholder {
         padding: 10px;
     }
 
-        .table_desc .cart_page table tbody tr td.product_remove {
-            min-width: 100px;
+
+        .table_desc .cart_page table tbody tr td.product_remove a {
+            font-size: 20px;
+            color: #222222;
         }
 
-            .table_desc .cart_page table tbody tr td.product_remove a {
-                font-size: 20px;
-                color: #222222;
+            .table_desc .cart_page table tbody tr td.product_remove a:hover {
+                color: #79a206;
             }
-
-                .table_desc .cart_page table tbody tr td.product_remove a:hover {
-                    color: #79a206;
-                }
 
         .table_desc .cart_page table tbody tr td.product_thumb {
             max-width: 180px;
@@ -7946,48 +7973,42 @@ textarea:-ms-input-placeholder {
                 width: 100px;
             }
 
-        .table_desc .cart_page table tbody tr td.product_name {
-            min-width: 180px;
+
+
+        .table_desc .cart_page table tbody tr td.product_name a {
+            color: #222222;
+            text-transform: capitalize;
+            font-size: 14px;
+            font-weight: 400;
         }
 
-            .table_desc .cart_page table tbody tr td.product_name a {
-                color: #222222;
-                text-transform: capitalize;
-                font-size: 14px;
-                font-weight: 400;
+            .table_desc .cart_page table tbody tr td.product_name a:hover {
+                color: #79a206;
             }
-
-                .table_desc .cart_page table tbody tr td.product_name a:hover {
-                    color: #79a206;
-                }
 
         .table_desc .cart_page table tbody tr td.product-price {
             min-width: 130px;
-            color: #222222;
+            color: #79A206;
             font-size: 16px;
             font-weight: 700;
         }
 
-        .table_desc .cart_page table tbody tr td.product_quantity {
-            min-width: 180px;
+
+
+        .table_desc .cart_page table tbody tr td.product_quantity label {
+            font-weight: 700;
+            margin-right: 5px;
         }
 
-            .table_desc .cart_page table tbody tr td.product_quantity label {
-                font-weight: 700;
-                margin-right: 5px;
-            }
-
-            .table_desc .cart_page table tbody tr td.product_quantity input {
-                width: 60px;
-                height: 40px;
-                padding: 0 5px 0 10px;
-                background: none;
-                border: 1px solid #e1e1e1;
-            }
-
-        .table_desc .cart_page table tbody tr td .product_total {
-            min-width: 120px;
+        .table_desc .cart_page table tbody tr td.product_quantity input {
+            width: 60px;
+            height: 40px;
+            padding: 0 5px 0 10px;
+            background: none;
+            border: 1px solid #e1e1e1;
         }
+
+
 
 .cart_page table thead tr:last-child th,
 .table_desc table tbody tr td:last-child {
@@ -8005,7 +8026,7 @@ textarea:-ms-input-placeholder {
     }
 }
 
-.cart_submit button {
+.cart_submit a {
     background: #222222;
     border: 0;
     color: #ffffff;
@@ -8022,7 +8043,7 @@ textarea:-ms-input-placeholder {
     border-radius: 3px;
 }
 
-    .cart_submit button:hover {
+    .cart_submit a:hover {
         background: #79a206;
     }
 
@@ -8530,6 +8551,7 @@ textarea:-ms-input-placeholder {
 
 .order_table {
     margin-bottom: 35px;
+    background: beige;
 }
 
     .order_table table {
@@ -8552,16 +8574,17 @@ textarea:-ms-input-placeholder {
 
         .order_table table tfoot tr th {
             min-width: 50%;
-            text-align: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #ddd;
+            text-align: left;
+            padding: 15px 3%;
+            border: 1px solid #ddd;
         }
 
         .order_table table tfoot tr td {
+            color: #79A206;
             min-width: 50%;
             text-align: center;
             padding: 15px 0;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #ddd;
         }
 
 .panel-default input[type="radio"] {
@@ -8582,6 +8605,9 @@ textarea:-ms-input-placeholder {
 
 .card-body1 {
     margin-bottom: 15px;
+    border: 1px solid;
+    padding: 3%;
+    border-radius: 20px;
 }
 
 /*checkout page css end*/
@@ -9148,7 +9174,7 @@ textarea:-ms-input-placeholder {
 }
 
 .table-responsive table thead {
-    background: #e1e1e1;
+    background: #79A206;
 }
 
     .table-responsive table thead tr th {
@@ -9156,17 +9182,33 @@ textarea:-ms-input-placeholder {
     }
 
 .table-responsive table tbody tr td {
-    border-right: 1px solid #e1e1e1;
-    font-weight: 700;
-    text-transform: capitalize;
+    border: 1px solid #e1e1e1;
     font-size: 14px;
-    text-align: center;
-    min-width: 150px;
+    text-align: left;
 }
 
-    .table-responsive table tbody tr td:last-child a {
-        color: #79a206;
-    }
+.table-responsive .cartDone_name {
+    font-weight: 700;
+    padding-left: 3%;
+}
+
+.table-responsive .cartDone_color {
+    padding-left: 3%;
+}
+
+.table-responsive .cartDone_total {
+    color: #79A206;
+    text-align: center;
+    padding-left: 0px;
+}
+
+.table-responsive .cartDone_price {
+    color: #79A206;
+}
+
+.table-responsive table tbody tr td:last-child a {
+    color: #79a206;
+}
 
 .table-responsive .table {
     border-left: 1px solid #e1e1e1;
@@ -9370,7 +9412,7 @@ textarea:-ms-input-placeholder {
     text-transform: capitalize;
     font-weight: 800;
     margin-bottom: 21px;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
 }
 
 .about_content1 h1 {
@@ -9380,7 +9422,7 @@ textarea:-ms-input-placeholder {
     text-transform: capitalize;
     font-weight: 800;
     margin-bottom: 21px;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -9416,7 +9458,7 @@ textarea:-ms-input-placeholder {
     font-weight: 400;
     line-height: 26px;
     margin-bottom: 19px;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -9575,7 +9617,7 @@ textarea:-ms-input-placeholder {
         font-weight: 400;
         line-height: 33px;
         margin-bottom: 12px;
-        font-family: "Lora", serif;
+        font-family: "Raleway", serif;
     }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -9741,7 +9783,7 @@ textarea:-ms-input-placeholder {
     margin-bottom: 0;
     text-transform: capitalize;
     position: relative;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -9908,7 +9950,7 @@ textarea:-ms-input-placeholder {
     font-weight: 400;
     margin-bottom: 11px;
     line-height: 14px;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
 }
 
 .services_content p {
@@ -9974,7 +10016,7 @@ textarea:-ms-input-placeholder {
         text-transform: uppercase;
         font-weight: 400;
         margin-bottom: 11px;
-        font-family: "Lora", serif;
+        font-family: "Raleway", serif;
     }
 
 @media only screen and (max-width: 767px) {
@@ -10002,7 +10044,7 @@ textarea:-ms-input-placeholder {
 .services_desc h3 {
     font-size: 13px;
     font-weight: 400;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
 }
 
 @media only screen and (max-width: 767px) {
@@ -10054,7 +10096,7 @@ textarea:-ms-input-placeholder {
     text-transform: uppercase;
     font-size: 25px;
     margin-bottom: 20px;
-    font-family: "Lora", serif;
+    font-family: "Raleway", serif;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -10152,7 +10194,7 @@ textarea:-ms-input-placeholder {
         font-weight: 600;
         text-transform: uppercase;
         margin-bottom: 0;
-        font-family: "Lora", serif;
+        font-family: "Raleway", serif;
     }
 
 .priceing_list {
@@ -10407,7 +10449,7 @@ textarea:-ms-input-placeholder {
 .blog_wrapper .blog_content h4 {
     font-size: 26px;
     line-height: 33px;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 

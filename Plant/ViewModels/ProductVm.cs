@@ -13,8 +13,6 @@ namespace Plant.ViewModels
         public int ProductTranslationId { get; set; }
         public int LangId { get; set; }
         public string SignLanguages { get; set; }
-        public string CurrencyUnit { get; set; }
-
         public string ProductName { get; set; }
         public decimal? Price { get; set; }
         public decimal? OriginalPrice { get; set; }
@@ -23,5 +21,7 @@ namespace Plant.ViewModels
         public string TakeCare { get; set; }
         public string Application { get; set; }
         public int CategoryId { get; set; }
+        public string Color { get; set; }
+        public int Stock { get; set; }
     }
 }

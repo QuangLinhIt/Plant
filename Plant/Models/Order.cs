@@ -27,6 +27,8 @@ namespace Plant.Models
 
         public virtual Customer Customer { get; set; }
         public virtual Feedback Feedback { get; set; }
+        public virtual Language Lang { get; set; }
+        public virtual Payment Payment { get; set; }
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }

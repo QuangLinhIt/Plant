@@ -125,49 +125,83 @@
             <div class="tab-pane fade show active">
                 <div class="row">
                     <div class="product_carousel product_column4 owl-carousel">
-                        @foreach (var item in listProduct)
+                        
+                        @for (int i = 0; i < listProduct.Count; i += 2)
                         {
                             <div class="col-lg-3">
                                 <div class="product_items">
                                     <article class="single_product">
                                         <figure>
                                             <div class="product_thumb">
-                                                <a class="primary_img" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@item.ProductId">
-                                                    <img src="~/image/product/@item.Image" alt="">
+                                                <a class="primary_img" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i].ProductId">
+                                                    <img src="~/image/product/@listProduct[i].Image" alt="">
                                                 </a>
-                                                @if (item.Voucher != null)
+                                                @if (listProduct[i].Voucher != null)
                                                 {
                                                     <div class="label_product">
-                                                        <span class="label_sale">-@item.Voucher%</span>
+                                                        <span class="label_sale">-@listProduct[i].Voucher%</span>
                                                     </div>
                                                 }
-                                                
+
                                             </div>
                                             <figcaption class="product_content">
                                                 <h4 class="product_name">
-                                                    <a asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@item.ProductId">
-                                                        @item.ProductName
+                                                    <a asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i].ProductId">
+                                                        @listProduct[i].ProductName
                                                     </a>
                                                 </h4>
                                                 <div class="price_box">
-                                                    @if (item.Voucher == null)
+                                                    @if (listProduct[i].Voucher == null)
                                                     {
-                                                        <span class="current_price">@item.Price@item.CurrencyUnit</span>
+                                                        <span class="current_price">@listProduct[i].Price <u>đ</u></span>
                                                     }
                                                     else
                                                     {
-                                                        <span class="current_price">@item.Price@item.CurrencyUnit</span>
-                                                        <span class="old_price">@item.OriginalPrice@item.CurrencyUnit</span>
+                                                        <span class="current_price">@listProduct[i].Price <u>đ</u></span>
+                                                        <span class="old_price">@listProduct[i].OriginalPrice <u>đ</u></span>
                                                     }
                                                 </div>
                                             </figcaption>
                                         </figure>
                                     </article>
+                                    <article class="single_product">
+                                        <figure>
+                                            <div class="product_thumb">
+                                                <a class="primary_img" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i+1].ProductId">
+                                                    <img src="~/image/product/@listProduct[i+1].Image" alt="">
+                                                </a>
+                                                @if (listProduct[i + 1].Voucher != null)
+                                                {
+                                                    <div class="label_product">
+                                                        <span class="label_sale">-@listProduct[i + 1].Voucher%</span>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                            <figcaption class="product_content">
+                                                <h4 class="product_name">
+                                                    <a asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i+1].ProductId">
+                                                        @listProduct[i + 1].ProductName
+                                                    </a>
+                                                </h4>
+                                                <div class="price_box">
+                                                    @if (listProduct[i + 1].Voucher == null)
+                                                    {
+                                                        <span class="current_price">@listProduct[i + 1].Price <u>đ</u></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="current_price">@listProduct[i + 1].Price <u>đ</u></span>
+                                                        <span class="old_price">@listProduct[i + 1].OriginalPrice <u>đ</u></span>
+                                                    }
+                                                </div>
+                                            </figcaption>
+                                        </figure>
+                                    </article>
+
                                 </div>
                             </div>
-
                         }
-
                     </div>
                 </div>
             </div>
@@ -294,7 +328,7 @@
                                 </div>
                                 <figcaption class="blog_content">
                                     <h4 class="post_title"><a href="blog-details.html">@item.Title</a></h4>
-                                    
+
                                     <p class="post_desc">
                                         @item.ShortDes
                                     </p>

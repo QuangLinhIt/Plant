@@ -139,7 +139,7 @@
                                                 <span class="label_sale">-@item.Voucher% </span>
                                             }
                                         </div>
-                                      
+
                                     </div>
                                     <div class="product_content grid_content">
                                         <div class="product_price_rating">
@@ -152,12 +152,12 @@
                                             <div class="price_box">
                                                 @if (item.Voucher == null || item.Voucher <= 0)
                                                 {
-                                                    <span class="current_price">@item.Price@item.CurrencyUnit</span>
+                                                    <span class="current_price">@item.Price <u>đ</u></span>
                                                 }
                                                 @if (item.Voucher > 0)
                                                 {
-                                                    <span class="current_price">@item.Price@item.CurrencyUnit</span>
-                                                    <span class="old_price">@item.OriginalPrice@item.CurrencyUnit</span>
+                                                    <span class="current_price">@item.Price <u>đ</u></span>
+                                                    <span class="old_price">@item.OriginalPrice <u>đ</u></span>
                                                 }
                                             </div>
                                         </div>
@@ -170,12 +170,12 @@
                                         <div class="price_box">
                                             @if (item.Voucher == null || item.Voucher <= 0)
                                             {
-                                                <span class="current_price">@item.Price@item.CurrencyUnit</span>
+                                                    <span class="current_price">@item.Price.Value.ToString("#.###.###.###") <u>đ</u></span>
                                             }
                                             @if (item.Voucher > 0)
                                             {
-                                                <span class="current_price">@item.Price@item.CurrencyUnit</span>
-                                                <span class="old_price">@item.OriginalPrice@item.CurrencyUnit</span>
+                                                <span class="current_price">@item.Price.Value.ToString("#.###.###.###") <u>đ</u></span>
+                                                <span class="old_price">@item.OriginalPrice.Value.ToString("#.###.###.###") <u>đ</u></span>
                                             }
                                         </div>
                                         <div class="product_desc">

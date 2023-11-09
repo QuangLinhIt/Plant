@@ -62,7 +62,7 @@
                                         <td><div class="avatar avatar-xs rounded"><img src="~/image/product/@item.Product.Image" style="height:50px;width:50px;" /></div></td>
                                         <td>@item.ProductName</td>
                                         <td>
-                                                @item.OriginalPrice @item.Lang.CurrencyUnit
+                                                @item.Product.OriginalPrice đ
                                         </td>
                                         <td>
                                             @if (item.Product.Voucher != null)
@@ -75,7 +75,7 @@
                                             }
                                         </td>
                                         <td>
-                                            @item.Price @item.Lang.CurrencyUnit
+                                            @item.Product.Price đ
                                         </td>
                                         <td>
                                             <a asp-action="AddLanguages" asp-route-id="@item.ProductId" asp-route-langId="@item.LangId" class="mx-2" data-toggle="tooltip" data-original-title="Translation"><i class="far fa-globe text-dark"></i></a>

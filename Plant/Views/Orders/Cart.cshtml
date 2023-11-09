@@ -1,20 +1,5 @@
-﻿<!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb_content">
-                    <h3>Cart</h3>
-                    <ul>
-                        <li><a href="index.html">home</a></li>
-                        <li>Shopping Cart</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--breadcrumbs area end-->
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <!--shopping cart area start -->
 <div class="shopping_cart_area mt-100">
     <div class="container">
@@ -26,43 +11,25 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="product_remove">Delete</th>
+                                        <th></th>
                                         <th class="product_thumb">Image</th>
                                         <th class="product_name">Product</th>
                                         <th class="product-price">Price</th>
+                                        <th class="product-color">Color</th>
                                         <th class="product_quantity">Quantity</th>
-                                        <th class="product_total">Total</th>
+                                        <th class="product_remove">Delete</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="product_remove">
-                                            <a href="#"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-                                        <td class="product_thumb">
-                                            <a href="#">
-                                                <img src="assets/img/s-product/product.jpg" alt="">
-                                            </a>
-                                        </td>
-                                        <td class="product_name"><a href="#">Handbag fringilla</a></td>
-                                        <td class="product-price">£65.00</td>
-                                        <td class="product_quantity">
-                                            <label>Quantity</label> <input min="1"
-                                                                           max="100" value="1" type="number">
-                                        </td>
-                                        <td class="product_total">£130.00</td>
-
-
-                                    </tr>
-
+                                <tbody id="tbodyListCart">
                                 </tbody>
                             </table>
                         </div>
                         <div class="cart_submit">
-                            <button type="submit">update cart</button>
+                            <a type="button" asp-controller="Orders" asp-action="CartDone">update cart</a>
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </form>
@@ -70,9 +37,135 @@
 </div>
 <!--shopping cart area end -->
 
+<div id="listCartPhone" class="shopping_cart_area_phone">
+    <!--shopping cart on phone -->
+</div>
 @section Scripts{
+    <script src="~/localStorage/localStorage.js"></script>
     <script>
-        var cartItems = GetCarts();
+        function GetProductData(productId,color) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: '/Orders/GetProductById',
+                    dataType: 'JSON',
+                    data: { productId: productId ,color:color},
+                    success: function (product) {
+                        // Resolve the promise with the received data
+                        resolve(product);
+                    },
+                    error: function () {
+                        // Reject the promise
+                        reject("Error occurred while retrieving product data.");
+                    }
+                });
+            });
+        }
 
+        var cartItems = GetCarts();
+        var listCartHtml = document.getElementById('tbodyListCart');
+        var listCartHtmlPhone = document.getElementById('listCartPhone');
+        listCartHtml.innerHTML = '';
+        listCartHtmlPhone.innerHTML = '';
+        cartItems.forEach(function (item) {
+            GetProductData(item.productId,item.color)
+                .then(function (product) {
+                    if (item.quantity > product.stock) {
+                        item.quantity = product.stock;
+                        UpdateToCartOnOrder(item.productId, item.quantity, item.color, item.choose);
+                    }
+                    // Handle the received data
+                    var itemCartHtml = document.createElement('tr');
+                    itemCartHtml.innerHTML = `
+                                                                    <td>
+                                                                        <input type="checkbox"/>
+                                                                    </td>
+                                                                    <td class="product_thumb">
+                                                                        <a>
+                                                                            <img src="/image/product/${product.image}" alt = "" >
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="product_name">${product.productName}</td >
+                                                                    <td class="product-price">${product.price}đ</td>
+                                                                    <td class="product_color">${item.color}</td>
+                                                                    <td class="product_quantity">
+                                                                        <label>Quantity</label>
+                                                                        <input min="1" max="${product.stock}" value="${item.quantity}" type="number">
+                                                                        <div style="color:red;">Còn ${product.stock} sản phẩm</div>
+                                                                    </td>
+                                                                    <td class="product_remove">
+                                                                        <a onclick="RemoveCart(${item.productId},'${item.color}')"><i class="fa-solid fa-trash-can"></i></a>
+                                                                    </td>
+                                                            `;
+                    //update when checkbox change
+                    var inputCheckbox = itemCartHtml.querySelector('input[type="checkbox"]');
+                    if (item.choose == false) {
+                        inputCheckbox.checked = false;
+                    } else{
+                        inputCheckbox.checked = true;
+                    }
+                    inputCheckbox.addEventListener('change', function () {
+                        UpdateToCartOnOrder(item.productId, item.quantity, item.color, inputCheckbox.checked);
+                    });
+                    //update when quantity change
+                    var inputNumberQuantity = itemCartHtml.querySelector('input[type="number"]');
+                    inputNumberQuantity.addEventListener('change', function () {
+                        UpdateToCartOnOrder(item.productId, parseInt(inputNumberQuantity.value), item.color, item.choose);
+                    });
+                    //display
+                    listCartHtml.appendChild(itemCartHtml);
+
+                    // Handle the received data on phone
+                    var itemCartHtmlPhone = document.createElement('div');
+                    itemCartHtmlPhone.classList.add('shopping_cart_phone');
+                    itemCartHtmlPhone.innerHTML = `
+                                                        <div class="row">
+                                                            <div class="checkbox_cart col-1">
+                                                                <input type="checkbox" checked="${item.choose}" />
+                                                            </div>
+                                                            <div class="image_cart col-3">
+                                                                <img src="/image/product/${product.image}" alt = "" >
+                                                            </div>
+                                                            <div class="col-7">
+                                                                <div class="name_cart">${product.productName}</div>
+                                                                <div class="color_cart">Phân loại: ${item.color}</div>
+                                                                <div class="price_cart">${product.price}đ</div>
+                                                                <div>
+                                                                    <label>Quantity</label>
+                                                                    <input min="1" max="${product.stock}" value="${item.quantity}" type="number">
+                                                                    <div style="color:red;">Còn ${product.stock} sản phẩm</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="delete_cart col-1">
+                                                                <a onclick="RemoveCart(${item.productId},'${item.color}')"><i class="fa-solid fa-trash-can"></i></a>
+                                                            </div>
+                                                        </div>
+                                            `
+
+                    //update when checkbox change
+                    var inputCheckboxPhone = itemCartHtmlPhone.querySelector('input[type="checkbox"]');
+                    if (item.choose == false) {
+                        inputCheckboxPhone.checked = false;
+                    } else {
+                        inputCheckboxPhone.checked = true;
+                    }
+                    inputCheckboxPhone.addEventListener('change', function () {
+                        UpdateToCartOnOrder(item.productId, item.quantity, item.color, inputCheckboxPhone.checked);
+                    });
+                    //update when quantity change
+                    var inputNumberQuantityPhone = itemCartHtmlPhone.querySelector('input[type="number"]');
+                    inputNumberQuantityPhone.addEventListener('change', function () {
+                        UpdateToCartOnOrder(item.productId, parseInt(inputNumberQuantityPhone.value), item.color, item.choose);
+                    });
+                    //display
+                    listCartHtmlPhone.appendChild(itemCartHtmlPhone);
+                })
+                .catch(function (error) {
+                    // Handle errors
+                    alert(error);
+                });
+
+        });
     </script>
 }

@@ -36,7 +36,6 @@
                                     <th class="py-3">#Mã</th>
                                     <th class="py-3">Ngôn ngữ</th>
                                     <th class="py-3">Kí hiệu</th>
-                                    <th class="py-3">Đơn vị tiền tệ</th>
                                     <th class="py-3">Action</th>
                                 </tr>
                             </thead>
@@ -47,7 +46,6 @@
                                     <td>#@item.LangId</td>
                                     <td>@item.LangName</td>
                                     <td>@item.SignLanguages</td>
-                                    <td>@item.CurrencyUnit</td>
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@item.LangId" class="mx-2" data-toggle="tooltip" data-original-title="Edit"><i class="far fa-sliders-h text-dark"></i></a>
                                         <a asp-action="Delete" asp-route-id="@item.LangId" data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>

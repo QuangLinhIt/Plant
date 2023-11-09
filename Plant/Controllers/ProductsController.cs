@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,12 +26,10 @@ namespace Plant.Controllers
         // GET: Products
         public IActionResult Index( int page = 1)
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
-            // value languages= extractedCulture
+            //get selected languages
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
+
             var pageNumber = page;
             var pageSize = 12;
            
@@ -37,7 +37,7 @@ namespace Plant.Controllers
                 var category = (from c in _context.Categories
                                 join ct in _context.CategoryTranslations on c.CategoryId equals ct.CategoryId
                                 join l in _context.Languages on ct.LangId equals l.LangId
-                                where l.SignLanguages == extractedCulture
+                                where l.SignLanguages == culture
                                 select new CategoryVm()
                                 {
                                     CategoryId = c.CategoryId,
@@ -52,7 +52,7 @@ namespace Plant.Controllers
                 var result = (from p in _context.Products
                               join pt in _context.ProductTranslations on p.ProductId equals pt.ProductId
                               join l in _context.Languages on pt.LangId equals l.LangId
-                              where l.SignLanguages == extractedCulture
+                              where l.SignLanguages == culture
                               select new ProductVm()
                               {
                                   ProductId = p.ProductId,
@@ -61,10 +61,9 @@ namespace Plant.Controllers
                                   ProductTranslationId = pt.ProductTranslationId,
                                   LangId = l.LangId,
                                   SignLanguages = l.SignLanguages,
-                                  CurrencyUnit = l.CurrencyUnit,
                                   ProductName = pt.ProductName,
-                                  Price = pt.Price,
-                                  OriginalPrice = pt.OriginalPrice,
+                                  Price = p.Price,
+                                  OriginalPrice = p.OriginalPrice,
                                   ShortDes = pt.ShortDes,
                               }).ToList();
                 PagedList<ProductVm> models = new PagedList<ProductVm>(result.AsQueryable(), pageNumber, pageSize);
@@ -75,12 +74,10 @@ namespace Plant.Controllers
         //GET: ListProducts
         public IActionResult GetListProducts(int page = 1, int id = 0)
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
-            // value languages= extractedCulture
+            //get selected languages
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
+
             var pageNumber = page;
             var pageSize = 12;
           
@@ -88,7 +85,7 @@ namespace Plant.Controllers
                 var category = (from c in _context.Categories
                                 join ct in _context.CategoryTranslations on c.CategoryId equals ct.CategoryId
                                 join l in _context.Languages on ct.LangId equals l.LangId
-                                where l.SignLanguages == extractedCulture
+                                where l.SignLanguages == culture
                                 select new CategoryVm()
                                 {
                                     CategoryId = c.CategoryId,
@@ -104,7 +101,7 @@ namespace Plant.Controllers
                               join pt in _context.ProductTranslations on p.ProductId equals pt.ProductId
                               join pc in _context.ProductCategories on p.ProductId equals pc.ProductId
                               join l in _context.Languages on pt.LangId equals l.LangId
-                              where l.SignLanguages == extractedCulture && pc.CategoryId==id
+                              where l.SignLanguages == culture && pc.CategoryId==id
                               select new ProductVm()
                               {
                                   ProductId = p.ProductId,
@@ -113,10 +110,9 @@ namespace Plant.Controllers
                                   ProductTranslationId = pt.ProductTranslationId,
                                   LangId = l.LangId,
                                   SignLanguages = l.SignLanguages,
-                                  CurrencyUnit = l.CurrencyUnit,
                                   ProductName = pt.ProductName,
-                                  Price = pt.Price,
-                                  OriginalPrice = pt.OriginalPrice,
+                                  Price = p.Price,
+                                  OriginalPrice = p.OriginalPrice,
                                   ShortDes = pt.ShortDes,
                                   CategoryId=pc.CategoryId
                               }).ToList();
@@ -128,17 +124,14 @@ namespace Plant.Controllers
         //GET: DetailProduct
         public IActionResult GetDetailProduct(int id = 0)
         {
-            //get cookie languages
-            string culture = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-            int cultureStartIndex = culture.IndexOf("c=") + 2;
-            int cultureEndIndex = culture.IndexOf("|");
-            string extractedCulture = culture.Substring(cultureStartIndex, cultureEndIndex - cultureStartIndex);
-            // value languages= extractedCulture
-           
-                var result = (from p in _context.Products
+            //get selected languages
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var culture = cultureInfo.Name;
+
+            var result = (from p in _context.Products
                               join pt in _context.ProductTranslations on p.ProductId equals pt.ProductId
                               join l in _context.Languages on pt.LangId equals l.LangId
-                              where l.SignLanguages == extractedCulture && p.ProductId == id
+                              where l.SignLanguages == culture && p.ProductId == id
                               select new ProductVm()
                               {
                                   ProductId = p.ProductId,
@@ -147,10 +140,9 @@ namespace Plant.Controllers
                                   ProductTranslationId = pt.ProductTranslationId,
                                   LangId = l.LangId,
                                   SignLanguages = l.SignLanguages,
-                                  CurrencyUnit = l.CurrencyUnit,
                                   ProductName = pt.ProductName,
-                                  Price = pt.Price,
-                                  OriginalPrice = pt.OriginalPrice,
+                                  Price = p.Price,
+                                  OriginalPrice = p.OriginalPrice,
                                   ShortDes = pt.ShortDes,
                                   Description = pt.Description,
                                   TakeCare=pt.TakeCare,
@@ -165,7 +157,7 @@ namespace Plant.Controllers
                 var productDifferent = (from p in _context.Products
                               join pt in _context.ProductTranslations on p.ProductId equals pt.ProductId
                               join l in _context.Languages on pt.LangId equals l.LangId
-                              where l.SignLanguages == extractedCulture && p.ProductId!=id
+                              where l.SignLanguages == culture && p.ProductId!=id
                               select new ProductVm()
                               {
                                   ProductId = p.ProductId,
@@ -174,10 +166,9 @@ namespace Plant.Controllers
                                   ProductTranslationId = pt.ProductTranslationId,
                                   LangId = l.LangId,
                                   SignLanguages = l.SignLanguages,
-                                  CurrencyUnit = l.CurrencyUnit,
                                   ProductName = pt.ProductName,
-                                  Price = pt.Price,
-                                  OriginalPrice = pt.OriginalPrice,
+                                  Price = p.Price,
+                                  OriginalPrice = p.OriginalPrice,
                                   ShortDes = pt.ShortDes,
                               }).ToList();
                 ViewData["ProductDifferent"] = productDifferent;

@@ -1,0 +1,269 @@
+﻿<!--Checkout page section-->
+<div class="Checkout_section  mt-100" id="accordion">
+    <div class="container">
+        <div class="checkout_form">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <h3>Thông tin cá nhân</h3>
+                    <div class="row">
+                        <div class="col-lg-12 mb-20">
+                            <label>Họ tên </label>
+                            <input type="text">
+                        </div>
+                        <div class="col-lg-12 mb-20">
+                            <label>Email</label>
+                            <input type="email">
+                        </div>
+                        <div class="col-12 mb-20">
+                            <label>Số điện thoại</label>
+                            <input type="number">
+                        </div>
+                    </div>
+                    <h3>Địa chỉ nhận hàng</h3>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
+                            <label>Tỉnh/ Thành phố</label>
+                            <select class="form-control" id="addressCity" onchange="GetCitySelected()">
+                                <option value="0">Chọn tỉnh, thành phố...</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
+                            <label>Quận/ Huyện</label>
+                            <select class="form-control" id="addressDistrict" onchange="GetDistrictSelected()">
+                                <option value="0">Chọn quận, huyện...</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
+                            <label>Phường/ Xã</label>
+                            <select class="form-control" id="addressWard">
+                                <option value="0">Chọn phường, xã...</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
+                            <label>Số nhà, tên đường</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <h3>Phương thức thanh toán</h3>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="payment_method">
+                                <div class="panel-default">
+                                    <input id="payment" name="check_method" type="radio"
+                                           data-bs-target="createp_account" />
+                                    <label for="payment" data-bs-toggle="collapse" data-bs-target="#method"
+                                           aria-controls="method">Thanh toán khi nhận hàng (COD)</label>
+                                </div>
+                                <div class="panel-default">
+                                    <input id="payment_defult" name="check_method" type="radio"
+                                           data-bs-target="createp_account" />
+                                    <label for="payment_defult" data-bs-toggle="collapse" data-bs-target="#collapsedefult"
+                                           aria-controls="collapsedefult">
+                                        Thanh toán trước qua iBanking
+                                    </label>
+
+                                    <div id="collapsedefult" class="collapse one" data-parent="#accordion">
+                                        <div class="card-body1">
+                                            <p>Thanh toán với hình thức chuyển khoản qua Internet Banking</p>
+                                            <p>Thông tin thanh toán:</p>
+                                            <p>Chủ tài khoản: Nguyễn Quang Linh</p>
+                                            <p><i class="fa-solid fa-circle"></i> ACB: 8953677</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="order_table table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Đơn hàng</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartDoneTbody">
+                                @*script show localStorage*@
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Tổng tiền hàng</th>
+                                    <td id="totalCostOfGoods"></td>
+                                </tr>
+                                <tr>
+                                    <th>Phí vận chuyển</th>
+                                    <td>50.000đ</td>
+                                </tr>
+                                <tr class="order_total">
+                                    <th>Tổng thanh toán</th>
+                                    <td id="totalPaymentGoods"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Checkout page section end-->
+@section Scripts{
+    <script src="~/localStorage/localStorage.js"></script>
+    <script>
+        //show option of city
+        fetch('/AdminAssets/vendors/bizmac-customjs/city.json')
+            .then(response => response.json())
+            .then(data => {
+                var selectCity = document.getElementById('addressCity');
+                for (var i = 0; i < data.length; i++) {
+                    var optionCity = document.createElement('option');
+                    optionCity.value = data[i].code;
+                    optionCity.text = data[i].name_with_type;
+                    selectCity.appendChild(optionCity);
+                }
+            })
+            .catch(error => {
+                // Handle any errors that occur during the fetch
+                console.error('Error:', error);
+            });
+
+        function GetCitySelected() {
+            var selectCity = document.getElementById('addressCity');
+            if (selectCity.value != 0) {
+                fetch(`/AdminAssets/vendors/bizmac-customjs/district/${selectCity.value}.json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        //show option of district when choose value city != 0
+                        var selectDistrict = document.getElementById('addressDistrict');
+                        selectDistrict.innerHTML = '';
+                        var optionDistrict = document.createElement('option');
+                        optionDistrict.value = 0;
+                        optionDistrict.text = "Chọn quận, huyện...";
+                        selectDistrict.appendChild(optionDistrict);
+                        for (var i = 0; i < data.length; i++) {
+                            var optionDistrict = document.createElement('option');
+                            optionDistrict.value = data[i].code;
+                            optionDistrict.text = data[i].name_with_type;
+                            selectDistrict.appendChild(optionDistrict);
+                        }
+                        //set select ward value=0
+                        var selectWard = document.getElementById('addressWard');
+                        selectWard.innerHTML = '';
+                        var optionWard = document.createElement('option');
+                        optionWard.value = 0;
+                        optionWard.text = "Chọn phường, xã...";
+                        selectWard.appendChild(optionWard);
+                    })
+                    .catch(error => {
+                        // Handle any errors that occur during the fetch
+                        console.error('Error:', error);
+                    });
+            } else {
+                //set select district value=0
+                var selectDistrict = document.getElementById('addressDistrict');
+                selectDistrict.innerHTML = '';
+                var optionDistrict = document.createElement('option');
+                optionDistrict.value = 0;
+                optionDistrict.text = "Chọn quận, huyện...";
+                selectDistrict.appendChild(optionDistrict);
+                //set select ward value=0
+                var selectWard = document.getElementById('addressWard');
+                selectWard.innerHTML = '';
+                var optionWard = document.createElement('option');
+                optionWard.value = 0;
+                optionWard.text = "Chọn phường, xã...";
+                selectWard.appendChild(optionWard);
+            }
+        }
+        function GetDistrictSelected() {
+            var selectDistrict = document.getElementById('addressDistrict');
+            if (selectDistrict.value != 0) {
+                fetch(`/AdminAssets/vendors/bizmac-customjs/ward/${selectDistrict.value}.json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        var selectWard = document.getElementById('addressWard');
+                        selectWard.innerHTML = '';
+                        var optionWard = document.createElement('option');
+                        optionWard.value = 0;
+                        optionWard.text = "Chọn phường, xã...";
+                        selectWard.appendChild(optionWard);
+                        for (var i = 0; i < data.length; i++) {
+                            var optionWard = document.createElement('option');
+                            optionWard.value = data[i].code;
+                            optionWard.text = data[i].name_with_type;
+                            selectWard.appendChild(optionWard);
+                        }
+                    })
+                    .catch(error => {
+                        // Handle any errors that occur during the fetch
+                        console.error('Error:', error);
+                    });
+            } else {
+                var selectWard = document.getElementById('addressWard');
+                selectWard.innerHTML = '';
+                var optionWard = document.createElement('option');
+                optionWard.value = 0;
+                optionWard.text = "Chọn phường, xã...";
+                selectWard.appendChild(optionWard);
+            }
+        }
+
+    </script>
+    <script>
+        function GetProductData(productId, color) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: '/Orders/GetProductById',
+                    dataType: 'JSON',
+                    data: { productId: productId, color: color },
+                    success: function (product) {
+                        // Resolve the promise with the received data
+                        resolve(product);
+                    },
+                    error: function () {
+                        // Reject the promise
+                        reject("Error occurred while retrieving product data.");
+                    }
+                });
+            });
+        }
+        var cartItemDones = GetCarts();
+        var listCartDoneHtml = document.getElementById('cartDoneTbody');
+        listCartDoneHtml.innerHTML = '';
+        var TotalCostOfGoods = 0;
+        var TotalPayments = 50000;
+        cartItemDones.forEach(function (item) {
+            GetProductData(item.productId, item.color)
+                .then(function (product) {
+                    if (item.choose == true) {
+                        var itemCartDoneHtml = document.createElement('tr');
+                        itemCartDoneHtml.innerHTML = `
+                                                                <td>
+                                                                    <div class="cartDone_name">${product.productName}</div>
+                                                                    <div class="cartDone_color"><i class="fa-regular fa-circle"></i> ${item.color} | ${product.price}đ | x${item.quantity}</div>
+                                                                </td>
+                                                                <td><div class="cartDone_total">${product.price * item.quantity}đ</div></td >
+                                                                `
+                        listCartDoneHtml.appendChild(itemCartDoneHtml);
+
+                        TotalCostOfGoods += product.price * item.quantity;
+                        document.getElementById('totalCostOfGoods').value = TotalCostOfGoods;
+                        document.getElementById('totalCostOfGoods').textContent = TotalCostOfGoods + "đ";
+
+                        TotalPayments += product.price * item.quantity;
+                        document.getElementById('totalPaymentGoods').value = TotalPayments;
+                        document.getElementById('totalPaymentGoods').textContent = TotalPayments + "đ";
+                    }
+                })
+                .catch(function (error) {
+                    // Handle errors
+                    alert(error);
+                });
+        });
+    </script>
+}
