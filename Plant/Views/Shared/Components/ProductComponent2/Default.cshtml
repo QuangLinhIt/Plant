@@ -5,14 +5,14 @@
         if (item.ParentId == null)
         {
             <li class="menu-item-has-children">
-                <a asp-controller="Products" asp-action="GetListProducts" asp-route-id="@item.CategoryId"><i class="fa-solid fa-minus"></i> @item.CategoryName</a>
+                <a asp-area="" asp-controller="Products" asp-action="GetListProducts" asp-route-id="@item.CategoryId"><i class="fa-solid fa-minus"></i> @item.CategoryName</a>
                 <ul class="sub-menu">
                     @foreach (var child in Model)
                     {
                         if (child.ParentId == item.CategoryId)
                         {
                             <li>
-                                <a asp-controller="Products" asp-action="GetListProducts" asp-route-id="@child.CategoryId"><i class="fa-solid fa-plus"></i> @child.CategoryName</a>
+                                <a asp-area="" asp-controller="Products" asp-action="GetListProducts" asp-route-id="@child.CategoryId"><i class="fa-solid fa-plus"></i> @child.CategoryName</a>
                             </li>
                         }
                     }

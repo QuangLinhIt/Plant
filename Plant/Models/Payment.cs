@@ -10,12 +10,11 @@ namespace Plant.Models
         public Payment()
         {
             Orders = new HashSet<Order>();
-            PaymentTranslations = new HashSet<PaymentTranslation>();
         }
 
         public int PaymentId { get; set; }
+        public string PaymentName { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<PaymentTranslation> PaymentTranslations { get; set; }
     }
 }

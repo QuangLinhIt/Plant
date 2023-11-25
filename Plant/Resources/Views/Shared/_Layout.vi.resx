@@ -153,4 +153,7 @@
   <data name="search product" xml:space="preserve">
     <value>Tìm sản phẩm theo tên...</value>
   </data>
+  <data name="view cart" xml:space="preserve">
+    <value>Xem giỏ hàng</value>
+  </data>
 </root>

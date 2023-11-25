@@ -1,23 +1,39 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/Indoor-House-Plant-Care.jpg') ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3 style="font-weight: 800; color: white; text-shadow: 0 0 0.2em black; ">@Localizer["order"]</h3>
+                    <ul>
+                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
+                        <li style="font-weight: 600; color: yellowgreen; text-shadow: 0 0 0.2em black; ">@Localizer["order"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
 <!--shopping cart area start -->
 <div class="shopping_cart_area mt-100">
     <div class="container">
-        <form action="#">
             <div class="row">
                 <div class="col-12">
                     <div class="table_desc">
                         <div class="cart_page table-responsive">
                             <table>
-                                <thead>
+                                <thead style="background:white; color:black;font-weight:600;">
                                     <tr>
                                         <th></th>
-                                        <th class="product_thumb">Image</th>
-                                        <th class="product_name">Product</th>
-                                        <th class="product-price">Price</th>
-                                        <th class="product-color">Color</th>
-                                        <th class="product_quantity">Quantity</th>
-                                        <th class="product_remove">Delete</th>
+                                        <th class="product_thumb">@Localizer["image"]</th>
+                                        <th class="product_name">@Localizer["product"]</th>
+                                        <th class="product-price">@Localizer["price"]</th>
+                                        <th class="product-color">@Localizer["color"]</th>
+                                        <th class="product_quantity">@Localizer["quantity"]</th>
+                                        <th class="product_remove">@Localizer["delete"]</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyListCart">
@@ -25,14 +41,13 @@
                             </table>
                         </div>
                         <div class="cart_submit">
-                            <a type="button" asp-controller="Orders" asp-action="CartDone">update cart</a>
+                            <a type="button" asp-area="" asp-controller="Orders" asp-action="CartDone">@Localizer["purchase"]</a>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-        </form>
     </div>
 </div>
 <!--shopping cart area end -->
@@ -43,14 +58,14 @@
 @section Scripts{
     <script src="~/localStorage/localStorage.js"></script>
     <script>
-        function GetProductData(productId,color) {
+        function GetProductData(productId, color) {
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     type: "GET",
                     async: true,
                     url: '/Orders/GetProductById',
                     dataType: 'JSON',
-                    data: { productId: productId ,color:color},
+                    data: { productId: productId, color: color },
                     success: function (product) {
                         // Resolve the promise with the received data
                         resolve(product);
@@ -69,7 +84,7 @@
         listCartHtml.innerHTML = '';
         listCartHtmlPhone.innerHTML = '';
         cartItems.forEach(function (item) {
-            GetProductData(item.productId,item.color)
+            GetProductData(item.productId, item.color)
                 .then(function (product) {
                     if (item.quantity > product.stock) {
                         item.quantity = product.stock;
@@ -78,31 +93,31 @@
                     // Handle the received data
                     var itemCartHtml = document.createElement('tr');
                     itemCartHtml.innerHTML = `
-                                                                    <td>
-                                                                        <input type="checkbox"/>
-                                                                    </td>
-                                                                    <td class="product_thumb">
-                                                                        <a>
-                                                                            <img src="/image/product/${product.image}" alt = "" >
-                                                                        </a>
-                                                                    </td>
-                                                                    <td class="product_name">${product.productName}</td >
-                                                                    <td class="product-price">${product.price}đ</td>
-                                                                    <td class="product_color">${item.color}</td>
-                                                                    <td class="product_quantity">
-                                                                        <label>Quantity</label>
-                                                                        <input min="1" max="${product.stock}" value="${item.quantity}" type="number">
-                                                                        <div style="color:red;">Còn ${product.stock} sản phẩm</div>
-                                                                    </td>
-                                                                    <td class="product_remove">
-                                                                        <a onclick="RemoveCart(${item.productId},'${item.color}')"><i class="fa-solid fa-trash-can"></i></a>
-                                                                    </td>
-                                                            `;
+                                                                        <td>
+                                                                            <input type="checkbox"/>
+                                                                        </td>
+                                                                        <td class="product_thumb">
+                                                                            <a>
+                                                                                <img src="/image/product/${product.image}" alt = "" >
+                                                                            </a>
+                                                                        </td>
+                                                                        <td class="product_name">${product.productName}</td >
+                                                                        <td class="product-price">${product.price}đ</td>
+                                                                        <td class="product_color">${item.color}</td>
+                                                                        <td class="product_quantity">
+                                                                            <label>@Localizer["quantity"]</label>
+                                                                            <input min="1" max="${product.stock}" value="${item.quantity}" type="number">
+                                                                            <div style="color:red;">${product.stock} @Localizer["product in stock"]</div>
+                                                                        </td>
+                                                                        <td class="product_remove">
+                                                                            <a onclick="RemoveCart(${item.productId},'${item.color}')"><i class="fa-solid fa-trash-can"></i></a>
+                                                                        </td>
+                                                                `;
                     //update when checkbox change
                     var inputCheckbox = itemCartHtml.querySelector('input[type="checkbox"]');
                     if (item.choose == false) {
                         inputCheckbox.checked = false;
-                    } else{
+                    } else {
                         inputCheckbox.checked = true;
                     }
                     inputCheckbox.addEventListener('change', function () {
@@ -120,28 +135,28 @@
                     var itemCartHtmlPhone = document.createElement('div');
                     itemCartHtmlPhone.classList.add('shopping_cart_phone');
                     itemCartHtmlPhone.innerHTML = `
-                                                        <div class="row">
-                                                            <div class="checkbox_cart col-1">
-                                                                <input type="checkbox" checked="${item.choose}" />
-                                                            </div>
-                                                            <div class="image_cart col-3">
-                                                                <img src="/image/product/${product.image}" alt = "" >
-                                                            </div>
-                                                            <div class="col-7">
-                                                                <div class="name_cart">${product.productName}</div>
-                                                                <div class="color_cart">Phân loại: ${item.color}</div>
-                                                                <div class="price_cart">${product.price}đ</div>
-                                                                <div>
-                                                                    <label>Quantity</label>
-                                                                    <input min="1" max="${product.stock}" value="${item.quantity}" type="number">
-                                                                    <div style="color:red;">Còn ${product.stock} sản phẩm</div>
+                                                            <div class="row">
+                                                                <div class="checkbox_cart col-1">
+                                                                    <input type="checkbox" checked="${item.choose}" />
+                                                                </div>
+                                                                <div class="image_cart col-3">
+                                                                    <img src="/image/product/${product.image}" alt = "" >
+                                                                </div>
+                                                                <div class="col-7">
+                                                                    <div class="name_cart">${product.productName}</div>
+                                                                    <div class="color_cart">Phân loại: ${item.color}</div>
+                                                                    <div class="price_cart">${product.price}đ</div>
+                                                                    <div>
+                                                                        <label>Quantity</label>
+                                                                        <input min="1" max="${product.stock}" value="${item.quantity}" type="number">
+                                                                        <div style="color:red;">Còn ${product.stock} sản phẩm</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="delete_cart col-1">
+                                                                    <a onclick="RemoveCart(${item.productId},'${item.color}')"><i class="fa-solid fa-trash-can"></i></a>
                                                                 </div>
                                                             </div>
-                                                            <div class="delete_cart col-1">
-                                                                <a onclick="RemoveCart(${item.productId},'${item.color}')"><i class="fa-solid fa-trash-can"></i></a>
-                                                            </div>
-                                                        </div>
-                                            `
+                                                `
 
                     //update when checkbox change
                     var inputCheckboxPhone = itemCartHtmlPhone.querySelector('input[type="checkbox"]');

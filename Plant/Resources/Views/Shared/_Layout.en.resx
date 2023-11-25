@@ -153,4 +153,7 @@
   <data name="search product" xml:space="preserve">
     <value>Search product by name...</value>
   </data>
+  <data name="view cart" xml:space="preserve">
+    <value>View Cart</value>
+  </data>
 </root>

@@ -1,8 +1,10 @@
-using AspNetCoreHero.ToastNotification;
+﻿using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Plant.Areas.Identity.Data;
+using Plant.Data;
 using Plant.Models;
 using System;
 using System.Collections.Generic;
@@ -54,12 +58,70 @@ namespace Plant
                 options.SupportedCultures = cultures;
                 options.SupportedUICultures = cultures;
             });
+
+            services.AddDbContext<PlantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PlantContextConnection")));
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<PlantContext>();
+            // Truy cập IdentityOptions
+            services.Configure<IdentityOptions>(options =>
+            {
+                /// Thiết lập về Password
+                options.Password.RequireDigit = true;// Không bắt phải có số
+                options.Password.RequireLowercase = true;// Không bắt phải có chữ thường
+                options.Password.RequireNonAlphanumeric = true;// Không bắt ký tự đặc biệt
+                options.Password.RequireUppercase = true;// Không bắt buộc chữ in
+                options.Password.RequiredLength = 6;// Số ký tự tối thiểu của password
+                options.Password.RequiredUniqueChars = 1;// Số ký tự riêng biệt
+
+                // Cấu hình Lockout - khóa user
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Khóa 5 phút
+                options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lầ thì khóa
+                options.Lockout.AllowedForNewUsers = true;
+
+                // Cấu hình về User.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+
+                //confirm email
+                options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+            });
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                    {
+                        facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                        facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                        facebookOptions.CallbackPath = new PathString("/signin-facebook");
+                        facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
+                    })
+                .AddGoogle(googleOptions =>
+                 {
+                     googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                     googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                     googleOptions.CallbackPath = new PathString("/signin-google");
+                     googleOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
+                 });
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -85,6 +147,8 @@ namespace Plant
 
             app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -97,6 +161,7 @@ namespace Plant
                    name: "default",
                    pattern: "{controller=Home}/{action=Index}/{id?}"
                    );
+                endpoints.MapRazorPages();
             });
         }
 

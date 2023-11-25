@@ -5,7 +5,7 @@
         if (item.ParentNewId == null)
         {
             <li class="menu-item-has-children">
-                <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i>  @item.CategoryNewName</a>
+                <a asp-area="" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i>  @item.CategoryNewName</a>
             </li>
         }
     }

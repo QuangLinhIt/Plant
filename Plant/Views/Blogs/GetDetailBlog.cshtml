@@ -16,7 +16,7 @@
                 <div class="breadcrumb_content">
                     <h3 style="font-weight: 800; color: white; text-shadow: 0 0 0.2em black;">@Localizer["blog"]</h3>
                     <ul>
-                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
+                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
                         <li style="font-weight: 600; color: yellowgreen; text-shadow: 0 0 0.2em black; ">@Localizer["blog"]</li>
                     </ul>
                 </div>
@@ -53,14 +53,14 @@
                                     if (item.CategoryNewId == Model.CategoryNewId)
                                     {
                                         <li>
-                                            <a style="color: lawngreen;" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i> @item.CategoryNewName</a>
+                                            <a style="color: lawngreen;" asp-area="" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i> @item.CategoryNewName</a>
                                             <ul>
                                                 @foreach (var child in category)
                                                 {
                                                     if (child.ParentNewId == item.CategoryNewId)
                                                     {
                                                         <li>
-                                                            <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
+                                                            <a asp-area="" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
                                                         </li>
                                                     }
                                                 }
@@ -70,7 +70,7 @@
                                     else
                                     {
                                         <li>
-                                            <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i> @item.CategoryNewName</a>
+                                            <a asp-area="" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@item.CategoryNewId"><i class="fa-solid fa-minus"></i> @item.CategoryNewName</a>
                                             <ul>
                                                 @foreach (var child in category)
                                                 {
@@ -79,13 +79,13 @@
                                                         if (child.CategoryNewId == Model.CategoryNewId)
                                                         {
                                                             <li>
-                                                                <a style="color: lawngreen;" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
+                                                                <a style="color: lawngreen;" asp-area="" asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
                                                             </li>
                                                         }
                                                         else
                                                         {
                                                             <li>
-                                                                <a asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
+                                                                <a asp-area=""  asp-controller="Blogs" asp-action="GetListBlog" asp-route-id="@child.CategoryNewId">@child.CategoryNewName</a>
                                                             </li>
                                                         }
                                                     }
@@ -124,13 +124,13 @@
                                     <article class="single_related">
                                         <figure>
                                             <div class="related_thumb">
-                                                <a asp-controller="Blogs" asp-action="GetDetailBlog" asp-route-id="@item.BlogId">
+                                                <a asp-area="" asp-controller="Blogs" asp-action="GetDetailBlog" asp-route-id="@item.BlogId">
                                                     <img src="~/image/blog/@item.BlogImg"
                                                          alt="">
                                                 </a>
                                             </div>
                                             <figcaption class="related_content">
-                                                <h4><a asp-controller="Blogs" asp-action="GetDetailBlog" asp-route-id="@item.BlogId">@item.Title</a></h4>
+                                                <h4><a asp-area="" asp-controller="Blogs" asp-action="GetDetailBlog" asp-route-id="@item.BlogId">@item.Title</a></h4>
                                             </figcaption>
                                         </figure>
                                     </article>

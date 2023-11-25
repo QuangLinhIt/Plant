@@ -1,73 +1,117 @@
-﻿<!--Checkout page section-->
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Identity
+@using Plant.Areas.Identity.Data
+@model Plant.Models.Customer
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject IViewLocalizer Localizer
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/Indoor-House-Plant-Care.jpg') ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3 style="font-weight: 800; color: white; text-shadow: 0 0 0.2em black; ">@Localizer["purchase"]</h3>
+                    <ul>
+                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
+                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Orders" asp-action="Cart">@Localizer["order"]</a></li>
+                        <li style="font-weight: 600; color: yellowgreen; text-shadow: 0 0 0.2em black; ">@Localizer["purchase"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--Checkout page section-->
 <div class="Checkout_section  mt-100" id="accordion">
     <div class="container">
-        <div class="checkout_form">
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <h3>Thông tin cá nhân</h3>
+        <div class="checkout_form row">
+            <div class="col-lg-6 col-md-6">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    var user = await UserManager.GetUserAsync(User);
+                    var lastName = user.LastName;
+                    var firstName = user.FirstName;
+                    var email = user.Email;
+                    var phone = user.PhoneNumber;
+                    <h3>@Localizer["person infor"]</h3>
                     <div class="row">
-                        <div class="col-lg-12 mb-20">
-                            <label>Họ tên </label>
-                            <input type="text">
+                        <div class="col-lg-6 col-md-6 col-sm-12 mb-20">
+                            <label>@Localizer["lastname"]</label>
+                            <input type="text" value="@lastName" readonly>
                         </div>
-                        <div class="col-lg-12 mb-20">
+                        <div class="col-lg-6 col-md-6 col-sm-12 mb-20">
+                            <label>@Localizer["firstname"]</label>
+                            <input type="text" value="@firstName" readonly>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-20">
                             <label>Email</label>
-                            <input type="email">
+                            <input type="email" value="@email" readonly>
                         </div>
-                        <div class="col-12 mb-20">
-                            <label>Số điện thoại</label>
-                            <input type="number">
-                        </div>
-                    </div>
-                    <h3>Địa chỉ nhận hàng</h3>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
-                            <label>Tỉnh/ Thành phố</label>
-                            <select class="form-control" id="addressCity" onchange="GetCitySelected()">
-                                <option value="0">Chọn tỉnh, thành phố...</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
-                            <label>Quận/ Huyện</label>
-                            <select class="form-control" id="addressDistrict" onchange="GetDistrictSelected()">
-                                <option value="0">Chọn quận, huyện...</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
-                            <label>Phường/ Xã</label>
-                            <select class="form-control" id="addressWard">
-                                <option value="0">Chọn phường, xã...</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
-                            <label>Số nhà, tên đường</label>
-                            <input type="text" class="form-control">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-20">
+                            <label>@Localizer["phone"]</label>
+                            @if (phone == null)
+                            {
+                                <input type="number">
+                            }
+                            else
+                            {
+                                <input type="number" value="@phone" readonly>
+                            }
                         </div>
                     </div>
-                    <h3>Phương thức thanh toán</h3>
+                    <h3>@Localizer["delivery address"]</h3>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="payment_method">
-                                <div class="panel-default">
-                                    <input id="payment" name="check_method" type="radio"
-                                           data-bs-target="createp_account" />
-                                    <label for="payment" data-bs-toggle="collapse" data-bs-target="#method"
-                                           aria-controls="method">Thanh toán khi nhận hàng (COD)</label>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
+                            <label>@Localizer["city"]</label>
+                            <select class="form-control" id="addressCity" onchange="GetCitySelected()" asp-for="City">
+                                <option value="0">@Localizer["choose city"]</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
+                            <label>@Localizer["district"]</label>
+                            <select class="form-control" id="addressDistrict" onchange="GetDistrictSelected()" asp-for="District">
+                                <option value="0">@Localizer["choose district"]</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
+                            <label>@Localizer["ward"]</label>
+                            <select class="form-control" id="addressWard" asp-for="Ward">
+                                <option value="0">@Localizer["choose ward"]</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
+                            <label>@Localizer["road"]</label>
+                            <input type="text" class="form-control" asp-for="Road">
+                        </div>
+                    </div>
+                }
+
+                <h3>@Localizer["payment"]</h3>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="payment_method">
+                            <div class="panel-default">
+                                <input id="payment" name="check_method" type="radio"
+                                       data-bs-target="createp_account" />
+                                <label for="payment" data-bs-toggle="collapse" data-bs-target="#method"
+                                       aria-controls="method">@Localizer["payment cod"]</label>
                                 </div>
                                 <div class="panel-default">
                                     <input id="payment_defult" name="check_method" type="radio"
                                            data-bs-target="createp_account" />
                                     <label for="payment_defult" data-bs-toggle="collapse" data-bs-target="#collapsedefult"
                                            aria-controls="collapsedefult">
-                                        Thanh toán trước qua iBanking
+                                        @Localizer["payment ibanking"]
                                     </label>
 
                                     <div id="collapsedefult" class="collapse one" data-parent="#accordion">
                                         <div class="card-body1">
-                                            <p>Thanh toán với hình thức chuyển khoản qua Internet Banking</p>
-                                            <p>Thông tin thanh toán:</p>
-                                            <p>Chủ tài khoản: Nguyễn Quang Linh</p>
-                                            <p><i class="fa-solid fa-circle"></i> ACB: 8953677</p>
+                                            <p>@Localizer["method payment"]</p>
+                                            <p>@Localizer["payment infor"]</p>
+                                            <p>@Localizer["payment name"]</p>
+                                            <p><i class="fa-solid fa-star"></i> ACB: 8953677</p>
                                         </div>
                                     </div>
                                 </div>
@@ -80,8 +124,8 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Đơn hàng</th>
-                                    <th>Thành tiền</th>
+                                    <th>@Localizer["your order"]</th>
+                                    <th>@Localizer["money"]</th>
                                 </tr>
                             </thead>
                             <tbody id="cartDoneTbody">
@@ -89,181 +133,185 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Tổng tiền hàng</th>
+                                    <th>@Localizer["cart subtotal"]</th>
                                     <td id="totalCostOfGoods"></td>
                                 </tr>
                                 <tr>
-                                    <th>Phí vận chuyển</th>
+                                    <th>@Localizer["shipping"]</th>
                                     <td>50.000đ</td>
                                 </tr>
                                 <tr class="order_total">
-                                    <th>Tổng thanh toán</th>
+                                    <th>@Localizer["total"]</th>
                                     <td id="totalPaymentGoods"></td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>
+        <div class="order_button" style="text-align:center;">
+            <button>@Localizer["order now"]</button>
+        </div>
     </div>
-</div>
-<!--Checkout page section end-->
-@section Scripts{
-    <script src="~/localStorage/localStorage.js"></script>
-    <script>
-        //show option of city
-        fetch('/AdminAssets/vendors/bizmac-customjs/city.json')
-            .then(response => response.json())
-            .then(data => {
-                var selectCity = document.getElementById('addressCity');
-                for (var i = 0; i < data.length; i++) {
-                    var optionCity = document.createElement('option');
-                    optionCity.value = data[i].code;
-                    optionCity.text = data[i].name_with_type;
-                    selectCity.appendChild(optionCity);
-                }
-            })
-            .catch(error => {
-                // Handle any errors that occur during the fetch
-                console.error('Error:', error);
-            });
+    <!--Checkout page section end-->
 
-        function GetCitySelected() {
-            var selectCity = document.getElementById('addressCity');
-            if (selectCity.value != 0) {
-                fetch(`/AdminAssets/vendors/bizmac-customjs/district/${selectCity.value}.json`)
-                    .then(response => response.json())
-                    .then(data => {
-                        //show option of district when choose value city != 0
-                        var selectDistrict = document.getElementById('addressDistrict');
-                        selectDistrict.innerHTML = '';
-                        var optionDistrict = document.createElement('option');
-                        optionDistrict.value = 0;
-                        optionDistrict.text = "Chọn quận, huyện...";
-                        selectDistrict.appendChild(optionDistrict);
-                        for (var i = 0; i < data.length; i++) {
-                            var optionDistrict = document.createElement('option');
-                            optionDistrict.value = data[i].code;
-                            optionDistrict.text = data[i].name_with_type;
-                            selectDistrict.appendChild(optionDistrict);
-                        }
-                        //set select ward value=0
-                        var selectWard = document.getElementById('addressWard');
-                        selectWard.innerHTML = '';
-                        var optionWard = document.createElement('option');
-                        optionWard.value = 0;
-                        optionWard.text = "Chọn phường, xã...";
-                        selectWard.appendChild(optionWard);
-                    })
-                    .catch(error => {
-                        // Handle any errors that occur during the fetch
-                        console.error('Error:', error);
-                    });
-            } else {
-                //set select district value=0
-                var selectDistrict = document.getElementById('addressDistrict');
-                selectDistrict.innerHTML = '';
-                var optionDistrict = document.createElement('option');
-                optionDistrict.value = 0;
-                optionDistrict.text = "Chọn quận, huyện...";
-                selectDistrict.appendChild(optionDistrict);
-                //set select ward value=0
-                var selectWard = document.getElementById('addressWard');
-                selectWard.innerHTML = '';
-                var optionWard = document.createElement('option');
-                optionWard.value = 0;
-                optionWard.text = "Chọn phường, xã...";
-                selectWard.appendChild(optionWard);
-            }
-        }
-        function GetDistrictSelected() {
-            var selectDistrict = document.getElementById('addressDistrict');
-            if (selectDistrict.value != 0) {
-                fetch(`/AdminAssets/vendors/bizmac-customjs/ward/${selectDistrict.value}.json`)
-                    .then(response => response.json())
-                    .then(data => {
-                        var selectWard = document.getElementById('addressWard');
-                        selectWard.innerHTML = '';
-                        var optionWard = document.createElement('option');
-                        optionWard.value = 0;
-                        optionWard.text = "Chọn phường, xã...";
-                        selectWard.appendChild(optionWard);
-                        for (var i = 0; i < data.length; i++) {
-                            var optionWard = document.createElement('option');
-                            optionWard.value = data[i].code;
-                            optionWard.text = data[i].name_with_type;
-                            selectWard.appendChild(optionWard);
-                        }
-                    })
-                    .catch(error => {
-                        // Handle any errors that occur during the fetch
-                        console.error('Error:', error);
-                    });
-            } else {
-                var selectWard = document.getElementById('addressWard');
-                selectWard.innerHTML = '';
-                var optionWard = document.createElement('option');
-                optionWard.value = 0;
-                optionWard.text = "Chọn phường, xã...";
-                selectWard.appendChild(optionWard);
-            }
-        }
-
-    </script>
-    <script>
-        function GetProductData(productId, color) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    type: "GET",
-                    async: true,
-                    url: '/Orders/GetProductById',
-                    dataType: 'JSON',
-                    data: { productId: productId, color: color },
-                    success: function (product) {
-                        // Resolve the promise with the received data
-                        resolve(product);
-                    },
-                    error: function () {
-                        // Reject the promise
-                        reject("Error occurred while retrieving product data.");
-                    }
-                });
-            });
-        }
-        var cartItemDones = GetCarts();
-        var listCartDoneHtml = document.getElementById('cartDoneTbody');
-        listCartDoneHtml.innerHTML = '';
-        var TotalCostOfGoods = 0;
-        var TotalPayments = 50000;
-        cartItemDones.forEach(function (item) {
-            GetProductData(item.productId, item.color)
-                .then(function (product) {
-                    if (item.choose == true) {
-                        var itemCartDoneHtml = document.createElement('tr');
-                        itemCartDoneHtml.innerHTML = `
-                                                                <td>
-                                                                    <div class="cartDone_name">${product.productName}</div>
-                                                                    <div class="cartDone_color"><i class="fa-regular fa-circle"></i> ${item.color} | ${product.price}đ | x${item.quantity}</div>
-                                                                </td>
-                                                                <td><div class="cartDone_total">${product.price * item.quantity}đ</div></td >
-                                                                `
-                        listCartDoneHtml.appendChild(itemCartDoneHtml);
-
-                        TotalCostOfGoods += product.price * item.quantity;
-                        document.getElementById('totalCostOfGoods').value = TotalCostOfGoods;
-                        document.getElementById('totalCostOfGoods').textContent = TotalCostOfGoods + "đ";
-
-                        TotalPayments += product.price * item.quantity;
-                        document.getElementById('totalPaymentGoods').value = TotalPayments;
-                        document.getElementById('totalPaymentGoods').textContent = TotalPayments + "đ";
+    @section Scripts{
+        <script src="~/localStorage/localStorage.js"></script>
+        <script>
+            //show option of city
+            fetch('/AdminAssets/vendors/bizmac-customjs/city.json')
+                .then(response => response.json())
+                .then(data => {
+                    var selectCity = document.getElementById('addressCity');
+                    for (var i = 0; i < data.length; i++) {
+                        var optionCity = document.createElement('option');
+                        optionCity.value = data[i].code;
+                        optionCity.text = data[i].name_with_type;
+                        selectCity.appendChild(optionCity);
                     }
                 })
-                .catch(function (error) {
-                    // Handle errors
-                    alert(error);
+                .catch(error => {
+                    // Handle any errors that occur during the fetch
+                    console.error('Error:', error);
                 });
-        });
-    </script>
-}
+
+            function GetCitySelected() {
+                var selectCity = document.getElementById('addressCity');
+                if (selectCity.value != 0) {
+                    fetch(`/AdminAssets/vendors/bizmac-customjs/district/${selectCity.value}.json`)
+                        .then(response => response.json())
+                        .then(data => {
+                            //show option of district when choose value city != 0
+                            var selectDistrict = document.getElementById('addressDistrict');
+                            selectDistrict.innerHTML = '';
+                            var optionDistrict = document.createElement('option');
+                            optionDistrict.value = 0;
+                            optionDistrict.text = "Chọn quận, huyện...";
+                            selectDistrict.appendChild(optionDistrict);
+                            for (var i = 0; i < data.length; i++) {
+                                var optionDistrict = document.createElement('option');
+                                optionDistrict.value = data[i].code;
+                                optionDistrict.text = data[i].name_with_type;
+                                selectDistrict.appendChild(optionDistrict);
+                            }
+                            //set select ward value=0
+                            var selectWard = document.getElementById('addressWard');
+                            selectWard.innerHTML = '';
+                            var optionWard = document.createElement('option');
+                            optionWard.value = 0;
+                            optionWard.text = "Chọn phường, xã...";
+                            selectWard.appendChild(optionWard);
+                        })
+                        .catch(error => {
+                            // Handle any errors that occur during the fetch
+                            console.error('Error:', error);
+                        });
+                } else {
+                    //set select district value=0
+                    var selectDistrict = document.getElementById('addressDistrict');
+                    selectDistrict.innerHTML = '';
+                    var optionDistrict = document.createElement('option');
+                    optionDistrict.value = 0;
+                    optionDistrict.text = "Chọn quận, huyện...";
+                    selectDistrict.appendChild(optionDistrict);
+                    //set select ward value=0
+                    var selectWard = document.getElementById('addressWard');
+                    selectWard.innerHTML = '';
+                    var optionWard = document.createElement('option');
+                    optionWard.value = 0;
+                    optionWard.text = "Chọn phường, xã...";
+                    selectWard.appendChild(optionWard);
+                }
+            }
+            function GetDistrictSelected() {
+                var selectDistrict = document.getElementById('addressDistrict');
+                if (selectDistrict.value != 0) {
+                    fetch(`/AdminAssets/vendors/bizmac-customjs/ward/${selectDistrict.value}.json`)
+                        .then(response => response.json())
+                        .then(data => {
+                            var selectWard = document.getElementById('addressWard');
+                            selectWard.innerHTML = '';
+                            var optionWard = document.createElement('option');
+                            optionWard.value = 0;
+                            optionWard.text = "Chọn phường, xã...";
+                            selectWard.appendChild(optionWard);
+                            for (var i = 0; i < data.length; i++) {
+                                var optionWard = document.createElement('option');
+                                optionWard.value = data[i].code;
+                                optionWard.text = data[i].name_with_type;
+                                selectWard.appendChild(optionWard);
+                            }
+                        })
+                        .catch(error => {
+                            // Handle any errors that occur during the fetch
+                            console.error('Error:', error);
+                        });
+                } else {
+                    var selectWard = document.getElementById('addressWard');
+                    selectWard.innerHTML = '';
+                    var optionWard = document.createElement('option');
+                    optionWard.value = 0;
+                    optionWard.text = "Chọn phường, xã...";
+                    selectWard.appendChild(optionWard);
+                }
+            }
+
+        </script>
+        <script>
+            function GetProductData(productId, color) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        type: "GET",
+                        async: true,
+                        url: '/Orders/GetProductById',
+                        dataType: 'JSON',
+                        data: { productId: productId, color: color },
+                        success: function (product) {
+                            // Resolve the promise with the received data
+                            resolve(product);
+                        },
+                        error: function () {
+                            // Reject the promise
+                            reject("Error occurred while retrieving product data.");
+                        }
+                    });
+                });
+            }
+            var cartItemDones = GetCarts();
+            var listCartDoneHtml = document.getElementById('cartDoneTbody');
+            listCartDoneHtml.innerHTML = '';
+            var TotalCostOfGoods = 0;
+            var TotalPayments = 50000;
+            cartItemDones.forEach(function (item) {
+                GetProductData(item.productId, item.color)
+                    .then(function (product) {
+                        if (item.choose == true) {
+                            var priceToMoney = product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                            var cartDoneTotalToMoney = (product.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                            var itemCartDoneHtml = document.createElement('tr');
+                            itemCartDoneHtml.innerHTML = `
+                                                                                        <td>
+                                                                                            <div class="cartDone_name">${product.productName}</div>
+                                                                                            <div class="cartDone_color"><i class="fa-solid fa-star"></i> ${item.color} | ${priceToMoney} | x${item.quantity}</div>
+                                                                                        </td>
+                                                                                        <td><div class="cartDone_total">${cartDoneTotalToMoney}</div></td >
+                                                                                        `
+                            listCartDoneHtml.appendChild(itemCartDoneHtml);
+
+                            TotalCostOfGoods += product.price * item.quantity;
+                            document.getElementById('totalCostOfGoods').value = TotalCostOfGoods;
+                            document.getElementById('totalCostOfGoods').textContent = TotalCostOfGoods.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+                            TotalPayments += product.price * item.quantity;
+                            document.getElementById('totalPaymentGoods').value = TotalPayments;
+                            document.getElementById('totalPaymentGoods').textContent = TotalPayments.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                        }
+                    })
+                    .catch(function (error) {
+                        // Handle errors
+                        alert(error);
+                    });
+            });
+        </script>
+    }

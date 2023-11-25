@@ -16,7 +16,7 @@
                         <div class="slider_content">
                             <h1 style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["potted plant"] </h1>
                             <p style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["discount"] <span>20% </span> @Localizer["luckybamboo member"]</p>
-                            <a class="button" asp-controller="Products" asp-action="Index">@Localizer["discover now"] </a>
+                            <a class="button" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["discover now"] </a>
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         <div class="slider_content">
                             <h1 style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["big sale"]</h1>
                             <p style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["discount"] <span>20% </span> @Localizer["luckybamboo member"]</p>
-                            <a class="button" asp-controller="Products" asp-action="Index">@Localizer["discover now"] </a>
+                            <a class="button" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["discover now"] </a>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         <div class="slider_content">
                             <h1 style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["top sale"]</h1>
                             <p style="color:white;text-shadow: 0 0 0.2em black; ">@Localizer["discount"] <span>20% </span> @Localizer["luckybamboo member"]</p>
-                            <a class="button" asp-controller="Products" asp-action="Index">@Localizer["discover now"] </a>
+                            <a class="button" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["discover now"] </a>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                                     <article class="single_product">
                                         <figure>
                                             <div class="product_thumb">
-                                                <a class="primary_img" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i].ProductId">
+                                                <a class="primary_img" asp-area="" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i].ProductId">
                                                     <img src="~/image/product/@listProduct[i].Image" alt="">
                                                 </a>
                                                 @if (listProduct[i].Voucher != null)
@@ -146,7 +146,7 @@
                                             </div>
                                             <figcaption class="product_content">
                                                 <h4 class="product_name">
-                                                    <a asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i].ProductId">
+                                                    <a asp-area="" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i].ProductId">
                                                         @listProduct[i].ProductName
                                                     </a>
                                                 </h4>
@@ -167,7 +167,7 @@
                                     <article class="single_product">
                                         <figure>
                                             <div class="product_thumb">
-                                                <a class="primary_img" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i+1].ProductId">
+                                                <a class="primary_img" asp-area="" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i+1].ProductId">
                                                     <img src="~/image/product/@listProduct[i+1].Image" alt="">
                                                 </a>
                                                 @if (listProduct[i + 1].Voucher != null)
@@ -180,7 +180,7 @@
                                             </div>
                                             <figcaption class="product_content">
                                                 <h4 class="product_name">
-                                                    <a asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i+1].ProductId">
+                                                    <a asp-area="" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i+1].ProductId">
                                                         @listProduct[i + 1].ProductName
                                                     </a>
                                                 </h4>
@@ -217,7 +217,7 @@
                 <div class="banner_fullwidth_content">
                     <h2>@Localizer["choice plant"]</h2>
                     <p>@Localizer["discount"] <span>20% </span> @Localizer["luckybamboo member"]</p>
-                    <a asp-controller="Products" asp-action="Index">@Localizer["discover now"]</a>
+                    <a asp-area="" asp-controller="Products" asp-action="Index">@Localizer["discover now"]</a>
                 </div>
             </div>
             <div class="earth col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-center">
@@ -324,7 +324,7 @@
                         <article class="single_blog">
                             <figure>
                                 <div class="blog_thumb">
-                                    <a asp-controller="Blogs" asp-action="GetDetailBlog" asp-route-id="@item.BlogId"><img src="~/image/blog/@item.BlogImg" alt=""></a>
+                                    <a asp-area="" asp-controller="Blogs" asp-action="GetDetailBlog" asp-route-id="@item.BlogId"><img src="~/image/blog/@item.BlogImg" alt=""></a>
                                 </div>
                                 <figcaption class="blog_content">
                                     <h4 class="post_title"><a href="blog-details.html">@item.Title</a></h4>

@@ -15,14 +15,14 @@
                 }
                 @if (count > 0)
                 {
-                    <a asp-controller="Products" asp-action="GetListProducts" asp-route-id="@item.CategoryId"> @item.CategoryName <i class="fa fa-angle-right"></i></a>
+                    <a asp-area="" asp-controller="Products" asp-action="GetListProducts" asp-route-id="@item.CategoryId"> @item.CategoryName <i class="fa fa-angle-right"></i></a>
                     <ul class="categories_mega_menu">
                         @foreach (var child in Model)
                         {
                             if (child.ParentId == item.CategoryId)
                             {
                                 <li class="menu_item_children">
-                                    <a asp-controller="Products" asp-action="GetListProducts" asp-route-id="@child.CategoryId"> @child.CategoryName</a>
+                                    <a asp-area="" asp-controller="Products" asp-action="GetListProducts" asp-route-id="@child.CategoryId"> @child.CategoryName</a>
                                 </li>
 
                             }
@@ -32,7 +32,7 @@
                 }
                 else
                 {
-                    <a asp-controller="Products" asp-action="GetListProducts" asp-route-id="@item.CategoryId"> @item.CategoryName</a>
+                    <a asp-area="" asp-controller="Products" asp-action="GetListProducts" asp-route-id="@item.CategoryId"> @item.CategoryName</a>
                 }
             </li>
             count = 0;

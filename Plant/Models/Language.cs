@@ -13,7 +13,6 @@ namespace Plant.Models
             CategoryNewTranslations = new HashSet<CategoryNewTranslation>();
             CategoryTranslations = new HashSet<CategoryTranslation>();
             Orders = new HashSet<Order>();
-            PaymentTranslations = new HashSet<PaymentTranslation>();
             ProductTranslations = new HashSet<ProductTranslation>();
         }
 
@@ -25,7 +24,6 @@ namespace Plant.Models
         public virtual ICollection<CategoryNewTranslation> CategoryNewTranslations { get; set; }
         public virtual ICollection<CategoryTranslation> CategoryTranslations { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<PaymentTranslation> PaymentTranslations { get; set; }
         public virtual ICollection<ProductTranslation> ProductTranslations { get; set; }
     }
 }

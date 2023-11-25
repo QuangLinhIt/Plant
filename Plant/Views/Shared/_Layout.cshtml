@@ -81,22 +81,22 @@
                         <div id="menu" class="text-left ">
                             <ul class="offcanvas_main_menu">
                                 <li class="menu-item-has-children active">
-                                    <a asp-controller="Home" asp-action="Index">@Localizer["home"]</a>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a>
                                 </li>
                                 <li class="menu-item-has-children active">
-                                    <a asp-controller="Home" asp-action="Introduction">@Localizer["introduction"]</a>
+                                    <a asp-area="" asp-controller="Home" asp-action="Introduction">@Localizer["introduction"]</a>
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a asp-controller="Products" asp-action="Index">@Localizer["product"]</a>
+                                    <a asp-area="" asp-controller="Products" asp-action="Index">@Localizer["product"]</a>
                                     @await Component.InvokeAsync("ProductComponent2")
 
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a asp-controller="Blogs" asp-action="Index">@Localizer["science"]</a>
+                                    <a asp-area="" asp-controller="Blogs" asp-action="Index">@Localizer["science"]</a>
                                     @await Component.InvokeAsync("BlogComponent2")
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a asp-controller="Contacts" asp-action="Index">@Localizer["contact"]</a>
+                                    <a asp-area="" asp-controller="Contacts" asp-action="Index">@Localizer["contact"]</a>
                                 </li>
 
                             </ul>
@@ -142,7 +142,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-4 col-4">
                             <div class="logo">
-                                <a asp-controller="Home" asp-action="Index"><img src="~/LayoutAssets/img/logo/logo.png" alt=""></a>
+                                <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/LayoutAssets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-6 col-6">
@@ -157,11 +157,16 @@
                                 </div>
                                 <div class="header_account_area">
                                     <div class="header_account-list top_links">
-                                        <a asp-controller="Users" asp-action="Index"><i class="fa-solid fa-user"></i></a>
+                                        @*<a asp-area="" asp-controller="Users" asp-action="Index"><i class="fa-solid fa-user"></i></a>
                                         <ul class="dropdown_links">
-                                            <li><a asp-controller="Users" asp-action="Login">@Localizer["login"]</a></li>
-                                            <li><a asp-controller="Users" asp-action="Register">@Localizer["register"]</a></li>
-                                        </ul>
+                                            <li>
+                                                <a asp-area="Identity" asp-page="/Account/Login">@Localizer["login"]</a>
+                                            </li>
+                                            <li>
+                                                <a asp-area="Identity" asp-page="/Account/Register">@Localizer["register"]</a>
+                                            </li>
+                                        </ul>*@
+                                        <partial name="_LoginPartial"/>
                                     </div>
                                     <div class="header_account-list  mini_cart_wrapper">
                                         <a href="javascript:void(0)">
@@ -185,9 +190,9 @@
                                             </div>
                                             <div class="mini_cart_footer">
                                                 <div class="cart_button">
-                                                    <a asp-controller="Orders" asp-action="Cart">
-                                                        <i class="fa fa-shopping-cart"></i> View
-                                                        cart
+                                                    <a asp-area="" asp-controller="Orders" asp-action="Cart">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                        @Localizer["view cart"]
                                                     </a>
                                                 </div>
                                             </div>
@@ -220,23 +225,23 @@
                                 <nav>
                                     <ul>
                                         <li>
-                                            <a asp-controller="Home" asp-action="Index">@Localizer["home"]</a>
+                                            <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a>
 
                                         </li>
 
                                         <li>
-                                            <a asp-controller="Home" asp-action="Introduction">@Localizer["introduction"]</a>
+                                            <a asp-area="" asp-controller="Home" asp-action="Introduction">@Localizer["introduction"]</a>
 
                                         </li>
                                         <li>
-                                            <a asp-controller="Products" asp-action="Index">@Localizer["product"]</a>
+                                            <a asp-area="" asp-controller="Products" asp-action="Index">@Localizer["product"]</a>
 
                                         </li>
                                         <li>
-                                            <a asp-controller="Blogs" asp-action="Index">@Localizer["science"]<i class="fa fa-angle-down"></i></a>
+                                            <a asp-area="" asp-controller="Blogs" asp-action="Index">@Localizer["science"]<i class="fa fa-angle-down"></i></a>
                                             @await Component.InvokeAsync("BlogComponent1")
                                         </li>
-                                        <li><a asp-controller="Contacts" asp-action="Index">@Localizer["contact"]</a></li>
+                                        <li><a asp-area="" asp-controller="Contacts" asp-action="Index">@Localizer["contact"]</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -296,14 +301,14 @@
     @await RenderSectionAsync("Scripts", required: false);
     <script src="~/localStorage/localStorage.js"></script>
     <script>
-        function GetProductData(productId,color) {
+        function GetProductData(productId, color) {
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     type: "GET",
                     async: true,
                     url: '/Orders/GetProductById',
                     dataType: 'JSON',
-                    data: { productId: productId, color:color },
+                    data: { productId: productId, color: color },
                     success: function (product) {
                         // Resolve the promise with the received data
                         resolve(product);
@@ -323,20 +328,20 @@
         var listCartNav = document.getElementById('list_cart_item');
         listCartNav.innerHTML = '';
         cartItemsNav.forEach(function (item) {
-            GetProductData(item.productId,item.color)
+            GetProductData(item.productId, item.color)
                 .then(function (product) {
                     // Handle the received data
                     var itemCartNav = document.createElement('div');
                     itemCartNav.classList.add('cart_item');
                     itemCartNav.innerHTML = `
-                                                         <div class="cart_img">
-                                                            <a ><img src="/image/product/${product.image}" alt=""></a>
-                                                        </div>
-                                                        <div class="cart_info">
-                                                            <a href="#">${product.productName}</a >
-                                                            <p>${product.price} đ x ${item.color}</p>
-                                                        </div>
-                                                `;
+                                                                     <div class="cart_img">
+                                                                        <a ><img src="/image/product/${product.image}" alt=""></a>
+                                                                    </div>
+                                                                    <div class="cart_info">
+                                                                        <a href="#">${product.productName}</a >
+                                                                        <p>${product.price} đ x ${item.color}</p>
+                                                                    </div>
+                                                            `;
                     listCartNav.appendChild(itemCartNav);
                 })
                 .catch(function (error) {

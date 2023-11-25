@@ -7939,7 +7939,6 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
     .table_desc .cart_page table thead tr th {
-        border-bottom: 3px solid #79a206;
         border-right: 1px solid #e1e1e1;
         font-size: 16px;
         font-weight: 700;
@@ -8463,6 +8462,13 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     }
 
 @media only screen and (max-width: 767px) {
+    .checkout_form {
+        display:flex;
+        flex-direction: column-reverse;
+    }
+}
+
+@media only screen and (max-width: 767px) {
     .checkout_form label.righ_0 {
         font-size: 13px;
         line-height: 25px;
@@ -8551,7 +8557,9 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .order_table {
     margin-bottom: 35px;
-    background: beige;
+    background-color: cornsilk;
+    border: 3px solid;
+    border-radius: 5%;
 }
 
     .order_table table {
@@ -8952,6 +8960,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     }
 }
 
+.customer_login button {
+    background-color: black;
+    color: white;
+}
+
 .account_form p {
     margin-bottom: 20px;
 }
@@ -9174,11 +9187,12 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .table-responsive table thead {
-    background: #79A206;
+    
 }
 
     .table-responsive table thead tr th {
         text-align: center;
+        font-size: 18px;
     }
 
 .table-responsive table tbody tr td {
