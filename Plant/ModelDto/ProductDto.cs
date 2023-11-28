@@ -16,8 +16,8 @@ namespace Plant.ModelDto
         public string LangName { get; set; }
         public int? Voucher { get; set; }
         public string ProductName { get; set; }
-        public decimal? Price { get; set; }
-        public decimal? OriginalPrice { get; set; }
+        public decimal Price { get; set; }
+        public decimal OriginalPrice { get; set; }
         public string ShortDes { get; set; }
         public string Description { get; set; }
         public string TakeCare { get; set; }

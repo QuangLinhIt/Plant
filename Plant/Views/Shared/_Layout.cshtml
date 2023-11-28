@@ -330,6 +330,7 @@
         cartItemsNav.forEach(function (item) {
             GetProductData(item.productId, item.color)
                 .then(function (product) {
+                    var priceMiniCartToMoney=product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
                     // Handle the received data
                     var itemCartNav = document.createElement('div');
                     itemCartNav.classList.add('cart_item');
@@ -339,7 +340,7 @@
                                                                     </div>
                                                                     <div class="cart_info">
                                                                         <a href="#">${product.productName}</a >
-                                                                        <p>${product.price} đ x ${item.color}</p>
+                                                                        <p>${priceMiniCartToMoney} x ${item.color}</p>
                                                                     </div>
                                                             `;
                     listCartNav.appendChild(itemCartNav);

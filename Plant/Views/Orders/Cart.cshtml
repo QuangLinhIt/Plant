@@ -90,6 +90,7 @@
                         item.quantity = product.stock;
                         UpdateToCartOnOrder(item.productId, item.quantity, item.color, item.choose);
                     }
+                    var priceCartToMoney = product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
                     // Handle the received data
                     var itemCartHtml = document.createElement('tr');
                     itemCartHtml.innerHTML = `
@@ -102,7 +103,7 @@
                                                                             </a>
                                                                         </td>
                                                                         <td class="product_name">${product.productName}</td >
-                                                                        <td class="product-price">${product.price}đ</td>
+                                                                        <td class="product-price">${priceCartToMoney}</td>
                                                                         <td class="product_color">${item.color}</td>
                                                                         <td class="product_quantity">
                                                                             <label>@Localizer["quantity"]</label>
@@ -145,7 +146,7 @@
                                                                 <div class="col-7">
                                                                     <div class="name_cart">${product.productName}</div>
                                                                     <div class="color_cart">Phân loại: ${item.color}</div>
-                                                                    <div class="price_cart">${product.price}đ</div>
+                                                                    <div class="price_cart">${priceCartToMoney}</div>
                                                                     <div>
                                                                         <label>Quantity</label>
                                                                         <input min="1" max="${product.stock}" value="${item.quantity}" type="number">

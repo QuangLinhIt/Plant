@@ -61,12 +61,12 @@
                     <div class="price_box">
                         @if (Model.Voucher == null || Model.Voucher <= 0)
                         {
-                            <span class="current_price">@Model.Price <u>đ</u></span>
+                        <span class="current_price">@Model.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
                         }
                         @if (Model.Voucher > 0)
                         {
-                            <span class="current_price">@Model.Price <u>đ</u></span>
-                            <span class="old_price">@Model.OriginalPrice <u>đ</u></span>
+                    <span class="current_price">@Model.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                    <span class="old_price">@Model.OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
                         }
 
                     </div>

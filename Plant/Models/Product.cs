@@ -19,8 +19,8 @@ namespace Plant.Models
         public int ProductId { get; set; }
         public string Image { get; set; }
         public int? Voucher { get; set; }
-        public decimal? Price { get; set; }
-        public decimal? OriginalPrice { get; set; }
+        public decimal Price { get; set; }
+        public decimal OriginalPrice { get; set; }
 
         public virtual ICollection<ProductCategory> ProductCategories { get; set; }
         public virtual ICollection<ProductColor> ProductColors { get; set; }

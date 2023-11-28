@@ -68,7 +68,7 @@ namespace Plant.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
         }
     }

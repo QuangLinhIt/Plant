@@ -1,0 +1,85 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<!doctype html>
+<html class="no-js" lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Lucky BamBoo – Plant Shop</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/LayoutAssets/img/favicon.ico">
+    <!-- CSS
+    ========================= -->
+    <!--bootstrap min css-->
+    <link rel="stylesheet" href="~/LayoutAssets/css/bootstrap.min.css">
+    <!--owl carousel min css-->
+    <link rel="stylesheet" href="~/LayoutAssets/css/owl.carousel.min.css">
+    <!--slick min css-->
+    <link rel="stylesheet" href="~/LayoutAssets/css/slick.css">
+    <!--magnific popup min css-->
+    <link rel="stylesheet" href="~/LayoutAssets/css/magnific-popup.css">
+    <!--font awesome css-->
+    <link rel="stylesheet" href="~/LayoutAssets/fontawesome/css/all.min.css">
+    <!--animate css-->
+    <link rel="stylesheet" href="~/LayoutAssets/css/animate.css">
+    <!--jquery ui min css-->
+    <link rel="stylesheet" href="~/LayoutAssets/css/jquery-ui.min.css">
+    <!--slinky menu css-->
+    <link rel="stylesheet" href="~/LayoutAssets/css/slinky.menu.css">
+    <!--plugins css-->
+    <link rel="stylesheet" href="~/LayoutAssets/css/plugins.css">
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="~/LayoutAssets/css/style.css">
+
+    <!--modernizr min js here-->
+    <script src="~/LayoutAssets/js/vendor/modernizr-3.7.1.min.js"></script>
+
+</head>
+
+<body>
+    @RenderBody()
+   
+    <!-- JS
+    ============================================ -->
+    <!--jquery min js-->
+    <script src="~/LayoutAssets/js/vendor/jquery-3.4.1.min.js"></script>
+    <!--popper min js-->
+    <script src="~/LayoutAssets/js/popper.js"></script>
+    <!--bootstrap min js-->
+    <script src="~/LayoutAssets/js/bootstrap.min.js"></script>
+    <!--owl carousel min js-->
+    <script src="~/LayoutAssets/js/owl.carousel.min.js"></script>
+    <!--slick min js-->
+    <script src="~/LayoutAssets/js/slick.min.js"></script>
+    <!--magnific popup min js-->
+    <script src="~/LayoutAssets/js/jquery.magnific-popup.min.js"></script>
+    <!--counterup min js-->
+    <script src="~/LayoutAssets/js/jquery.counterup.min.js"></script>
+    <!--jquery countdown min js-->
+    <script src="~/LayoutAssets/js/jquery.countdown.js"></script>
+    <!--jquery ui min js-->
+    <script src="~/LayoutAssets/js/jquery.ui.js"></script>
+    <!--jquery elevatezoom min js-->
+    <script src="~/LayoutAssets/js/jquery.elevatezoom.js"></script>
+    <!--isotope packaged min js-->
+    <script src="~/LayoutAssets/js/isotope.pkgd.min.js"></script>
+    <!--slinky menu js-->
+    <script src="~/LayoutAssets/js/slinky.menu.js"></script>
+    <!-- Plugins JS -->
+    <script src="~/LayoutAssets/js/plugins.js"></script>
+
+    <!-- Main JS -->
+    <script src="~/LayoutAssets/js/main.js"></script>
+   
+    @await RenderSectionAsync("Scripts", required: false);
+</body>
+
+</html>

@@ -153,12 +153,12 @@
                                                 <div class="price_box">
                                                     @if (listProduct[i].Voucher == null)
                                                     {
-                                                        <span class="current_price">@listProduct[i].Price <u>đ</u></span>
+                                                        <span class="current_price">@listProduct[i].Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
                                                     }
                                                     else
                                                     {
-                                                        <span class="current_price">@listProduct[i].Price <u>đ</u></span>
-                                                        <span class="old_price">@listProduct[i].OriginalPrice <u>đ</u></span>
+                                                        <span class="current_price">@listProduct[i].Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                                        <span class="old_price">@listProduct[i].OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
                                                     }
                                                 </div>
                                             </figcaption>
@@ -187,12 +187,12 @@
                                                 <div class="price_box">
                                                     @if (listProduct[i + 1].Voucher == null)
                                                     {
-                                                        <span class="current_price">@listProduct[i + 1].Price <u>đ</u></span>
+                                                        <span class="current_price">@listProduct[i + 1].Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
                                                     }
                                                     else
                                                     {
-                                                        <span class="current_price">@listProduct[i + 1].Price <u>đ</u></span>
-                                                        <span class="old_price">@listProduct[i + 1].OriginalPrice <u>đ</u></span>
+                                                        <span class="current_price">@listProduct[i + 1].Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                                        <span class="old_price">@listProduct[i + 1].OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
                                                     }
                                                 </div>
                                             </figcaption>

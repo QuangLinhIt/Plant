@@ -675,9 +675,42 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
         padding-left: 20px;
     }
 
+.account_body_login {
+    background-image: url('../img/account/80-70700612893e921ac91276a04967d608.jpeg');
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    padding: 120px 10px;
+    color:white;
+}
+
+    .account_body_login .form-control {
+        border: 1px solid #ced4da;
+        background-color: darkgreen;
+        height: 50px;
+        border-radius: 40px;
+        margin: 0 0 10px 0;
+        color: white;
+    }
+    .account_body_login .form-control::placeholder {
+        color: white;
+    }
+
+        .account_body_login .form-control:hover {
+            background-color: darkgreen;
+        }
+
+        .account_body_login .form-control:focus {
+            background-color: darkgreen;
+        }
+
+
 
 .footer_widgets {
-    background-color: beige;
+    background-image: url('../img/footer/Shiny Overlay.svg');
+    color: white;
 }
 
 .offcanvas_footer {
@@ -7934,18 +7967,15 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     }
 }
 
-.table_desc .cart_page table {
-    width: 100%;
-}
 
-    .table_desc .cart_page table thead tr th {
-        border-right: 1px solid #e1e1e1;
-        font-size: 16px;
-        font-weight: 700;
-        text-transform: capitalize;
-        padding: 10px;
-        text-align: center;
-    }
+.table_desc .cart_page table thead tr th {
+    border-right: 1px solid #e1e1e1;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: capitalize;
+    padding: 10px;
+    text-align: center;
+}
 
     .table_desc .cart_page table tbody tr td {
         border-bottom: 1px solid #e1e1e1;
@@ -8463,7 +8493,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 @media only screen and (max-width: 767px) {
     .checkout_form {
-        display:flex;
+        display: flex;
         flex-direction: column-reverse;
     }
 }
@@ -9187,7 +9217,6 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .table-responsive table thead {
-    
 }
 
     .table-responsive table thead tr th {
