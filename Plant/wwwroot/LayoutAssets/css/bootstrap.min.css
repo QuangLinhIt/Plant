@@ -262,6 +262,7 @@ img, svg {
 }
 
 table {
+    width:100%;
     caption-side: bottom;
     border-collapse: collapse
 }
@@ -275,7 +276,7 @@ caption {
 
 th {
     text-align: inherit;
-    text-align: -webkit-match-parent
+    text-align: -webkit-match-parent;
 }
 
 tbody, td, tfoot, th, thead, tr {

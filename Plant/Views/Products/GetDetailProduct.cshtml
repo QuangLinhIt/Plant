@@ -10,7 +10,7 @@
     List<ProductVm> productDifferent = ViewBag.ProductDifferent;
 }
 <!--breadcrumbs area start-->
-<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/uploads_1595672124171-_INTERIOR_PLANTS_PACK.jpg') ">
+<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/capturar-co2-atmosfera.jpg') ">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -197,7 +197,7 @@
                         <article class="single_product">
                             <figure>
                                 <div class="product_thumb">
-                                    <a class="primary_img" href="product-details.html">
+                                    <a class="primary_img" asp-area="" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@item.ProductId">
                                         <img src="~/image/product/@item.Image" alt="">
                                     </a>
                                     <div class="label_product">

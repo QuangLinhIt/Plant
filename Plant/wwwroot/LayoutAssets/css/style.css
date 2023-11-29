@@ -1,4 +1,4 @@
-/*-----------------------------------------------------------------------------------
+﻿/*-----------------------------------------------------------------------------------
 
     CSS INDEX
     =========================================
@@ -676,38 +676,67 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     }
 
 .account_body_login {
-    background-image: url('../img/account/80-70700612893e921ac91276a04967d608.jpeg');
+    background-image: url('../img/account/wall-is-made-brick-then-painted-white_24901-1260.png');
     width: 100%;
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
     overflow: hidden;
     padding: 120px 10px;
-    color:white;
 }
 
     .account_body_login .form-control {
         border: 1px solid #ced4da;
-        background-color: darkgreen;
+        background-color: rgba(0,0,0,.2);
         height: 50px;
         border-radius: 40px;
         margin: 0 0 10px 0;
-        color: white;
+        color:white;
     }
-    .account_body_login .form-control::placeholder {
-        color: white;
-    }
+
+        .account_body_login .form-control::placeholder {
+            color: white;
+        }
 
         .account_body_login .form-control:hover {
-            background-color: darkgreen;
+            background-color: rgba(0,0,0,.2);
         }
+
 
         .account_body_login .form-control:focus {
-            background-color: darkgreen;
+            background-color: rgba(0,0,0,.2);
         }
 
+.account_login_input_checkbox:checked {
+    accent-color: #79A206;
+}
+.table_desc_checkbox:checked {
+    accent-color: #79A206;
+}
+.account_forgot_password {
+    float: right;
+}
 
-
+    .account_forgot_password a:hover {
+        color: red;
+    }
+.account_login_label{
+    font-size:16px;
+    font-weight:500;
+}
+.account_body_login button.account_login_submit {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #79A206;
+    border-radius: 40px;
+    background-color: #79A206;
+    color: white;
+}
+.account_login_different {
+    height: 50px;
+    width:49%;
+}
 .footer_widgets {
     background-image: url('../img/footer/Shiny Overlay.svg');
     color: white;
@@ -7977,65 +8006,65 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     text-align: center;
 }
 
-    .table_desc .cart_page table tbody tr td {
-        border-bottom: 1px solid #e1e1e1;
-        border-right: 1px solid #e1e1e1;
-        text-align: center;
-        padding: 10px;
+.table_desc .cart_page table tbody tr td {
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    text-align: center;
+    padding: 10px;
+}
+
+
+    .table_desc .cart_page table tbody tr td.product_remove a {
+        font-size: 20px;
+        color: #222222;
+    }
+
+        .table_desc .cart_page table tbody tr td.product_remove a:hover {
+            color: #79a206;
+        }
+
+    .table_desc .cart_page table tbody tr td.product_thumb {
+        max-width: 180px;
+    }
+
+        .table_desc .cart_page table tbody tr td.product_thumb a img {
+            width: 100px;
+        }
+
+
+
+    .table_desc .cart_page table tbody tr td.product_name a {
+        color: #222222;
+        text-transform: capitalize;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+        .table_desc .cart_page table tbody tr td.product_name a:hover {
+            color: #79a206;
+        }
+
+    .table_desc .cart_page table tbody tr td.product-price {
+        min-width: 130px;
+        color: #79A206;
+        font-size: 16px;
+        font-weight: 700;
     }
 
 
-        .table_desc .cart_page table tbody tr td.product_remove a {
-            font-size: 20px;
-            color: #222222;
-        }
 
-            .table_desc .cart_page table tbody tr td.product_remove a:hover {
-                color: #79a206;
-            }
+    .table_desc .cart_page table tbody tr td.product_quantity label {
+        font-weight: 700;
+        margin-right: 5px;
+    }
 
-        .table_desc .cart_page table tbody tr td.product_thumb {
-            max-width: 180px;
-        }
-
-            .table_desc .cart_page table tbody tr td.product_thumb a img {
-                width: 100px;
-            }
-
-
-
-        .table_desc .cart_page table tbody tr td.product_name a {
-            color: #222222;
-            text-transform: capitalize;
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-            .table_desc .cart_page table tbody tr td.product_name a:hover {
-                color: #79a206;
-            }
-
-        .table_desc .cart_page table tbody tr td.product-price {
-            min-width: 130px;
-            color: #79A206;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-
-
-        .table_desc .cart_page table tbody tr td.product_quantity label {
-            font-weight: 700;
-            margin-right: 5px;
-        }
-
-        .table_desc .cart_page table tbody tr td.product_quantity input {
-            width: 60px;
-            height: 40px;
-            padding: 0 5px 0 10px;
-            background: none;
-            border: 1px solid #e1e1e1;
-        }
+    .table_desc .cart_page table tbody tr td.product_quantity input {
+        width: 60px;
+        height: 40px;
+        padding: 0 5px 0 10px;
+        background: none;
+        border: 1px solid #e1e1e1;
+    }
 
 
 
