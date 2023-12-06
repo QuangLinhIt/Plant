@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PagedList.Core;
+using Plant.ModelDto;
 using Plant.Models;
 
 namespace Plant.Areas.Admin.Controllers
@@ -20,38 +22,35 @@ namespace Plant.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminOrders
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page=1,int day=0,int month=0,int year=0)
         {
-            var plantContext = _context.Orders.Include(o => o.Feedback);
-            return View(await plantContext.ToListAsync());
+            var pageNumber = page;
+            var pageSize = 10;
+            var result = (from o in _context.Orders
+                         join c in _context.Customers on o.CustomerId equals c.CustomerId
+                         orderby o.OrderId descending
+                         select new OrderDto()
+                         {
+                             OrderId = o.OrderId,
+                             CustomerId = o.CustomerId,
+                             FirstName=c.FirstName,
+                             LastName=c.LastName,
+                             Email = c.Email,
+                             Total = o.Total,
+                             CreateDate = o.CreateDate,
+                             OrderStatus=o.OrderStatus
+                         }).ToList();
+            PagedList<OrderDto> models = new PagedList<OrderDto>(result.AsQueryable(), pageNumber, pageSize);
+            ViewBag.CurrentPage = pageNumber;
+            return View(models);
         }
-
-      
-
-        // GET: Admin/AdminOrders/Create
-        public IActionResult Create()
+        public IActionResult FiltterCalendar(int day=0,int month=0,int year=0)
         {
-            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent");
-            return View();
+            var url = $"/Admin/AdminOrders/Index?day={day}&month={month}&year={year}";
+            if (day==0 || month ==0 || year==0)
+                url = $"/Admin/AdminOrders/Index";
+            return Json(new { status = "success", redirectUrl = url });
         }
-
-        // POST: Admin/AdminOrders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,LangId,CustomerId,PaymentId,PaymentStatus,FeedbackId,CreateDate,Money,ShipFee,Total,OrderStatus,Deleted")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
-            return View(order);
-        }
-
         // GET: Admin/AdminOrders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -65,7 +64,8 @@ namespace Plant.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Email", order.CustomerId);
+            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentName", order.PaymentId);
             return View(order);
         }
 
@@ -74,7 +74,7 @@ namespace Plant.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,LangId,CustomerId,PaymentId,PaymentStatus,FeedbackId,CreateDate,Money,ShipFee,Total,OrderStatus,Deleted")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,CustomerId,PaymentId,PaymentStatus,CreateDate,Money,ShipFee,Total,OrderStatus,Deleted")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -101,7 +101,8 @@ namespace Plant.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Email", order.CustomerId);
+            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentName", order.PaymentId);
             return View(order);
         }
 
@@ -114,7 +115,8 @@ namespace Plant.Areas.Admin.Controllers
             }
 
             var order = await _context.Orders
-                .Include(o => o.Feedback)
+                .Include(o => o.Customer)
+                .Include(o => o.Payment)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {

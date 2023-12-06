@@ -14,28 +14,17 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="LangId" class="control-label"></label>
-                <input asp-for="LangId" class="form-control" />
-                <span asp-validation-for="LangId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="CustomerId" class="control-label"></label>
-                <input asp-for="CustomerId" class="form-control" />
-                <span asp-validation-for="CustomerId" class="text-danger"></span>
+                <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="PaymentId" class="control-label"></label>
-                <input asp-for="PaymentId" class="form-control" />
-                <span asp-validation-for="PaymentId" class="text-danger"></span>
+                <select asp-for="PaymentId" class ="form-control" asp-items="ViewBag.PaymentId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="PaymentStatus" class="control-label"></label>
                 <input asp-for="PaymentStatus" class="form-control" />
                 <span asp-validation-for="PaymentStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FeedbackId" class="control-label"></label>
-                <select asp-for="FeedbackId" class ="form-control" asp-items="ViewBag.FeedbackId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CreateDate" class="control-label"></label>
@@ -78,6 +67,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

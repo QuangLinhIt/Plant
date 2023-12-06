@@ -1,317 +1,94 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using Microsoft.AspNetCore.Identity
-@using Plant.Areas.Identity.Data
-@model Plant.Models.Customer
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@model Plant.ViewModels.OrderVm
 @inject IViewLocalizer Localizer
-<!--breadcrumbs area start-->
-<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/Indoor-House-Plant-Care.jpg') ">
+@{
+    ViewData["Title"] = "CartDone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="cart_done_area">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb_content">
-                    <h3 style="font-weight: 800; color: white; text-shadow: 0 0 0.2em black; ">@Localizer["purchase"]</h3>
-                    <ul>
-                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
-                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Orders" asp-action="Cart">@Localizer["order"]</a></li>
-                        <li style="font-weight: 600; color: yellowgreen; text-shadow: 0 0 0.2em black; ">@Localizer["purchase"]</li>
-                    </ul>
+            <div class="col-lg-6 col-md-6 col-12">
+                <h1>Đặt hàng thành công</h1>
+                <h4>Cảm ơn bạn đã đặt hàng tại LuckyBamBoo shop. Đơn hàng của bạn đang được xử lí, chúng tôi sẽ liên hệ bạn trong thời gian sớm nhất.</h4>
+                <div style=" border: 1px solid #f2f4f7; border-radius: 30px; background-color: #f2f4f7; padding: 10px;">
+                    <div>Đơn hàng:#@Model.OrderId </div>
+                    <div><i class="fa-regular fa-circle"></i> Người nhận: @Model.LastName @Model.FirstName</div>
+                    <div><i class="fa-regular fa-circle"></i> Số điện thoại: @Model.Phone </div>
+                    <div><i class="fa-regular fa-circle"></i> Địa chỉ: @Model.Road, <span id="span_ward"></span>, <span id="span_district"></span>, <span id="span_city"></span></div>
+                    <div><i class="fa-regular fa-circle"></i> Tổng tiền: @Model.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
                 </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-lg-4 col-md-6 col-6">
+                        <button class="btn btn-warning">Quản lí đơn hàng</button>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-6">
+                        <button class="btn btn-success">Tiếp tục mua hàng</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <img src="~/LayoutAssets/img/order/2247184.png" />
             </div>
         </div>
     </div>
 </div>
-<!--breadcrumbs area end-->
-<!--Checkout page section-->
-<div class="Checkout_section  mt-100" id="accordion">
-    <div class="container">
-        <div class="checkout_form row">
-            <div class="col-lg-6 col-md-6">
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    var user = await UserManager.GetUserAsync(User);
-                    var lastName = user.LastName;
-                    var firstName = user.FirstName;
-                    var email = user.Email;
-                    var phone = user.PhoneNumber;
-                    <h3>@Localizer["person infor"]</h3>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 mb-20">
-                            <label>@Localizer["lastname"]</label>
-                            <input type="text" value="@lastName" readonly>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 mb-20">
-                            <label>@Localizer["firstname"]</label>
-                            <input type="text" value="@firstName" readonly>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 mb-20">
-                            <label>Email</label>
-                            <input type="email" value="@email" readonly>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 mb-20">
-                            <label>@Localizer["phone"]</label>
-                            @if (phone == null)
-                            {
-                                <input type="number">
-                            }
-                            else
-                            {
-                                <input type="number" value="@phone" readonly>
-                            }
-                        </div>
-                    </div>
-                    <h3>@Localizer["delivery address"]</h3>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
-                            <label>@Localizer["city"]</label>
-                            <select class="form-control" id="addressCity" onchange="GetCitySelected()" asp-for="City">
-                                <option value="0">@Localizer["choose city"]</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
-                            <label>@Localizer["district"]</label>
-                            <select class="form-control" id="addressDistrict" onchange="GetDistrictSelected()" asp-for="District">
-                                <option value="0">@Localizer["choose district"]</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
-                            <label>@Localizer["ward"]</label>
-                            <select class="form-control" id="addressWard" asp-for="Ward">
-                                <option value="0">@Localizer["choose ward"]</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
-                            <label>@Localizer["road"]</label>
-                            <input type="text" class="form-control" asp-for="Road">
-                        </div>
-                    </div>
-                }
-
-                <h3>@Localizer["payment"]</h3>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="payment_method">
-                            <div class="panel-default">
-                                <input id="payment" name="check_method" type="radio"
-                                       data-bs-target="createp_account" />
-                                <label for="payment" data-bs-toggle="collapse" data-bs-target="#method"
-                                       aria-controls="method">@Localizer["payment cod"]</label>
-                                </div>
-                                <div class="panel-default">
-                                    <input id="payment_defult" name="check_method" type="radio"
-                                           data-bs-target="createp_account" />
-                                    <label for="payment_defult" data-bs-toggle="collapse" data-bs-target="#collapsedefult"
-                                           aria-controls="collapsedefult">
-                                        @Localizer["payment ibanking"]
-                                    </label>
-
-                                    <div id="collapsedefult" class="collapse one" data-parent="#accordion">
-                                        <div class="card-body1">
-                                            <p>@Localizer["method payment"]</p>
-                                            <p>@Localizer["payment infor"]</p>
-                                            <p>@Localizer["payment name"]</p>
-                                            <p><i class="fa-solid fa-star"></i> ACB: 8953677</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="order_table table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>@Localizer["your order"]</th>
-                                    <th>@Localizer["money"]</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cartDoneTbody">
-                                @*script show localStorage*@
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>@Localizer["cart subtotal"]</th>
-                                    <td id="totalCostOfGoods"></td>
-                                </tr>
-                                <tr>
-                                    <th>@Localizer["shipping"]</th>
-                                    <td>50.000 đ</td>
-                                </tr>
-                                <tr class="order_total">
-                                    <th>@Localizer["total"]</th>
-                                    <td id="totalPaymentGoods"></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="order_button" style="text-align:center;">
-            <button>@Localizer["order now"]</button>
-        </div>
-    </div>
-    <!--Checkout page section end-->
-
-    @section Scripts{
-        <script src="~/localStorage/localStorage.js"></script>
-        <script>
-            //show option of city
-            fetch('/AdminAssets/vendors/bizmac-customjs/city.json')
-                .then(response => response.json())
-                .then(data => {
-                    var selectCity = document.getElementById('addressCity');
-                    for (var i = 0; i < data.length; i++) {
-                        var optionCity = document.createElement('option');
-                        optionCity.value = data[i].code;
-                        optionCity.text = data[i].name_with_type;
-                        selectCity.appendChild(optionCity);
-                    }
-                })
-                .catch(error => {
-                    // Handle any errors that occur during the fetch
-                    console.error('Error:', error);
-                });
-
-            function GetCitySelected() {
-                var selectCity = document.getElementById('addressCity');
-                if (selectCity.value != 0) {
-                    fetch(`/AdminAssets/vendors/bizmac-customjs/district/${selectCity.value}.json`)
-                        .then(response => response.json())
-                        .then(data => {
-                            //show option of district when choose value city != 0
-                            var selectDistrict = document.getElementById('addressDistrict');
-                            selectDistrict.innerHTML = '';
-                            var optionDistrict = document.createElement('option');
-                            optionDistrict.value = 0;
-                            optionDistrict.text = "Chọn quận, huyện...";
-                            selectDistrict.appendChild(optionDistrict);
-                            for (var i = 0; i < data.length; i++) {
-                                var optionDistrict = document.createElement('option');
-                                optionDistrict.value = data[i].code;
-                                optionDistrict.text = data[i].name_with_type;
-                                selectDistrict.appendChild(optionDistrict);
-                            }
-                            //set select ward value=0
-                            var selectWard = document.getElementById('addressWard');
-                            selectWard.innerHTML = '';
-                            var optionWard = document.createElement('option');
-                            optionWard.value = 0;
-                            optionWard.text = "Chọn phường, xã...";
-                            selectWard.appendChild(optionWard);
-                        })
-                        .catch(error => {
-                            // Handle any errors that occur during the fetch
-                            console.error('Error:', error);
-                        });
-                } else {
-                    //set select district value=0
-                    var selectDistrict = document.getElementById('addressDistrict');
-                    selectDistrict.innerHTML = '';
-                    var optionDistrict = document.createElement('option');
-                    optionDistrict.value = 0;
-                    optionDistrict.text = "Chọn quận, huyện...";
-                    selectDistrict.appendChild(optionDistrict);
-                    //set select ward value=0
-                    var selectWard = document.getElementById('addressWard');
-                    selectWard.innerHTML = '';
-                    var optionWard = document.createElement('option');
-                    optionWard.value = 0;
-                    optionWard.text = "Chọn phường, xã...";
-                    selectWard.appendChild(optionWard);
+@section Scripts{ 
+<script>
+    var spanCity = document.getElementById('span_city');
+    var spanDistrict = document.getElementById('span_district');
+    var spanWard = document.getElementById('span_ward');
+    var city =@Model.City;
+    var district =@Model.District;
+    var ward=@Model.Ward;
+    //show option of  city in file json
+    fetch('/AdminAssets/vendors/bizmac-customjs/city.json')
+        .then(response => response.json())
+        .then(data => {
+            //show selected city if have value
+            for (var i = 0; i < data.length; i++) {
+                if (city == data[i].code) {
+                    spanCity.textContent = data[i].name_with_type;
                 }
             }
-            function GetDistrictSelected() {
-                var selectDistrict = document.getElementById('addressDistrict');
-                if (selectDistrict.value != 0) {
-                    fetch(`/AdminAssets/vendors/bizmac-customjs/ward/${selectDistrict.value}.json`)
-                        .then(response => response.json())
-                        .then(data => {
-                            var selectWard = document.getElementById('addressWard');
-                            selectWard.innerHTML = '';
-                            var optionWard = document.createElement('option');
-                            optionWard.value = 0;
-                            optionWard.text = "Chọn phường, xã...";
-                            selectWard.appendChild(optionWard);
-                            for (var i = 0; i < data.length; i++) {
-                                var optionWard = document.createElement('option');
-                                optionWard.value = data[i].code;
-                                optionWard.text = data[i].name_with_type;
-                                selectWard.appendChild(optionWard);
-                            }
-                        })
-                        .catch(error => {
-                            // Handle any errors that occur during the fetch
-                            console.error('Error:', error);
-                        });
-                } else {
-                    var selectWard = document.getElementById('addressWard');
-                    selectWard.innerHTML = '';
-                    var optionWard = document.createElement('option');
-                    optionWard.value = 0;
-                    optionWard.text = "Chọn phường, xã...";
-                    selectWard.appendChild(optionWard);
+        })
+        .catch(error => {
+            // Handle any errors that occur during the fetch
+            console.error('Error:', error);
+        });
+
+    //show option selected of district
+    fetch(`/AdminAssets/vendors/bizmac-customjs/district/${city}.json`)
+        .then(response => response.json())
+        .then(data => {
+            //show district if have value
+            for (var i = 0; i < data.length; i++) {
+                if (district == data[i].code) {
+                    spanDistrict.textContent = data[i].name_with_type;
                 }
             }
+        })
+        .catch(error => {
+            // Handle any errors that occur during the fetch
+            console.error('Error:', error);
+        });
 
-        </script>
-        <script>
-            function GetProductData(productId, color) {
-                return new Promise(function (resolve, reject) {
-                    $.ajax({
-                        type: "GET",
-                        async: true,
-                        url: '/Orders/GetProductById',
-                        dataType: 'JSON',
-                        data: { productId: productId, color: color },
-                        success: function (product) {
-                            // Resolve the promise with the received data
-                            resolve(product);
-                        },
-                        error: function () {
-                            // Reject the promise
-                            reject("Error occurred while retrieving product data.");
-                        }
-                    });
-                });
+    //show option selected of ward
+    fetch(`/AdminAssets/vendors/bizmac-customjs/ward/${district}.json`)
+        .then(response => response.json())
+        .then(data => {
+            //show district if have value
+            for (var i = 0; i < data.length; i++) {
+                if (ward == data[i].code) {
+                    spanWard.textContent = data[i].name_with_type;
+                }
             }
-            var cartItemDones = GetCarts();
-            var listCartDoneHtml = document.getElementById('cartDoneTbody');
-            listCartDoneHtml.innerHTML = '';
-            var TotalCostOfGoods = 0;
-            var TotalPayments = 50000;
-            cartItemDones.forEach(function (item) {
-                GetProductData(item.productId, item.color)
-                    .then(function (product) {
-                        if (item.choose == true) {
-                            var priceToMoney = product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-                            var cartDoneTotalToMoney = (product.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-                            var itemCartDoneHtml = document.createElement('tr');
-                            itemCartDoneHtml.innerHTML = `
-                                                                                        <td>
-                                                                                            <div class="cartDone_name">${product.productName}</div>
-                                                                                            <div class="cartDone_color"><i class="fa-solid fa-star"></i> ${item.color} | ${priceToMoney} | x${item.quantity}</div>
-                                                                                        </td>
-                                                                                        <td><div class="cartDone_total">${cartDoneTotalToMoney}</div></td >
-                                                                                        `
-                            listCartDoneHtml.appendChild(itemCartDoneHtml);
-
-                            TotalCostOfGoods += product.price * item.quantity;
-                            document.getElementById('totalCostOfGoods').value = TotalCostOfGoods;
-                            document.getElementById('totalCostOfGoods').textContent = TotalCostOfGoods.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-
-                            TotalPayments += product.price * item.quantity;
-                            document.getElementById('totalPaymentGoods').value = TotalPayments;
-                            document.getElementById('totalPaymentGoods').textContent = TotalPayments.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-                        }
-                    })
-                    .catch(function (error) {
-                        // Handle errors
-                        alert(error);
-                    });
-            });
-        </script>
-    }
+        })
+        .catch(error => {
+            // Handle any errors that occur during the fetch
+            console.error('Error:', error);
+        });
+</script>
+}

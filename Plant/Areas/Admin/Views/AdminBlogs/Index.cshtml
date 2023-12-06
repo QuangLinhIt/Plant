@@ -13,7 +13,6 @@
     </ol>
 </nav>
 <!-- /Breadcrumb -->
-
 <!-- Container -->
 <div class="container-fluid px-lg-4">
     <!-- Title -->
@@ -77,32 +76,32 @@
     </section>
 </div>
 
-    @section Scripts{
-        <script>
-            $(document).ready(function () {
-                jQuery("#txtLangId").change(function () {
-                    var langId = jQuery(this).children(":selected").attr("value");
-                    langId = parseFloat(langId);
-                    $('#txtLangId option').removeAttr('selected');
-                    $("txtLangId > [value=" + langId + "]").attr("selected", "true");
-                    $.ajax({
-                        url: '/Admin/AdminBlogs/Filtter',
-                        datatype: "json",
-                        type: "GET",
-                        data: {
-                            LangId: langId
-                        },
-                        async: true,
-                        success: function (results) {
-                            if (results.status == "success") {
-                                window.location.href = results.redirectUrl;
-                            }
-                        },
-                        error: function (xhr) {
-                            alert("error");
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            jQuery("#txtLangId").change(function () {
+                var langId = jQuery(this).children(":selected").attr("value");
+                langId = parseFloat(langId);
+                $('#txtLangId option').removeAttr('selected');
+                $("txtLangId > [value=" + langId + "]").attr("selected", "true");
+                $.ajax({
+                    url: '/Admin/AdminBlogs/Filtter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        LangId: langId
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
                         }
-                    });
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
                 });
-            })
-        </script>
-    }
+            });
+        })
+    </script>
+}

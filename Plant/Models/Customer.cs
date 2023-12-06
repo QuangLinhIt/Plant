@@ -16,10 +16,10 @@ namespace Plant.Models
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int Phone { get; set; }
-        public string City { get; set; }
-        public string District { get; set; }
-        public string Ward { get; set; }
+        public string Phone { get; set; }
+        public int City { get; set; }
+        public int District { get; set; }
+        public int Ward { get; set; }
         public string Road { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }

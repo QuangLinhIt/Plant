@@ -66,10 +66,18 @@ function UpdateToCartOnOrder(productId, quantity, color, choose) {
         existingCartItem.choose = choose;
     }
 
-    // Save the updated cart items to localStorage
+    // Save the updated cart items to localStorage     
     localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
 }
-function ResetAfterSaveOrder() {
-    localStorage.setItem('cartItems', "[]");
+function RemovePurchasedProduct() {
+    let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+    // Remove the items from the cart where choose is true
+    let updatedCart = cart.filter(item => item.choose !== true);
+
+    // Store the updated cart back to LocalStorage
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
     location.reload();
 }
+
+
