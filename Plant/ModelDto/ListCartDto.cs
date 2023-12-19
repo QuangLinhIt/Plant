@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Plant.ViewModels
+namespace Plant.ModelDto
 {
-    public class ListCartVm
+    public class ListCartDto
     {
-        public int Id { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductImg { get; set; }
@@ -15,6 +14,5 @@ namespace Plant.ViewModels
         public decimal OriginalPrice { get; set; }
         public int Quantity { get; set; }
         public string Color { get; set; }
-        public int? FeedbackId { get; set; }
     }
 }

@@ -150,15 +150,8 @@
                                                 </a>
                                             </h4>
                                             <div class="price_box">
-                                                @if (item.Voucher == null || item.Voucher <= 0)
-                                                {
-                                                    <span class="current_price">@item.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
-                                                }
-                                                @if (item.Voucher > 0)
-                                                {
-                                                    <span class="current_price">@item.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN")) </span>
-                                                    <span class="old_price">@item.OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN")) </span>
-                                                }
+                                                <span class="current_price">@item.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                                <span class="count_product_sell">Đã bán @item.CountProductSell</span>
                                             </div>
                                         </div>
                                     </div>
@@ -168,15 +161,8 @@
                                             <a asp-area="" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@item.ProductId">@item.ProductName</a>
                                         </h4>
                                         <div class="price_box">
-                                            @if (item.Voucher == null || item.Voucher <= 0)
-                                            {
-                                                <span class="current_price">@item.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
-                                            }
-                                            @if (item.Voucher > 0)
-                                            {
-                                                <span class="current_price">@item.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN")) </span>
-                                                <span class="old_price">@item.OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN")) </span>
-                                            }
+                                            <span class="current_price">@item.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                            <span class="count_product_sell">Đã bán @item.CountProductSell</span>
                                         </div>
                                         <div class="product_desc">
                                             <p>

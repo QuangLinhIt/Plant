@@ -1,4 +1,7 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using Plant.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +24,9 @@
     <!-- Daterangepicker CSS -->
     <link href="~/AdminAssets/vendors/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
 
+    <!-- jquery-steps css -->
+    <link href="~/AdminAssets/vendors/jquery-steps/demo/css/jquery.steps.css" rel="stylesheet" />
+
     <!-- Toggles CSS -->
     <link href="~/AdminAssets/vendors/jquery-toggles/css/toggles.css" rel="stylesheet" type="text/css">
     <link href="~/AdminAssets/vendors/jquery-toggles/css/themes/toggles-light.css" rel="stylesheet" type="text/css">
@@ -30,6 +36,7 @@
 
     <!-- Select2 css -->
     <link href="~/AdminAssets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -154,15 +161,17 @@
                                 <span class="badge badge-success badge-indicator"></span>
                             </div>
                             <div class="media-body">
-                                <span>Madelyn Shane<i class="zmdi zmdi-chevron-down"></i></span>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    var user = await UserManager.GetUserAsync(User);
+                                    var firstName = user.FirstName;
+                                    <span>@firstName<i class="zmdi zmdi-chevron-down"></i></span>
+                                }
                             </div>
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" data-dropdown-in="flipInX" data-dropdown-out="flipOutX">
                         <a class="dropdown-item" href="profile.html"><i class="dropdown-icon zmdi zmdi-account"></i><span>Profile</span></a>
-                        <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-card"></i><span>My balance</span></a>
-                        <a class="dropdown-item" href="inbox.html"><i class="dropdown-icon zmdi zmdi-email"></i><span>Inbox</span></a>
-                        <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-settings"></i><span>Settings</span></a>
                         <div class="dropdown-divider"></div>
                         <div class="sub-dropdown-menu show-on-hover">
                             <a href="#" class="dropdown-toggle dropdown-item no-caret"><i class="zmdi zmdi-check text-success"></i>Online</a>
@@ -331,6 +340,10 @@
     <!-- Init JavaScript -->
     <script src="~/AdminAssets/dist/js/init.js"></script>
 
+    <!-- Form Wizard JavaScript -->
+    <script src="~/AdminAssets/vendors/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="~/AdminAssets/dist/js/form-wizard-data.js"></script>
+    
     <!-- notice + script in view controller -->
     @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false);

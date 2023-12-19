@@ -1,72 +1,308 @@
-﻿@model Plant.Models.Order
-
+﻿@using Plant.ModelDto
+@model OrderDto
 @{
-    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Forms</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Form Wizard</li>
+    </ol>
+</nav>
+<!-- /Breadcrumb -->
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="OrderId" />
+                <input type="hidden" asp-for="CustomerId" />
+                <input type="hidden" asp-for="PaymentId" />
 
-<h4>Order</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OrderId" />
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
-                <span asp-validation-for="CustomerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentId" class="control-label"></label>
-                <select asp-for="PaymentId" class="form-control" asp-items="ViewBag.PaymentId"></select>
-                <span asp-validation-for="PaymentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentStatus" class="control-label"></label>
-                <input asp-for="PaymentStatus" class="form-control" />
-                <span asp-validation-for="PaymentStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Money" class="control-label"></label>
-                <input asp-for="Money" class="form-control" />
-                <span asp-validation-for="Money" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipFee" class="control-label"></label>
-                <input asp-for="ShipFee" class="form-control" />
-                <span asp-validation-for="ShipFee" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderStatus" class="control-label"></label>
-                <input asp-for="OrderStatus" class="form-control" />
-                <span asp-validation-for="OrderStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Deleted" /> @Html.DisplayNameFor(model => model.Deleted)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div id="example-basic">
+                    <h3>
+                        <span class="wizard-icon-wrap"><i class="ion ion-md-basket"></i></span>
+                        <span class="wizard-head-text-wrap">
+                            <span class="step-head">Review Cart</span>
+                        </span>
+                    </h3>
+                    <section>
+                        <h3 class="display-4 mb-40">Giỏ hàng</h3>
+                        <div class="row">
+                            <div class="col-xl-8 mb-20">
+                                <div class="table-wrap">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <th colspan="2">Sản phẩm</th>
+                                                    <th>Màu sắc</th>
+                                                    <th>Giá</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Tổng tiền</th>
+                                                </tr>
+                                                @for(var i=0;i<Model.ListCart.Count;i++)
+                                                {
+                                                    var totalItem = Model.ListCart[i].Price * Model.ListCart[i].Quantity;
+                                                    <tr>
+                                                        <td><img class="w-80p" src="~/image/product/@Model.ListCart[i].ProductImg" alt="icon" /></td>
+                                                        <th scope="row">
+                                                            <input type="hidden" asp-for="@Model.ListCart[i].ProductId" />
+                                                            <input type="hidden" asp-for="@Model.ListCart[i].Color" />
+                                                            <input type="hidden" asp-for="@Model.ListCart[i].Quantity" />
+                                                            @Model.ListCart[i].ProductName
+                                                        </th>
+                                                        <th>@Model.ListCart[i].Color</th>
+                                                        <td>@Model.ListCart[i].Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</td>
+                                                        <td>
+                                                            <input type="number" value="@Model.ListCart[i].Quantity" min="1" max="100" step="1" readonly />
+                                                        </td>
+                                                        <td class="text-red">@totalItem.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</td>
+                                                    </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 mb-20">
+                                <div class="card">
+                                    <h6 class="card-header border-0">
+                                        <i class="ion ion-md-clipboard font-21 mr-10"></i>Chi tiết thanh toán
+                                    </h6>
+                                    <div class="card-body pa-0">
+                                        <div class="table-wrap">
+                                            <div class="table-responsive">
+                                                <table class="table table-sm mb-0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th class="w-70" scope="row">Tổng tiền hàng</th>
+                                                            <th class="w-30" scope="row">@Model.Money.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="w-70">Phí vận chuyển</td>
+                                                            <td class="w-30">@Model.ShipFee.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="w-70 text-red">Tổng thanh toán</td>
+                                                            <td class="w-30 text-red">@Model.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <h3>
+                        <span class="wizard-icon-wrap"><i class="ion ion-md-airplane"></i></span>
+                        <span class="wizard-head-text-wrap">
+                            <span class="step-head">Shipping Address</span>
+                        </span>
+                    </h3>
+                    <section>
+                        <h3 class="display-4 mb-40">Địa chỉ giao hàng</h3>
+                        <div class="row">
+                            <div class="col-xl-4 mb-20">
+                                <div class="card mt-30">
+                                    <div class="card-body bg-light">
+                                        <h5 class="card-title">@Model.LastName @Model.FirstName</h5>
+                                        <p class="card-text">
+                                            @Model.Road, <span id="span_admin_ward"></span>, <span id="span_admin_district"></span>, <span id="span_admin_city"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 mb-20">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="lastName">Last name</label>
+                                        <input class="form-control" id="lastName" type="text" asp-for="LastName" readonly>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="firstName">First name</label>
+                                        <input class="form-control" id="firstName" type="text" asp-for="FirstName" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input class="form-control" id="email" type="email" asp-for="Email" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">PhoneNumber</label>
+                                    <input class="form-control" asp-for="Phone" readonly>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="address">Tỉnh / thành phố</label>
+                                        <input type="hidden" asp-for="City" />
+                                        <input class="form-control" id="input_admin_city" type="text" readonly>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="address">Quận / huyện</label>
+                                        <input type="hidden" asp-for="District" />
+                                        <input class="form-control" id="input_admin_district" type="text" readonly>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="address">Phường / xã</label>
+                                        <input type="hidden" asp-for="Ward" />
+                                        <input class="form-control" id="input_admin_ward" type="text" readonly>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="address">Số nhà, đường</label>
+                                        <input class="form-control" type="text" asp-for="Road" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <h3>
+                        <span class="wizard-icon-wrap"><i class="ion ion-md-card"></i></span>
+                        <span class="wizard-head-text-wrap">
+                            <span class="step-head">Payment Method</span>
+                        </span>
+                    </h3>
+                    <section>
+                        <h3 class="display-4 mb-40">Phương thức thanh toán</h3>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 form-group">
+                                <label>Hình thức thanh toán</label>
+                                <input class="form-control" asp-for="PaymentName">
+                            </div>
+                            @if (Model.PaymentId == 6)
+                            {
+                                <div class="col-lg-4 col-md-6 form-group">
+                                    <label>Xác nhận thanh toán</label>
+                                    <select class="form-control" asp-items="ViewBag.PaymentStatus" asp-for="PaymentStatus">
+                                    </select>
+                                </div>
+                            }
+                            else
+                            {
+                                <input type="hidden" asp-for="PaymentStatus" />
+                            }
+
+                        </div>
+                    </section>
+                    <h3>
+                        <span class="wizard-icon-wrap"><i class="ion ion-md-checkmark-circle-outline"></i></span>
+                        <span class="wizard-head-text-wrap">
+                            <span class="step-head">Place Order</span>
+                        </span>
+                    </h3>
+                    <section>
+                        <h3 class="display-4 mb-40">Xác nhận đơn hàng</h3>
+                        <div class="row">
+                            <div class="col-xl-8 mb-20">
+                                <div class="table-wrap">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="w-70" scope="row">Tổng tiền hàng</th>
+                                                    <th class="w-30" scope="row">@Model.Money.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="w-70">Phí vận chuyển</td>
+                                                    <td class="w-30">@Model.ShipFee.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="w-70 text-red">Tổng thanh toán</td>
+                                                    <td class="w-30 text-red">@Model.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 mb-20">
+                                <div class="alert alert-success mb-20" role="alert">
+                                    Theo dõi đơn hàng
+                                </div>
+                                <div class="form-group">
+                                    <label>Trạng thái đơn hàng</label>
+                                    <select class="form-control" asp-items="ViewBag.OrderStatus" asp-for="OrderStatus">
+                                    </select>
+                                </div>
+                                <input type="submit" class="btn btn-success" value="Cập nhật đơn hàng" />
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            </form>
+        </div>
     </div>
+    <!-- /Row -->
 </div>
+<!-- /Container -->
+@section Scripts{
+    <script>
+        var adminCity =@Model.City;
+        var adminDistrict =@Model.District;
+        var adminWard =@Model.Ward;
+        //show option of  city in file json
+        fetch('/AdminAssets/vendors/bizmac-customjs/city.json')
+            .then(response => response.json())
+            .then(data => {
+                //show selected city if have value
+                for (var i = 0; i < data.length; i++) {
+                    if (adminCity == data[i].code) {
+                        var spanAdminCity = document.getElementById('span_admin_city');
+                        var inputAdminCity = document.getElementById('input_admin_city');
+                        spanAdminCity.textContent = data[i].name_with_type;
+                        inputAdminCity.value = data[i].name_with_type;
+                    }
+                }
+            })
+            .catch(error => {
+                // Handle any errors that occur during the fetch
+                console.error('Error:', error);
+            });
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        //show option selected of district
+        fetch(`/AdminAssets/vendors/bizmac-customjs/district/${adminCity}.json`)
+            .then(response => response.json())
+            .then(data => {
+                //show district if have value
+                for (var i = 0; i < data.length; i++) {
+                    if (adminDistrict == data[i].code) {
+                        var spanAdminDistrict = document.getElementById('span_admin_district');
+                        var inputAdminDistrict = document.getElementById('input_admin_district');
+                        spanAdminDistrict.textContent = data[i].name_with_type;
+                        inputAdminDistrict.value = data[i].name_with_type;
+                    }
+                }
+            })
+            .catch(error => {
+                // Handle any errors that occur during the fetch
+                console.error('Error:', error);
+            });
 
+        //show option selected of ward
+        fetch(`/AdminAssets/vendors/bizmac-customjs/ward/${adminDistrict}.json`)
+            .then(response => response.json())
+            .then(data => {
+                //show district if have value
+                for (var i = 0; i < data.length; i++) {
+                    if (adminWard == data[i].code) {
+                        var spanAdminWard = document.getElementById('span_admin_ward');
+                        var inputAdminWard = document.getElementById('input_admin_ward');
+                        spanAdminWard.textContent = data[i].name_with_type;
+                        inputAdminWard.value = data[i].name_with_type;
+                    }
+                }
+            })
+            .catch(error => {
+                // Handle any errors that occur during the fetch
+                console.error('Error:', error);
+            });
+    </script>
+}

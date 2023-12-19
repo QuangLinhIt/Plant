@@ -1,0 +1,209 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Identity
+@using Plant.Areas.Identity.Data
+@model IEnumerable<Plant.ViewModels.OrderVm>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@inject IViewLocalizer Localizer
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- my account start  -->
+<section class="main_content_area">
+    <div class="container">
+        <div class="account_dashboard">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <!-- Nav tabs -->
+                    <div class="dashboard_tab_button">
+                        <ul role="tablist" class="nav flex-column dashboard-list">
+                            <li><a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link ">Tài khoản của tôi</a></li>
+                            <li><a asp-area="" asp-controller="Users" asp-action="ManageOrder" class="nav-link active">Đơn mua</a></li>
+                            <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">Thông báo</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-9 col-lg-9">
+                    <!-- Tab panes -->
+                    <div class="tab-content dashboard_content">
+                        <div class="tab-pane fade show active">
+                            <section class="hk-sec-wrapper mb-30">
+                                <div style="overflow-x: auto;">
+                                    <table style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width:100px;">
+                                                    <form asp-action="ManageOrder" method="get">
+                                                        <input type="hidden" value="" name="orderStatus" />
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Tất cả</button>
+                                                    </form>
+                                                </th>
+                                                <th style="min-width:120px;">
+                                                    <form asp-action="ManageOrder" method="get">
+                                                        <input type="hidden" value="Chờ xác nhận" name="orderStatus" />
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Chờ xác nhận</button>
+                                                    </form>
+                                                </th>
+                                                <th style="min-width:140px;">
+                                                    <form asp-action="ManageOrder" method="get">
+                                                        <input type="hidden" value="Đang giao hàng" name="orderStatus" />
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Đang giao hàng</button>
+                                                    </form>
+                                                </th>
+                                                <th style="min-width:100px;">
+                                                    <form asp-action="ManageOrder" method="get">
+                                                        <input type="hidden" value="Giao hàng thành công" name="orderStatus" />
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Đã giao</button>
+                                                    </form>
+                                                </th>
+                                                <th style="min-width:100px;">
+                                                    <form asp-action="ManageOrder" method="get">
+                                                        <input type="hidden" value="Đã hủy" name="orderStatus" />
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Đã hủy</button>
+                                                    </form>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </section>
+                            @foreach (var order in Model)
+                            {
+                                <section class="hk-sec-wrapper mb-30">
+                                    <div class="row">
+                                        <div class="col-3">Đơn hàng: #@order.OrderId </div>
+                                        <div class="col-5">Ngày đặt: @order.CreateDate.ToString("dd/MM/yyyy")</div>
+                                        <div class="col-4">@order.OrderStatus</div>
+                                    </div>
+                                    <hr />
+                                    @if (order.OrderStatus == "Giao hàng thành công")
+                                    {
+                                        @foreach (var cart in order.ListCart)
+                                        {
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <img src="~/image/product/@cart.ProductImg" style="border: 1px solid #e1e1e1;" />
+                                                </div>
+                                                <div class="col-6">
+                                                    <div style="font-weight:600;">@cart.ProductName</div>
+                                                    <div style="opacity:0.6;">Màu sắc: @cart.Color</div>
+                                                    <div style="opacity:0.6;">x @cart.Quantity</div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div>
+                                                        <del style="opacity:0.26;">@cart.OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</del>
+                                                        <span style="color:red;">@cart.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                                    </div>
+                                                    <div style="margin-top:15px;">
+                                                        @if (cart.FeedbackId == null)
+                                                        {
+                                                            <a type="button" class="btn btn-danger" asp-area="" asp-controller="Users" asp-action="AddFeedback" asp-route-id="@cart.Id">Thêm đánh giá</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a type="button" class="btn btn-secondary" asp-area="" asp-controller="Users" asp-action="ReviewFeedback" asp-route-id="@cart.Id">Xem đánh giá</a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @foreach (var cart in order.ListCart)
+                                        {
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <img src="~/image/product/@cart.ProductImg" style="border: 1px solid #e1e1e1;" />
+                                                </div>
+                                                <div class="col-6">
+                                                    <div style="font-weight:600;">@cart.ProductName</div>
+                                                    <div style="opacity:0.6;">Màu sắc: @cart.Color</div>
+                                                    <div style="opacity:0.6;">x @cart.Quantity</div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <del style="opacity:0.26;">@cart.OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</del>
+                                                    <span style="color:red;">@cart.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        }
+
+                                    }
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modelDetailOrder-@order.OrderId">
+                                                Xem chi tiết
+                                            </button>
+                                        </div>
+                                        <!-- Modal detail order -->
+                                        <div class="modal fade" id="modelDetailOrder-@order.OrderId" tabindex="-1" role="dialog" aria-labelledby="modelDetailOrder-@order.OrderId" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Chi tiết đơn hàng #@order.OrderId</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Người nhận: @order.LastName @order.FirstName</p>
+                                                        <p>Số điện thoại: @order.Phone</p>
+                                                        <p>Ngày đặt: @order.CreateDate.ToString("dd/MM/yyyy")</p>
+                                                        @foreach (var cart in order.ListCart)
+                                                        {
+                                                            <div class="row">
+                                                                <div class="col-2" style="margin:10px 0;">
+                                                                    <img src="~/image/product/@cart.ProductImg" style="border: 1px solid #e1e1e1;width:80%;height:auto;" />
+                                                                </div>
+                                                                <div class="col-6" style="margin:10px 0;">
+                                                                    <div style="font-weight:600;">@cart.ProductName</div>
+                                                                    <div style="opacity:0.6;">Màu sắc: @cart.Color</div>
+                                                                    <div style="opacity:0.6;">x @cart.Quantity</div>
+                                                                </div>
+                                                                <div class="col-4" style="margin:10px 0;">
+                                                                    <del style="opacity:0.26;">@cart.OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</del>
+                                                                    <span style="color:red;">@cart.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        <div class="row" style="margin-top:20px;">
+                                                            <div class="col-8 text-end">Tổng tiền hàng</div>
+                                                            <div class="col-4">@order.Money.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
+                                                            <div class="col-8 text-end">Phí vận chuyển</div>
+                                                            <div class="col-4">@order.ShipFee.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
+                                                            <div class="col-8 text-end">Thanh toán</div>
+                                                            <div class="col-4" style="color:red;">@order.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
+                                                            <div class="col-8 text-end">Phương thức thanh toán</div>
+                                                            <div class="col-4" style="color:red;">@order.PaymentName</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div>Thành tiền: <span style="color:red;"> @order.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span></div>
+                                        </div>
+                                    </div>
+                                </section>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- my account end   -->
+@section Scripts{
+
+}

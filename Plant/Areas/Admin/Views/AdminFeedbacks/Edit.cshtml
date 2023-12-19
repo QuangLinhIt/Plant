@@ -1,0 +1,116 @@
+﻿@model Plant.ModelDto.FeedbackDto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Phản hồi</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Danh sách phản hồi</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Phản hồi từ của hàng</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Phản hồi từ cửa hàng</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <p style="font-size:20px; margin:0 0 30px 0;">Xem đánh giá của khách hàng</p>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-3">
+                        <img src="~/image/product/@Model.ProductImage" style="border: 1px solid #e1e1e1;width:100%;" />
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-9">
+                        <div style="font-weight:600;">@Model.ProductName</div>
+                        <div style="opacity:0.6;">Màu sắc: @Model.Color</div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row" style="margin:20px 0 0 10px;">
+                    <div class="col-2">
+                        <span style="border: 1px solid; border-radius: 50%; padding: 15px; float: right; background: antiquewhite; ">
+                        @Model.LastName[0]@Model.FirstName[0]</span>
+                    </div>
+
+                    <div class="col-10">
+                        <div style="font-weight:600;">@Model.LastName @Model.FirstName</div>
+                        <div>
+                            @for (int i = 1; i <= Model.Star; i++)
+                            {
+                                <i class="far fa-star" style="color:red;"></i>
+                            }
+                            @for (int i = Model.Star + 1; i <= 5; i++)
+                            {
+                                <i class="far fa-star" style="color:black;"></i>
+                            }
+                        </div>
+                        <div>@Model.FeedBackContent</div>
+                        @foreach (var item in Model.ListImageName)
+                        {
+                            <a href="~/image/feedback/@item">
+                                <img style="max-width: 50px; max-height: 50px; border: 1px solid #e1e1e1;" src="~/image/feedback/@item" />
+                            </a>}
+                        <div>
+                            @Model.CreateDay
+                        </div>
+                    </div>
+                </div>
+                @if (Model.ShopFeedbackId != null)
+                {
+                    <div class="row" style="margin:20px 0 0 10px;">
+                        <div class="col-2">
+                            <span style="border: 1px solid; border-radius: 50%; padding: 15px; float: right; background: #79A206;color:white;">LB</span>
+                        </div>
+
+                        <div class="col-10">
+                            <div style="font-weight:600;">LuckyBamBoo shop</div>
+                            <p>@Model.ShopFeedbackContent</p>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <div class="form-group my-2 d-flex align-items-center justify-content-end">
+                        <a asp-controller="AdminFeedbacks" asp-action="Index" class="btn btn-dark">Đóng</a>
+                    </div>
+                }
+
+
+            </section>
+            @if (Model.ShopFeedbackId == null)
+            {
+                <hr />
+                <section class="hk-sec-wrapper">
+                    <form asp-action="Edit" method="post">
+                        <p style="font-size:20px; margin:0 0 30px 0;">Phản hồi đánh giá cho khách hàng</p>
+                        <hr />
+                        <input type="hidden" asp-for="FeedbackId" />
+                        <textarea style="width:100%;margin-top:10px;" rows="4" asp-for="ShopFeedbackContent" placeholder="Hãy phản hồi đánh giá của khách hàng..."></textarea>
+                        <div class="form-group my-2 d-flex align-items-center justify-content-end">
+                            <a asp-action="Index" class="btn btn-dark">Hủy</a>
+                            <input type="submit" name="" value="Cập nhật" class="btn btn-success fa-input">
+                        </div>
+                    </form>
+                </section>
+
+            }
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   
+}

@@ -67,10 +67,6 @@ namespace Plant.Controllers
                 orderVm.FirstName = user.FirstName;
                 orderVm.LastName = user.LastName;
                 orderVm.Email = user.Email;
-                if (user.PhoneNumber != null)
-                {
-                    orderVm.Phone = user.PhoneNumber;
-                }
                 var customer = _context.Customers.Where(x => x.Email == email).FirstOrDefault();
                 if (customer != null)
                 {
@@ -78,6 +74,14 @@ namespace Plant.Controllers
                     orderVm.District = customer.District;
                     orderVm.Ward = customer.Ward;
                     orderVm.Road = customer.Road;
+                    if (user.PhoneNumber != null)
+                    {
+                        orderVm.Phone = user.PhoneNumber;
+                    }
+                    else
+                    {
+                        orderVm.Phone = customer.Phone;
+                    }
                 }
                 return View(orderVm);
             }
@@ -97,7 +101,7 @@ namespace Plant.Controllers
                 //add table order
                 var newOrder = new Order();
                 newOrder.PaymentId = data.PaymentId;
-                newOrder.PaymentStatus = "Chờ xác nhận";
+                newOrder.PaymentStatus = "Chưa thanh toán";
                 newOrder.CreateDate = DateTime.Now;
                 newOrder.ShipFee = 50000;
                 newOrder.OrderStatus = "Chờ xác nhận";

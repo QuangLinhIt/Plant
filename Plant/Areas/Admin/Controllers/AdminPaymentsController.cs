@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ using Plant.Models;
 namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
+
     public class AdminPaymentsController : Controller
     {
         private readonly plantContext _context;
@@ -54,7 +57,7 @@ namespace Plant.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PaymentId,PaymentName")] Payment payment)
+        public async Task<IActionResult> Create(Payment payment)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +89,7 @@ namespace Plant.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PaymentId,PaymentName")] Payment payment)
+        public async Task<IActionResult> Edit(int id, Payment payment)
         {
             if (id != payment.PaymentId)
             {

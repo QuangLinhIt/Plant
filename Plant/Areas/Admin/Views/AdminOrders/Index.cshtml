@@ -23,11 +23,30 @@
         <div>
             <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="book"></i></span></span>Danh sách đơn hàng</h4>
         </div>
-       
+        <div class="d-flex">
+            @{
+                var Count = 0;
+                foreach (var item in Model)
+                {
+                    if (item.OrderStatus == "Chờ xác nhận")
+                    {
+                        Count++;
+                    }
+                }
+            }
+            <a class="btn btn-outline-danger">@Count Đơn hàng chờ xử lí</a>
+        </div>
     </div>
     <!-- /Title -->
     <section class="hk-sec-wrapper mb-3">
-        
+        <form asp-action="Index" method="get">
+            <div class="input-group rounded mb-3">
+                <input type="search" class="form-control rounded" placeholder="Tìm kiếm đơn hàng theo email..." aria-label="Search" aria-describedby="search-addon" name="SearchEmail"/>
+                <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+        </form>
         <div class="row">
             <div class="col-sm">
                 <div class="table-wrap">
@@ -62,11 +81,11 @@
                                             {
                                                 <span class="badge badge-warning">@item.OrderStatus</span>
                                             }
-                                            @if (item.OrderStatus == "Chờ giao hàng")
+                                            @if (item.OrderStatus == "Đang giao hàng")
                                             {
                                                 <span class="badge badge-primary">@item.OrderStatus</span>
                                             }
-                                            @if (item.OrderStatus == "Đã giao")
+                                            @if (item.OrderStatus == "Giao hàng thành công")
                                             {
                                                 <span class="badge badge-success">@item.OrderStatus</span>
                                             }
@@ -77,7 +96,6 @@
                                         </td>
                                         <td>
                                             <a asp-action="Edit" asp-route-id="@item.OrderId" class="mx-2" data-toggle="tooltip" data-original-title="Edit"><i class="far fa-sliders-h text-dark"></i></a>
-                                            <a asp-action="Delete" asp-route-id="@item.OrderId"data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -100,5 +118,12 @@
 
 @section Scripts{
     <script>
+        $(function () {
+            $("#search-addon").click(function () {
+                $("form").submit();
+            })
+        })
+
     </script>
+
 }

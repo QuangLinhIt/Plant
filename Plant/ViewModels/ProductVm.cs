@@ -23,5 +23,8 @@ namespace Plant.ViewModels
         public int CategoryId { get; set; }
         public string Color { get; set; }
         public int Stock { get; set; }
+        public decimal AverageStar { get;set; }
+        public decimal CountProductSell { get; set; }
+        public int CountFeedback { get; set; }
     }
 }

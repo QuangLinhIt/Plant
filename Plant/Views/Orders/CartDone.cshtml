@@ -37,9 +37,6 @@
 </div>
 @section Scripts{ 
 <script>
-    var spanCity = document.getElementById('span_city');
-    var spanDistrict = document.getElementById('span_district');
-    var spanWard = document.getElementById('span_ward');
     var city =@Model.City;
     var district =@Model.District;
     var ward=@Model.Ward;
@@ -50,6 +47,7 @@
             //show selected city if have value
             for (var i = 0; i < data.length; i++) {
                 if (city == data[i].code) {
+                    var spanCity = document.getElementById('span_city');
                     spanCity.textContent = data[i].name_with_type;
                 }
             }
@@ -66,6 +64,7 @@
             //show district if have value
             for (var i = 0; i < data.length; i++) {
                 if (district == data[i].code) {
+                    var spanDistrict = document.getElementById('span_district');
                     spanDistrict.textContent = data[i].name_with_type;
                 }
             }
@@ -82,6 +81,7 @@
             //show district if have value
             for (var i = 0; i < data.length; i++) {
                 if (ward == data[i].code) {
+                    var spanWard = document.getElementById('span_ward');
                     spanWard.textContent = data[i].name_with_type;
                 }
             }

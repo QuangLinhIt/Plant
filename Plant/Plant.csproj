@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>6d6dee09-da24-4292-b750-2e1dbf2f643b</UserSecretsId>
+   
+  
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,8 +34,13 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\image\listProduct\" />
+    <Folder Include="wwwroot\image\feedback\" />
     <Folder Include="wwwroot\image\product\" />
     <Folder Include="wwwroot\LayoutAssets\js\vendor\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="..\.dockerignore" />
   </ItemGroup>
 
 </Project>

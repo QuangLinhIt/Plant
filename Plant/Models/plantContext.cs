@@ -8,7 +8,7 @@ namespace Plant.Models
 {
     public partial class plantContext : DbContext
     {
-
+        
 
         public plantContext(DbContextOptions<plantContext> options)
             : base(options)
@@ -42,6 +42,7 @@ namespace Plant.Models
         public virtual DbSet<ProductImg> ProductImgs { get; set; }
         public virtual DbSet<ProductOrder> ProductOrders { get; set; }
         public virtual DbSet<ProductTranslation> ProductTranslations { get; set; }
+        public virtual DbSet<ShopFeedback> ShopFeedbacks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -252,6 +253,11 @@ namespace Plant.Models
                 entity.Property(e => e.CreateDay).HasColumnType("date");
 
                 entity.Property(e => e.FeedbackContent).IsRequired();
+
+                entity.HasOne(d => d.ShopFeedback)
+                    .WithMany(p => p.Feedbacks)
+                    .HasForeignKey(d => d.ShopFeedbackId)
+                    .HasConstraintName("FK_Feedbacks_ShopFeedbacks");
             });
 
             modelBuilder.Entity<FeedbackImage>(entity =>

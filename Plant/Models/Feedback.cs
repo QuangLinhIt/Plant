@@ -15,10 +15,11 @@ namespace Plant.Models
 
         public int FeedbackId { get; set; }
         public string FeedbackContent { get; set; }
-        public string StoreFeedback { get; set; }
         public DateTime? CreateDay { get; set; }
         public int Star { get; set; }
+        public int? ShopFeedbackId { get; set; }
 
+        public virtual ShopFeedback ShopFeedback { get; set; }
         public virtual ICollection<FeedbackImage> FeedbackImages { get; set; }
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }

@@ -166,7 +166,7 @@
                                                 <a asp-area="Identity" asp-page="/Account/Register">@Localizer["register"]</a>
                                             </li>
                                         </ul>*@
-                                        <partial name="_LoginPartial"/>
+                                        <partial name="_LoginPartial" />
                                     </div>
                                     <div class="header_account-list  mini_cart_wrapper">
                                         <a href="javascript:void(0)">
@@ -257,6 +257,36 @@
                 </div>
             </div>
         </div>
+        <!-- Messenger Plugin chat Code -->
+        <!--<div id="fb-root"></div>-->
+
+        <!-- Your Plugin chat code -->
+        <!--<div id="fb-customer-chat" class="fb-customerchat">
+        </div>
+
+        <script>
+            var chatbox = document.getElementById('fb-customer-chat');
+            chatbox.setAttribute("page_id", "191698994026373");
+            chatbox.setAttribute("attribution", "biz_inbox");
+        </script>-->
+
+        <!-- Your SDK code -->
+        <!--<script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    xfbml: true,
+                    version: 'v18.0'
+                });
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>-->
     </header><!--header area end-->
     @RenderBody()
     <!--footer area start-->
@@ -270,6 +300,8 @@
     <script src="~/LayoutAssets/js/popper.js"></script>
     <!--bootstrap min js-->
     <script src="~/LayoutAssets/js/bootstrap.min.js"></script>
+    <script src="~/AdminAssets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/AdminAssets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--owl carousel min js-->
     <script src="~/LayoutAssets/js/owl.carousel.min.js"></script>
     <!--slick min js-->
@@ -330,19 +362,19 @@
         cartItemsNav.forEach(function (item) {
             GetProductData(item.productId, item.color)
                 .then(function (product) {
-                    var priceMiniCartToMoney=product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                    var priceMiniCartToMoney = product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
                     // Handle the received data
                     var itemCartNav = document.createElement('div');
                     itemCartNav.classList.add('cart_item');
                     itemCartNav.innerHTML = `
-                                                                     <div class="cart_img">
-                                                                        <a ><img src="/image/product/${product.image}" alt=""></a>
-                                                                    </div>
-                                                                    <div class="cart_info">
-                                                                        <a href="#">${product.productName}</a >
-                                                                        <p>${priceMiniCartToMoney} x ${item.color}</p>
-                                                                    </div>
-                                                            `
+                                                                             <div class="cart_img">
+                                                                                <a ><img src="/image/product/${product.image}" alt=""></a>
+                                                                            </div>
+                                                                            <div class="cart_info">
+                                                                                <a href="#">${product.productName}</a >
+                                                                                <p>${priceMiniCartToMoney} x ${item.color}</p>
+                                                                            </div>
+                                                                    `
                     listCartNav.appendChild(itemCartNav);
                 })
                 .catch(function (error) {
@@ -350,7 +382,7 @@
                     alert(error);
                 });
 
-        });
+        })
     </script>
 
 </body>

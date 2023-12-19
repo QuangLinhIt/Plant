@@ -1,6 +1,7 @@
 ﻿@using Plant.Models
 @using Plant.ViewModels
 @using Microsoft.AspNetCore.Mvc.Localization
+@using PagedList.Core.Mvc
 @model Plant.ViewModels.ProductVm
 @inject IViewLocalizer Localizer
 @{
@@ -8,6 +9,9 @@
     List<ProductColor> listColor = ViewBag.ProductColor;
     List<ProductImg> listImg = ViewBag.ProductImg;
     List<ProductVm> productDifferent = ViewBag.ProductDifferent;
+    List<ReviewFeedbackVm> countListFeedback = ViewBag.CountListFeedback;
+    var listFeedback = ViewBag.ListFeedback as PagedList.Core.IPagedList<ReviewFeedbackVm>;
+    var chooseStar = ViewBag.CurrentChooseStar;
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/capturar-co2-atmosfera.jpg') ">
@@ -18,7 +22,7 @@
                     <h3 style="font-weight: 800; color: white; text-shadow: 0 0 0.2em black; ">@Localizer["product"]</h3>
                     <ul>
                         <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
-                        <li style="font-weight: 600; color: yellowgreen; text-shadow: 0 0 0.2em black; ">@Localizer["product"]</li>
+                        <li style="font-weight: 600; color: redgreen; text-shadow: 0 0 0.2em black; ">@Localizer["product"]</li>
                     </ul>
                 </div>
             </div>
@@ -58,15 +62,57 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product_d_right">
                     <h1><a href="#">@Model.ProductName</a></h1>
+                    <div class="product_ratting">
+                        @{
+                            if (Model.CountProductSell > 0)
+                            {
+                                <u style="font-size:20px; color:red; font-weight:700;">@Model.AverageStar.ToString("N1")</u>
+                                for (int i = 1; i <= (int)Math.Floor(Model.AverageStar); i++)
+                                {
+                                    <i class="fa-solid fa-star" style="color:red;"></i>
+                                }
+                                if ((Model.AverageStar - Math.Floor(Model.AverageStar)) > 0)
+                                {
+                                    var leftStar = (Model.AverageStar - Math.Floor(Model.AverageStar)) * 100;
+                                    var rightStar = 100 - leftStar;
+                                    <i class="fa-solid fa-star"
+                                       style="background: linear-gradient(to right, red @Math.Floor(leftStar)%, red @Math.Floor(leftStar)%) left,linear-gradient(to right, black @Math.Floor(rightStar)%, black @Math.Floor(rightStar)%) right;
+                                        background-size: @Math.Floor(leftStar)% 100%, @Math.Floor(rightStar)% 100%;
+                                        background-repeat: no-repeat;
+                                        -webkit-background-clip: text;
+                                        color: transparent;">
+                                    </i>
+
+                                    for (int i = (int)Math.Floor(Model.AverageStar) + 2; i <= 5; i++)
+                                    {
+                                        <i class="fa-solid fa-star" style="color:black;"></i>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = (int)Math.Floor(Model.AverageStar) + 1; i <= 5; i++)
+                                    {
+                                        <i class="fa-solid fa-star" style="color:black;"></i>
+                                    }
+                                }
+                                <span style="font-size:20px;"> | <u>@Model.CountFeedback</u> Đánh Giá | <u>@Model.CountProductSell</u> Đã Bán</span>
+                            }
+                            else
+                            {
+                                <span style="font-size:20px;"><u>@Model.CountProductSell</u> Đã Bán</span>
+                            }
+                        }
+
+                    </div>
                     <div class="price_box">
                         @if (Model.Voucher == null || Model.Voucher <= 0)
                         {
-                        <span class="current_price">@Model.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                            <span class="current_price">@Model.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
                         }
                         @if (Model.Voucher > 0)
                         {
-                    <span class="current_price">@Model.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
-                    <span class="old_price">@Model.OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                            <span class="current_price">@Model.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                            <span class="old_price">@Model.OriginalPrice.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
                         }
 
                     </div>
@@ -179,6 +225,222 @@
     </div>
 </div>
 <!--product info end-->
+<!--feedback start-->
+@{
+    if (Model.CountFeedback != 0)
+    {
+        <div class="product_d_info mb-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="feedback_d_info">
+                            <h3>Đánh Giá Sản Phẩm</h3>
+                            <div class="feedback_d_info_overview row">
+                                <div class="col-lg-3 col-md-4 col-12 mb-3">
+                                    <div class="star_overview_text">@Model.AverageStar.ToString("N1") trên 5</div>
+                                    <div>
+                                        @{
+                                            for (int i = 1; i <= (int)Math.Floor(Model.AverageStar); i++)
+                                            {
+                                                <i class="fa-solid fa-star fa-2x" style="color:red;"></i>
+                                            }
+                                            if ((Model.AverageStar - Math.Floor(Model.AverageStar)) > 0)
+                                            {
+                                                var leftStar = (Model.AverageStar - Math.Floor(Model.AverageStar)) * 100;
+                                                var rightStar = 100 - leftStar;
+                                                <i class="fa-solid fa-star fa-2x"
+                                                   style="background: linear-gradient(to right, red @Math.Floor(leftStar)%, red @Math.Floor(leftStar)%) left,linear-gradient(to right, black @Math.Floor(rightStar)%, black @Math.Floor(rightStar)%) right;
+                                                    background-size: @Math.Floor(leftStar)% 100%, @Math.Floor(rightStar)% 100%;
+                                                    background-repeat: no-repeat;
+                                                    -webkit-background-clip: text;
+                                                    color: transparent;">
+                                                </i>
+
+                                                for (int i = (int)Math.Floor(Model.AverageStar) + 2; i <= 5; i++)
+                                                {
+                                                    <i class="fa-solid fa-star fa-2x" style="color:black;"></i>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int i = (int)Math.Floor(Model.AverageStar) + 1; i <= 5; i++)
+                                                {
+                                                    <i class="fa-solid fa-star fa-2x" style="color:black;"></i>
+                                                }
+                                            }
+
+
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-12">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-4 col-4 mb-3">
+                                            <form asp-action="GetDetailProduct" method="get">
+                                                <input type="hidden" value="0" name="htmlStar" />
+                                                @if (chooseStar == 0)
+                                                {
+                                                    <button type="submit" class="btn btn-outline-danger active">Tất cả</button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="submit" class="btn btn-outline-danger">Tất cả</button>
+                                                }
+                                            </form>
+                                        </div>
+                                        @{
+                                            var htmlCount1Star = 0;
+                                            var htmlCount2Star = 0;
+                                            var htmlCount3Star = 0;
+                                            var htmlCount4Star = 0;
+                                            var htmlCount5Star = 0;
+                                            foreach (var item in countListFeedback)
+                                            {
+                                                if (item.Star == 1) { htmlCount1Star++; }
+                                                if (item.Star == 2) { htmlCount2Star++; }
+                                                if (item.Star == 3) { htmlCount3Star++; }
+                                                if (item.Star == 4) { htmlCount4Star++; }
+                                                if (item.Star == 5) { htmlCount5Star++; }
+                                            }
+                                            <div class="col-lg-2 col-md-4 col-4 mb-3">
+                                                <form asp-action="GetDetailProduct" method="get">
+                                                    <input type="hidden" value="5" name="htmlStar" />
+                                                    @if (chooseStar == 5)
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger active">5 Sao (@htmlCount5Star)</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger">5 Sao (@htmlCount5Star)</button>
+                                                    }
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-2 col-md-4 col-4 mb-3">
+                                                <form asp-action="GetDetailProduct" method="get">
+                                                    <input type="hidden" value="4" name="htmlStar" />
+                                                    @if (chooseStar == 4)
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger active">4 Sao (@htmlCount4Star)</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger">4 Sao (@htmlCount4Star)</button>
+                                                    }
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-2 col-md-4 col-4 mb-3">
+                                                <form asp-action="GetDetailProduct" method="get">
+                                                    <input type="hidden" value="3" name="htmlStar" />
+                                                    @if (chooseStar == 3)
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger active">3 Sao (@htmlCount3Star)</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger">3 Sao (@htmlCount3Star)</button>
+                                                    }
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-2 col-md-4 col-4 mb-3">
+                                                <form asp-action="GetDetailProduct" method="get">
+                                                    <input type="hidden" value="2" name="htmlStar" />
+                                                    @if (chooseStar == 2)
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger active">2 Sao (@htmlCount2Star)</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger">2 Sao (@htmlCount2Star)</button>
+                                                    }
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-2 col-md-4 col-4 mb-3">
+                                                <form asp-action="GetDetailProduct" method="get">
+                                                    <input type="hidden" value="1" name="htmlStar" />
+                                                    @if (chooseStar == 1)
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger active">1 Sao (@htmlCount1Star)</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" class="btn btn-outline-danger">1 Sao (@htmlCount1Star)</button>
+                                                    }
+                                                </form>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            @{
+                                foreach (var item in listFeedback)
+                                {
+                                    <div class="row">
+                                        <div class="feedback_d_info_avatar">
+                                            <span style="border: 1px solid; border-radius: 50%; padding: 15px; float: right; background: antiquewhite;">
+                                                @item.LastName[0]@item.FirstName[0]
+                                            </span>
+                                        </div>
+                                        <div class="feedback_d_info_main">
+                                            <div style="font-weight:600;">@item.LastName @item.FirstName</div>
+                                            <div>
+                                                @for (int i = 1; i <= item.Star; i++)
+                                                {
+                                                    <i class="fa-solid fa-star" style="color:red;"></i>
+                                                }
+                                                @for (int i = item.Star + 1; i <= 5; i++)
+                                                {
+                                                    <i class="fa-solid fa-star" style="color:black;"></i>
+                                                }
+                                            </div>
+                                            <div>
+                                                <span>@item.CreateDay</span>
+                                                @if (item.Color != "default")
+                                                {
+                                                    <span> | Màu sắc: @item.Color</span>
+                                                }
+                                            </div>
+                                            <div>@item.FeedBackContent</div>
+                                            @foreach (var img in item.ListImageName)
+                                            {
+                                                <a href="~/image/feedback/@img">
+                                                    <img style="width: 72px; height: 72px; border: 1px solid #e1e1e1;" src="~/image/feedback/@img" />
+                                                </a>
+                                            }
+                                            @{
+                                                if (item.ShopFeedbackId != null)
+                                                {
+                                                    <div class="shop_feedback_content">
+                                                        <h4>Phản hồi người bán</h4>
+                                                        <p>@item.ShopFeedbackContent</p>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <hr />
+                                    </div>
+                                }
+                            }
+                            <div>
+                                <ul class="pagination">
+                                    <pager class="pager-container"
+                                           list="@listFeedback"
+                                           asp-area=""
+                                           asp-controller="Products"
+                                           asp-action="GetDetailProduct"
+                                           asp-route-id="@Model.ProductId"
+                                           asp-route-htmlStar="@chooseStar" />
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+}
+<!--feedback end-->
 <!--product area start-->
 <section class="product_area related_products">
     <div class="container">
@@ -273,4 +535,17 @@
         })
 
     </script>
+    <script>
+        window.addEventListener('beforeunload', function () {
+            localStorage.setItem('scrollPosition', window.scrollY);
+        });
+        window.addEventListener('load', function () {
+            var scrollPosition = localStorage.getItem('scrollPosition');
+            if (scrollPosition !== null) {
+                window.scrollTo(0, scrollPosition);
+                localStorage.removeItem('scrollPosition'); // Optional: Remove the stored scroll position
+            }
+        });
+    </script>
+
 }
