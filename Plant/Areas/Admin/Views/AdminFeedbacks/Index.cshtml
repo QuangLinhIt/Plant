@@ -19,23 +19,25 @@
 <!-- Container -->
 <div class="container-fluid px-lg-4">
     <!-- Title -->
-    <div class="hk-pg-header mb-10">
+    <div class="hk-pg-header mb-10" style="margin-right: 20px;">
         <div>
             <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather=""></i></span></span>Danh sách phản hồi</h4>
         </div>
-        <div class="d-flex">
-            @{
-                var Count = 0;
-                foreach (var item in Model)
+        @{
+            var Count = 0;
+            foreach (var item in Model)
+            {
+                if (item.ShopFeedbackId == null)
                 {
-                    if (item.ShopFeedbackId == null)
-                    {
-                        Count++;
-                    }
+                    Count++;
                 }
             }
-            <a class="btn btn-outline-danger" style="color:red;">@Count Đánh giá chưa được phản hồi</a>
-        </div>
+            <div class="d-flex">
+                <i class="far fa-bell fa-3x text-dark">
+                    <span class="icon-number">@Count</span>
+                </i>
+            </div>
+        }
     </div>
     <!-- /Title -->
     <section class="hk-sec-wrapper mb-3">

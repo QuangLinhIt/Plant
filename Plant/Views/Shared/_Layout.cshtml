@@ -35,13 +35,15 @@
     <link rel="stylesheet" href="~/LayoutAssets/css/slinky.menu.css">
     <!--plugins css-->
     <link rel="stylesheet" href="~/LayoutAssets/css/plugins.css">
-
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="~/LayoutAssets/css/style.css">
-
     <!--modernizr min js here-->
     <script src="~/LayoutAssets/js/vendor/modernizr-3.7.1.min.js"></script>
-
+    <!--animation-->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!--michalsnik.github.io-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
@@ -158,14 +160,14 @@
                                 <div class="header_account_area">
                                     <div class="header_account-list top_links">
                                         @*<a asp-area="" asp-controller="Users" asp-action="Index"><i class="fa-solid fa-user"></i></a>
-                                        <ul class="dropdown_links">
-                                            <li>
-                                                <a asp-area="Identity" asp-page="/Account/Login">@Localizer["login"]</a>
-                                            </li>
-                                            <li>
-                                                <a asp-area="Identity" asp-page="/Account/Register">@Localizer["register"]</a>
-                                            </li>
-                                        </ul>*@
+                                            <ul class="dropdown_links">
+                                                <li>
+                                                    <a asp-area="Identity" asp-page="/Account/Login">@Localizer["login"]</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="Identity" asp-page="/Account/Register">@Localizer["register"]</a>
+                                                </li>
+                                            </ul>*@
                                         <partial name="_LoginPartial" />
                                     </div>
                                     <div class="header_account-list  mini_cart_wrapper">
@@ -259,7 +261,6 @@
         </div>
         <!-- Messenger Plugin chat Code -->
         <!--<div id="fb-root"></div>-->
-
         <!-- Your Plugin chat code -->
         <!--<div id="fb-customer-chat" class="fb-customerchat">
         </div>
@@ -269,7 +270,6 @@
             chatbox.setAttribute("page_id", "191698994026373");
             chatbox.setAttribute("attribution", "biz_inbox");
         </script>-->
-
         <!-- Your SDK code -->
         <!--<script>
             window.fbAsyncInit = function () {
@@ -322,14 +322,15 @@
     <script src="~/LayoutAssets/js/slinky.menu.js"></script>
     <!-- Plugins JS -->
     <script src="~/LayoutAssets/js/plugins.js"></script>
-
+    <!--michalsnik.github.io-->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <!-- Main JS -->
     <script src="~/LayoutAssets/js/main.js"></script>
 
-    <!--map js code here-->
-    <script src="https://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;v=3.22&amp;key=AIzaSyChs2QWiAhnzz0a4OEhzqCXwx_qA9ST_lE"></script>
-    <script src="https://www.google.com/jsapi"></script>
-    <script src="~/LayoutAssets/js/map.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
     <script src="~/localStorage/localStorage.js"></script>
     <script>
@@ -367,14 +368,14 @@
                     var itemCartNav = document.createElement('div');
                     itemCartNav.classList.add('cart_item');
                     itemCartNav.innerHTML = `
-                                                                             <div class="cart_img">
-                                                                                <a ><img src="/image/product/${product.image}" alt=""></a>
-                                                                            </div>
-                                                                            <div class="cart_info">
-                                                                                <a href="#">${product.productName}</a >
-                                                                                <p>${priceMiniCartToMoney} x ${item.color}</p>
-                                                                            </div>
-                                                                    `
+                                                                                         <div class="cart_img">
+                                                                                            <a ><img src="/image/product/${product.image}" alt=""></a>
+                                                                                        </div>
+                                                                                        <div class="cart_info">
+                                                                                            <a href="#">${product.productName}</a >
+                                                                                            <p>${priceMiniCartToMoney} x ${item.color}</p>
+                                                                                        </div>
+                                                                                `
                     listCartNav.appendChild(itemCartNav);
                 })
                 .catch(function (error) {

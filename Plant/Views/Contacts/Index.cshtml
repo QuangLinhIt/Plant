@@ -1,91 +1,106 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @model Plant.Models.Contact
-@{ 
+@{
 
 }
 @inject IViewLocalizer Localizer
 <!--breadcrumbs area start-->
-    <div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/uploads_1595672124171-_INTERIOR_PLANTS_PACK.jpg'); ">
+<div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/uploads_1595672124171-_INTERIOR_PLANTS_PACK.jpg'); ">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb_content">
-                        <h3 style="font-weight: 800; color: white; text-shadow: 0 0 0.2em black;">@Localizer["contact"]</h3>
-                        <ul>
-                            <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
-                            <li style="font-weight: 600; color: yellowgreen; text-shadow: 0 0 0.2em black;">@Localizer["home"]</li>
-                        </ul>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3 style="font-weight: 800; color: white; text-shadow: 0 0 0.2em black;">@Localizer["contact"]</h3>
+                    <ul>
+                        <li style="font-weight: 600; color: white; text-shadow: 0 0 0.2em black; "><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
+                        <li style="font-weight: 600; color: yellowgreen; text-shadow: 0 0 0.2em black;">@Localizer["home"]</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="contact_area">
-        <div class="container">
-            <!--breadcrumbs area end-->
-            <div class="contact_message content">
-                <figure>
-                    <figcaption class="about_content1">
-                        <img src="~/LayoutAssets/img/icon/475906.png" style="height:50px;width:50px;" />
-                        <h1>@Localizer["contact us"]</h1>
-                    </figcaption>
-                </figure>
-                <p>
-                    @Localizer["content-contact"]
-                </p>
-                <ul>
-                    <li>
-                        <i class="fa fa-fax"></i>@Localizer["address"]: @Localizer["text-address"]
+<div class="contact_area">
+    <div class="container">
+        <!--breadcrumbs area end-->
+        <div class="contact_message content">
+            <figure>
+                <figcaption class="about_content1">
+                    <img src="~/LayoutAssets/img/icon/475906.png" style="height:50px;width:50px;" />
+                    <h1>@Localizer["contact us"]</h1>
+                </figcaption>
+            </figure>
+            <p>
+                @Localizer["content-contact"]
+            </p>
+            <ul>
+                <li>
+                    <i class="fa fa-fax"></i>@Localizer["address"]: @Localizer["text-address"]
 
-                    </li>
-                    <li><i class="fa fa-envelope"></i> <a href="#">quang2001linh@gmail.com</a></li>
-                    <li><i class="fa fa-phone"></i><a href="tel:0123456789">0869830923</a> </li>
-                </ul>
-            </div>
-            <!--contact area start-->
-            <div class="row mt-100">
-                <div class="col-lg-6 col-md-12">
-                    <div class="contact_message form">
-                        <h3>@Localizer["tell"]</h3>
-                        <form id="contact-form" method="post" asp-action="Index">
-                            <p>
-                                <label> @Localizer["name"]</label>
-                                <input asp-for="Name" type="text">
-                            </p>
-                            <p>
-                                <label> Email</label>
-                                <input asp-for="Email" type="email">
-                            </p>
-                            <p>
-                                <label> Phone</label>
-                                <input asp-for="Phone" type="number">
-                            </p>
-                            <p>
-                                <label> @Localizer["title"]</label>
-                                <input asp-for="Title" type="text">
-                            </p>
-                            <div class="contact_textarea">
-                                <label> @Localizer["message"]</label>
-                                <textarea asp-for="Description" class="form-control2"></textarea>
-                            </div>
-                            <button type="submit"> @Localizer["send"]</button>
-                        </form>
-
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-12">
-                    <!--contact map start-->
-                    <div class="contact_map">
-                        <div class="map-area">
-                            <div id="googleMap"></div>
+                </li>
+                <li><i class="fa fa-envelope"></i> <a href="#">quang2001linh@gmail.com</a></li>
+                <li><i class="fa fa-phone"></i><a href="tel:0123456789">0869830923</a> </li>
+            </ul>
+        </div>
+        <!--contact area start-->
+        <div class="row mt-100">
+            <div class="col-lg-5 col-md-12">
+                <div class="contact_message form">
+                    <h3>@Localizer["tell"]</h3>
+                    <form id="contact-form" method="post" asp-action="Index">
+                        <p>
+                            <label> @Localizer["name"]</label>
+                            <input asp-for="Name" type="text">
+                        </p>
+                        <p>
+                            <label> Email</label>
+                            <input asp-for="Email" type="email">
+                        </p>
+                        <p>
+                            <label> Phone</label>
+                            <input asp-for="Phone" type="number">
+                        </p>
+                        <p>
+                            <label> @Localizer["title"]</label>
+                            <input asp-for="Title" type="text">
+                        </p>
+                        <div class="contact_textarea">
+                            <label> @Localizer["message"]</label>
+                            <textarea asp-for="Description" class="form-control2"></textarea>
                         </div>
-                    </div>
-                    <!--contact map end-->
+                        <button type="submit"> @Localizer["send"]</button>
+                    </form>
+
                 </div>
+            </div>
+
+            <div class="col-lg-7 col-md-12">
+                <!--contact map start-->
+                    <div id="googlemap"></div>
+                <!--contact map end-->
             </div>
         </div>
     </div>
+</div>
 
+@section Scripts{
+    <script>
+        function initMap() {
+            var myLatLng = { lat: 20.38944143144187, lng: 105.97662373033047 }; // Replace with your desired coordinates
+            var map = new google.maps.Map(document.getElementById('googlemap'), {
+                zoom: 15,
+                center: myLatLng
+            });
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEi_7WUazDAW0XnbHGYZDBO_CpwMkcaXY&callback=initMap">
+    </script>
+}

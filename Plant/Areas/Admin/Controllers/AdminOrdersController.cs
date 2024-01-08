@@ -9,19 +9,22 @@ using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using Plant.ModelDto;
 using Plant.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
 
     public class AdminOrdersController : Controller
     {
         private readonly plantContext _context;
-
-        public AdminOrdersController(plantContext context)
+        public INotyfService _notyfService { get; }
+        public AdminOrdersController(plantContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminOrders
@@ -89,7 +92,6 @@ namespace Plant.Areas.Admin.Controllers
                 var customer = _context.Customers.Where(x => x.CustomerId == order.CustomerId).FirstOrDefault();
                 var result = new OrderDto();
                 result.OrderId = order.OrderId;
-                result.PaymentId = order.PaymentId;
                 result.PaymentStatus = order.PaymentStatus;
                 result.CreateDate = order.CreateDate;
                 result.Money = order.Money;
@@ -124,15 +126,6 @@ namespace Plant.Areas.Admin.Controllers
                     listCart.Add(cartItem);
                 }
                 result.ListCart = listCart;
-                var payment = _context.Payments.Where(x => x.PaymentId == order.PaymentId).FirstOrDefault();
-                result.PaymentName = payment.PaymentName;
-                var paymentStatus = new List<SelectListItem>()
-                    {
-                        new SelectListItem { Value = "Chưa thanh toán", Text = "Chưa thanh toán" },
-                        new SelectListItem { Value = "Đã thanh toán", Text = "Đã thanh toán" },
-                    };
-                ViewData["PaymentStatus"] = new SelectList(paymentStatus, "Value", "Text", result.PaymentStatus);
-
                 var orderStatus = new List<SelectListItem>()
                     {
                         new SelectListItem { Value = "Chờ xác nhận", Text = "Chờ xác nhận" },
@@ -149,7 +142,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, OrderDto dto)
         {
             if (id != dto.OrderId)
@@ -161,23 +153,9 @@ namespace Plant.Areas.Admin.Controllers
                 try
                 {
                     var order = _context.Orders.Where(x => x.OrderId == dto.OrderId).FirstOrDefault();
-                    //xét sự thay đổi trạng thái đơn hàng lúc trước và sau cập nhật
-                    if (order.OrderStatus == "Chờ xác nhận" && dto.OrderStatus == "Đang giao hàng")
-                    {
-                        foreach (var item in dto.ListCart)
-                        {
-                            var productColor = _context.ProductColors
-                                .Where(x => x.ProductId == item.ProductId && x.Color == item.Color)
-                                .FirstOrDefault();
-                            productColor.Stock -= item.Quantity;
-                            _context.ProductColors.Update(productColor);
-                            _context.SaveChanges();
-                        }
-                    }
-                    order.PaymentStatus = dto.PaymentStatus;
                     order.OrderStatus = dto.OrderStatus;
                     _context.Orders.Update(order);
-
+                    _notyfService.Success("Cập nhật trạng thái đơn hàng thành công");
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -193,6 +171,7 @@ namespace Plant.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            _notyfService.Warning("Cập nhật trang thái đơn hàng thất bại");
             return View(dto);
         }
 

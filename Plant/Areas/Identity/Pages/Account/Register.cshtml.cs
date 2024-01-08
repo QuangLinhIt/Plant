@@ -29,7 +29,8 @@ namespace Plant.Areas.Identity.Pages.Account
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;

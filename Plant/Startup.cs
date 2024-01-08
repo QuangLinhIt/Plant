@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Plant.Areas.Identity.Data;
 using Plant.Data;
 using Plant.Models;
+using Plant.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,6 +38,10 @@ namespace Plant
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
             services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
             services.AddDbContextPool<plantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("plantConnectString")));
             services.AddSession();
@@ -67,11 +74,12 @@ namespace Plant
             services.Configure<IdentityOptions>(options =>
             {
                 /// Thiết lập về Password
-                options.Password.RequireDigit = true;// Không bắt phải có số
+                options.Password.RequireDigit = true;// Yêu cầu ít nhất một chữ số
                 options.Password.RequireLowercase = true;// Không bắt phải có chữ thường
-                options.Password.RequireNonAlphanumeric = true;// Không bắt ký tự đặc biệt
-                options.Password.RequireUppercase = true;// Không bắt buộc chữ in
-                options.Password.RequiredLength = 6;// Số ký tự tối thiểu của password
+                options.Password.RequireNonAlphanumeric = true;// Yêu cầu ít nhất một ký tự đặc biệt không phải chữ cái hoặc số
+                options.Password.RequireUppercase = true;// Yêu cầu ít nhất một chữ cái viết hoa
+                options.Password.RequireLowercase = true; // Yêu cầu ít nhất một chữ cái viết thường
+                options.Password.RequiredLength = 8;// Độ dài tối thiểu của mật khẩu
                 options.Password.RequiredUniqueChars = 1;// Số ký tự riêng biệt
 
                 // Cấu hình Lockout - khóa user
@@ -116,6 +124,21 @@ namespace Plant
                      googleOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
                  });
             services.AddRazorPages();
+
+            //VNPAY
+            services.AddSingleton<IVnPayService, VnPayService>();
+
+            //cors
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", builder =>
+                {
+                    builder.WithOrigins("https://localhost:44349/")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -138,7 +161,7 @@ namespace Plant
             app.UseStaticFiles();
             app.UseNotyf();
             app.UseRouting();
-
+            app.UseCors("AllowSpecificOrigin");
             //var cultures = new[] { "vi", "en" }; 
             //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(cultures[0])
             //    .AddSupportedCultures(cultures)

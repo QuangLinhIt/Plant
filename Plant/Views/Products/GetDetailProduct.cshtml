@@ -64,7 +64,7 @@
                     <h1><a href="#">@Model.ProductName</a></h1>
                     <div class="product_ratting">
                         @{
-                            if (Model.CountProductSell > 0)
+                            if (Model.CountFeedback > 0)
                             {
                                 <u style="font-size:20px; color:red; font-weight:700;">@Model.AverageStar.ToString("N1")</u>
                                 for (int i = 1; i <= (int)Math.Floor(Model.AverageStar); i++)
@@ -469,15 +469,8 @@
                                 <figcaption class="product_content">
                                     <h4 class="product_name"><a href="product-details.html">@item.ProductName </a></h4>
                                     <div class="price_box">
-                                        @if (item.Voucher == null || item.Voucher <= 0)
-                                        {
-                                            <span class="current_price">@item.Price <u>đ</u></span>
-                                        }
-                                        @if (item.Voucher > 0)
-                                        {
-                                            <span class="current_price">@item.Price <u>đ</u></span>
-                                            <span class="old_price">@item.OriginalPrice <u>đ</u></span>
-                                        }
+                                        <span class="current_price">@item.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                        <span class="count_product_sell">Đã bán @item.CountProductSell</span>
                                     </div>
                                 </figcaption>
                             </figure>

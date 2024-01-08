@@ -8,9 +8,7 @@ namespace Plant.ModelDto
     public class OrderDto
     {
         public int OrderId { get; set; }
-        public int PaymentId { get; set; }
         public string PaymentStatus { get; set; }
-        public string PaymentName { get; set; }
         public DateTime CreateDate { get; set; }
         public decimal Money { get; set; }
         public decimal ShipFee { get; set; }

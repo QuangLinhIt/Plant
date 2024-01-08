@@ -70,7 +70,6 @@
                         </ul>
                     </div>
                 </div>
-                <div><img src="~/LayoutAssets/img/blog/crop-hands-with-sprouts_23-2147826198.jpg" style="height:auto;width:100%;margin-top:20px;border-radius:15px;" /></div>
 
             </div>
             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -83,7 +82,7 @@
                 <div class="blog_wrapper blog_wrapper_sidebar">
                     @foreach (var item in Model)
                     {
-                        <article class="single_blog">
+                        <article class="single_blog" data-aos="fade-up">
                             <figure>
                                 <div class="blog_thumb">
                                     <a asp-area="" asp-controller="Blogs" asp-action="GetDetailBlog" asp-route-id="@item.BlogId"><img src="~/image/blog/@item.BlogImg" alt=""></a>

@@ -11,21 +11,24 @@ using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using Plant.ModelDto;
 using Plant.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
 
     public class AdminProductsController : Controller
     {
         private readonly plantContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-
-        public AdminProductsController(plantContext context, IWebHostEnvironment hostEnvironment)
+        public INotyfService _notyfService { get; }
+        public AdminProductsController(plantContext context, IWebHostEnvironment hostEnvironment, INotyfService notyfService)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminProducts
@@ -82,7 +85,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductDto dto)
         {
             if (ModelState.IsValid)
@@ -129,6 +131,7 @@ namespace Plant.Areas.Admin.Controllers
 
                 _context.ProductTranslations.Add(productTranslation);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Thêm mới sản phẩm thành công");
                 return RedirectToAction(nameof(Index));
             }
             return View(dto);
@@ -178,7 +181,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, int langId, ProductDto dto)
         {
             if (id != dto.ProductId)
@@ -270,8 +272,10 @@ namespace Plant.Areas.Admin.Controllers
                 {
                     return NotFound();
                 }
+                _notyfService.Success("Chỉnh sửa sản phẩm thành công");
                 return RedirectToAction(nameof(Index));
             }
+            _notyfService.Warning("Chỉnh sửa sản phẩm thất bại");
             return View(dto);
         }
 
@@ -302,7 +306,6 @@ namespace Plant.Areas.Admin.Controllers
         }
         //POST:Admin/AdminProducts/AddLanguages
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult AddLanguages(int id, int langId, ProductTranslation data)
         {
             if (id != data.ProductId)
@@ -332,6 +335,7 @@ namespace Plant.Areas.Admin.Controllers
                             result.Application = data.Application;
                             _context.ProductTranslations.Add(result);
                             _context.SaveChanges();
+                            _notyfService.Success("Cập nhật bản dịch sản phẩm thành công");
                         }
                         else
                         {
@@ -345,6 +349,7 @@ namespace Plant.Areas.Admin.Controllers
                             result.Application = data.Application;
                             _context.ProductTranslations.Add(result);
                             _context.SaveChanges();
+                            _notyfService.Success("Thêm mới bản dịch sản phẩm thành công");
                         }
                     }
                     else
@@ -410,7 +415,6 @@ namespace Plant.Areas.Admin.Controllers
         }
         //POST:Admin/AdminProducts/AddColor
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult AddColor(int id, int langId, ProductColorDto dto)
         {
             if (id != dto.ProductId)
@@ -429,6 +433,7 @@ namespace Plant.Areas.Admin.Controllers
                     };
                     _context.ProductColors.Add(data);
                     _context.SaveChanges();
+                    _notyfService.Success("Thêm mới màu sắc cho sản phẩm thành công");
                 }
                 catch
                 {
@@ -436,6 +441,7 @@ namespace Plant.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Color", "AdminProducts", new { id = dto.ProductId, langId = dto.LangId });
             }
+            _notyfService.Warning("Thêm mới màu sắc cho sản phẩm thất bại");
             return View(dto);
         }
         //GET:Admin/AdminProducts
@@ -462,7 +468,6 @@ namespace Plant.Areas.Admin.Controllers
         }
         //POST:Admin/AdminProducts/EditColor
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult EditColor(int id, int langId, ProductColorDto dto)
         {
             if (id != dto.ProductColorId || langId != dto.LangId)
@@ -482,8 +487,10 @@ namespace Plant.Areas.Admin.Controllers
                 productColor.Stock = dto.Stock;
                 _context.ProductColors.Update(productColor);
                 _context.SaveChanges();
+                _notyfService.Success("Chỉnh sửa màu sắc cho sản phẩm thành công");
                 return RedirectToAction("Color", "AdminProducts", new { id = dto.ProductId, langId = dto.LangId });
             }
+            _notyfService.Warning("Chỉnh sửa màu sắc cho sản phẩm thất bại");
             return View(dto);
         }
         //GET:Admin/AdminProducts/DeleteColor
@@ -515,7 +522,6 @@ namespace Plant.Areas.Admin.Controllers
         }
         //Delete:Admin/AdminProducts/DeleteColor
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult DeleteColor(int id, int langId, ProductColorDto dto)
         {
             if (id != dto.ProductColorId || langId != dto.LangId)
@@ -525,6 +531,7 @@ namespace Plant.Areas.Admin.Controllers
             var productColor = _context.ProductColors.Where(x => x.ProductColorId == id).FirstOrDefault();
             _context.ProductColors.Remove(productColor);
             _context.SaveChanges();
+            _notyfService.Success("Xóa màu sắc sản phẩm thành công");
             return RedirectToAction("Color", "AdminProducts", new { id = dto.ProductId, langId = dto.LangId });
         }
 
@@ -560,7 +567,6 @@ namespace Plant.Areas.Admin.Controllers
         }
         //POST:Admin/AdminProducts/Picture
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Picture(int id, int langId, ProductImageDto dto)
         {
             if (id != dto.ProductId || langId != dto.LangId)
@@ -592,6 +598,7 @@ namespace Plant.Areas.Admin.Controllers
                     }
                     _context.ProductImgs.AddRange(listProductImg);
                     _context.SaveChanges();
+                    _notyfService.Success("Thêm danh sách hình ảnh thành công");
                 }
                 else
                 {
@@ -619,12 +626,13 @@ namespace Plant.Areas.Admin.Controllers
                     }
                     _context.ProductImgs.AddRange(listProductImg);
                     _context.SaveChanges();
+                    _notyfService.Success("Chỉnh sửa danh sách hình ảnh thành công");
                 }
                 return RedirectToAction("Index");
             }
         }
         // GET: Admin/AdminProducts/Delete/5
-        public async Task<IActionResult> Delete(int? id, int? langId)
+        public IActionResult Delete(int? id, int? langId)
         {
             if (id == null)
             {
@@ -640,7 +648,6 @@ namespace Plant.Areas.Admin.Controllers
 
         // POST: Admin/AdminProducts/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id, int langId)
         {
             var product = _context.Products.Where(x => x.ProductId == id).FirstOrDefault();
@@ -679,6 +686,7 @@ namespace Plant.Areas.Admin.Controllers
                     System.IO.File.Delete(CurrentProduct);
                 }
             }
+            _notyfService.Success("Xóa sản phẩm thành công"); 
             return RedirectToAction(nameof(Index));
         }
 

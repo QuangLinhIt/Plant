@@ -7,19 +7,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Plant.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
 
     public class AdminLanguagesController : Controller
     {
         private readonly plantContext _context;
-
-        public AdminLanguagesController(plantContext context)
+        public INotyfService _notyfService { get; }
+        public AdminLanguagesController(plantContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminLanguages
@@ -27,8 +30,6 @@ namespace Plant.Areas.Admin.Controllers
         {
             return View(await _context.Languages.ToListAsync());
         }
-
-
 
         // GET: Admin/AdminLanguages/Create
         public IActionResult Create()
@@ -40,13 +41,13 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( Language language)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(language);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Thêm mới ngôn ngữ thành công");
                 return RedirectToAction(nameof(Index));
             }
             return View(language);
@@ -72,7 +73,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Language language)
         {
             if (id != language.LangId)
@@ -86,6 +86,7 @@ namespace Plant.Areas.Admin.Controllers
                 {
                     _context.Update(language);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Chỉnh sửa ngôn ngữ thành công");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -100,6 +101,7 @@ namespace Plant.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            _notyfService.Warning("Chỉnh sửa ngôn ngữ thất bại");
             return View(language);
         }
 
@@ -123,12 +125,12 @@ namespace Plant.Areas.Admin.Controllers
 
         // POST: Admin/AdminLanguages/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var language = await _context.Languages.FindAsync(id);
             _context.Languages.Remove(language);
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa ngôn ngữ thành công");
             return RedirectToAction(nameof(Index));
         }
 

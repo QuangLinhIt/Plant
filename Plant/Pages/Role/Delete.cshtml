@@ -4,20 +4,40 @@
     ViewData["Title"] = "Xóa role";
 }
 
-<h4>@ViewData["Title"]</h4>
-<div class="row">
-    <div class="col-md-6">
-        <p>Bạn có chăc chắn xóa Role <strong>@Model.Input.Name</strong> </p>
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="Input.ID">
-            <input type="hidden" asp-for="isConfirmed">
-            <a class="btn btn-primary" asp-page="./Index">Danh sách</a>
-            <button type="submit" asp-page="./Delete" class="btn btn-danger">Xóa</button>
-        </form>
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Quản lí hệ thống</a></li>
+        <li class="breadcrumb-item"><a asp-page="/Role/Index">Danh sách quyền truy cập</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Xóa quyền truy cập</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Xóa quyền truy cập</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <div class="row">
+                    <div class="col-sm">
+                        <form method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <input type="hidden" asp-for="Input.ID">
+                            <input type="hidden" asp-for="isConfirmed">
+                            <a class="btn btn-primary" asp-page="./Index">Danh sách</a>
+                            <button type="submit" asp-page="./Delete" class="btn btn-danger">Xóa</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

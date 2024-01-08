@@ -8,7 +8,7 @@ namespace Plant.Models
 {
     public partial class plantContext : DbContext
     {
-        
+       
 
         public plantContext(DbContextOptions<plantContext> options)
             : base(options)
@@ -35,7 +35,6 @@ namespace Plant.Models
         public virtual DbSet<FeedbackImage> FeedbackImages { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductColor> ProductColors { get; set; }
@@ -295,17 +294,6 @@ namespace Plant.Models
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Customers");
-
-                entity.HasOne(d => d.Payment)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.PaymentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Orders_Payments");
-            });
-
-            modelBuilder.Entity<Payment>(entity =>
-            {
-                entity.Property(e => e.PaymentName).IsRequired();
             });
 
             modelBuilder.Entity<Product>(entity =>

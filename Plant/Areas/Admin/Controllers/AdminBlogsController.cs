@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,17 +16,18 @@ namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
 
     public class AdminBlogsController : Controller
     {
         private readonly plantContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-
-        public AdminBlogsController(plantContext context, IWebHostEnvironment hostEnvironment)
+        public INotyfService _notyfService { get; }
+        public AdminBlogsController(plantContext context, IWebHostEnvironment hostEnvironment, INotyfService notyfService)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
-
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminBlogs
@@ -105,12 +107,10 @@ namespace Plant.Areas.Admin.Controllers
 
             return View(blogDto);
         }
-
         // POST: Admin/AdminBlogs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(BlogDto dto)
         {
             if (ModelState.IsValid)
@@ -142,10 +142,13 @@ namespace Plant.Areas.Admin.Controllers
                 };
                 _context.BlogTranslations.Add(blogTranslation);
                 _context.SaveChanges();
+                _notyfService.Success("Thêm mới tin tức thành công");
                 return RedirectToAction(nameof(Index));
             }
+            _notyfService.Warning("Thêm mới tin tức thất bại!");
             return View(dto);
         }
+
         //GET:Admin/AdminBlogs/AddLanguages
         public IActionResult AddLanguages(int? id, int? langId)
         {
@@ -170,7 +173,6 @@ namespace Plant.Areas.Admin.Controllers
             return View(result);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         //POST:Admin/AdminBlogs/AddLanguages
         public IActionResult AddLanguages(int id, int langId, BlogTranslation data)
         {
@@ -195,6 +197,7 @@ namespace Plant.Areas.Admin.Controllers
                     };
                     _context.BlogTranslations.Add(result);
                     _context.SaveChanges();
+                    _notyfService.Success("Cập nhật bản dịch tin tức thành công");
                 }
                 else
                 {
@@ -208,11 +211,13 @@ namespace Plant.Areas.Admin.Controllers
                     };
                     _context.BlogTranslations.Add(result);
                     _context.SaveChanges();
+                    _notyfService.Success("Thêm mới bản dịch tin tức thành công");
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(data);
         }
+
         // GET: Admin/AdminBlogs/Edit/5
         public IActionResult Edit(int? id, int? langId)
         {
@@ -249,12 +254,10 @@ namespace Plant.Areas.Admin.Controllers
                 return NotFound();
             }
         }
-
         // POST: Admin/AdminBlogs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, int langId, BlogDto dto)
         {
             if (id != dto.BlogId)
@@ -280,6 +283,7 @@ namespace Plant.Areas.Admin.Controllers
                         blogTranslation.Description = dto.Description;
                         _context.BlogTranslations.Update(blogTranslation);
                         _context.SaveChanges();
+                        _notyfService.Success("Chỉnh sửa tin tức thành công");
                     }
                     else
                     {
@@ -293,6 +297,7 @@ namespace Plant.Areas.Admin.Controllers
                         };
                         _context.BlogTranslations.Add(blogTran);
                         _context.SaveChanges();
+                        _notyfService.Success("Thêm mới bản dịch tin tức thành công");
                     }
                     //Find list BlogCategory and remove
                     var listBlogCategory = new List<BlogCategory>();
@@ -352,7 +357,6 @@ namespace Plant.Areas.Admin.Controllers
 
         // POST: Admin/AdminBlogs/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id, int langId)
         {
             var blog = await _context.Blogs.Where(x => x.BlogId == id).FirstOrDefaultAsync();
@@ -372,6 +376,7 @@ namespace Plant.Areas.Admin.Controllers
                     System.IO.File.Delete(CurrentImage);
                 }
             }
+            _notyfService.Success("Xóa tin tức thành công");
             return RedirectToAction(nameof(Index));
         }
 

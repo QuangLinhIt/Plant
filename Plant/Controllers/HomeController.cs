@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Plant.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         private readonly plantContext _context;
@@ -22,7 +23,7 @@ namespace Plant.Controllers
         {
             _context = context;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             //get selected languages
@@ -48,7 +49,50 @@ namespace Plant.Controllers
                                ShortDes = pt.ShortDes,
                            }).ToList();
             ViewData["ListProduct"] = product;
-
+            //cập nhật số sao trung bình và số sản phẩm đã bán cho từng sản phẩm trong danh sách
+            foreach (var item in product)
+            {
+                var listFeedback = (from f in _context.Feedbacks
+                                    join po in _context.ProductOrders on f.FeedbackId equals po.FeedbackId
+                                    where po.ProductId == item.ProductId && po.FeedbackId != null
+                                    select new ReviewFeedbackVm()
+                                    {
+                                        ProductId = po.ProductId,
+                                        FeedbackId = f.FeedbackId,
+                                        Star = f.Star,
+                                        Quantity = po.Quantity
+                                    }).ToList();
+                if (listFeedback.Count != 0)
+                {
+                    decimal totalProductSell = 0;
+                    decimal averageStar = 0;
+                    for (var k = 0; k < listFeedback.Count; k++)
+                    {
+                        totalProductSell += listFeedback[k].Quantity;
+                    }
+                    for (var i = 0; i < listFeedback.Count; i++)
+                    {
+                        averageStar += (decimal)(listFeedback[i].Star * listFeedback[i].Quantity) / totalProductSell;
+                    }
+                    item.AverageStar = averageStar;
+                }
+                else
+                {
+                    item.AverageStar = 0;
+                }
+                var productSell = (from p in _context.ProductOrders
+                                   join o in _context.Orders on p.OrderId equals o.OrderId
+                                   where p.ProductId == item.ProductId && o.OrderStatus == "Giao hàng thành công"
+                                   select new ProductVm()
+                                   {
+                                       ProductId = p.ProductId,
+                                       CountProductSell = p.Quantity
+                                   }).ToList();
+                foreach (var ps in productSell)
+                {
+                    item.CountProductSell += ps.CountProductSell;
+                }
+            }
             var blog = (from b in _context.Blogs
                         join bt in _context.BlogTranslations on b.BlogId equals bt.BlogId
                         join bc in _context.BlogCategories on b.BlogId equals bc.BlogId
@@ -70,6 +114,8 @@ namespace Plant.Controllers
             return View();
 
         }
+
+        [HttpGet]
         public IActionResult Introduction()
         {
             return View();

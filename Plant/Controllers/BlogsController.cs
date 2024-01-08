@@ -24,6 +24,7 @@ namespace Plant.Controllers
         }
 
         // GET: Blogs
+        [HttpGet]
         public IActionResult Index(int page = 1)
         {
             //get selected languages
@@ -69,6 +70,7 @@ namespace Plant.Controllers
             return View(models);
         }
         //GET: list blog
+        [HttpGet]
         public IActionResult GetListBlog(int page = 1, int id = 0)
         {
             //get selected languages
@@ -116,6 +118,7 @@ namespace Plant.Controllers
             return View(models);
         }
         //GET:detail blog
+        [HttpGet]
         public IActionResult GetDetailBlog(int id = 0)
         {
             //get selected languages

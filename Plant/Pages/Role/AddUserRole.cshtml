@@ -3,29 +3,51 @@
 @{
     ViewData["Title"] = "Cập nhật role cho User";
 }
-<h4>@ViewData["Title"]</h4>
-<div class="row">
-    <div class="col-md-6">
-        <p>Chọn các role gán cho <strong>@Model.Input.Name</strong></p>
-        <form method="post">
-            <partial name="_StatusMessage" model="@Model.StatusMessage" />
-            <div class="form-group">
-                @Html.LabelFor(x => x.Input.RoleNames)
-        @Html.ListBoxFor(x => x.Input.RoleNames,
-            new MultiSelectList(Model.AllRoles),
-            new { @class = "form-control", id = "input_tags", multiple = "multiple" })
 
-            </div>
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Quản lí hệ thống</a></li>
+        <li class="breadcrumb-item"><a asp-page="/Role/User">Danh sách người dùng</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa quyền truy cập cho người dùng</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Chỉnh sửa quyền truy cập cho người dùng</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <div class="row">
+                    <div class="col-sm">
+                        <p>Chọn các role gán cho <strong>@Model.Input.Name</strong></p>
+                        <form method="post">
+                            <partial name="_StatusMessage" model="@Model.StatusMessage" />
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Input.RoleNames)
+                                @Html.ListBoxFor(x => x.Input.RoleNames,
+                                    new MultiSelectList(Model.AllRoles),
+                                    new { @class = "form-control", id = "input_tags", multiple = "multiple" })
 
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="Input.ID">
-            <input type="hidden" asp-for="isConfirmed">
-            <a class="btn btn-primary" asp-page="./User">Danh sách</a>
-            <button type="submit" class="btn btn-danger">Cập nhật</button>
-        </form>
+                            </div>
+
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <input type="hidden" asp-for="Input.ID">
+                            <input type="hidden" asp-for="isConfirmed">
+                            <a class="btn btn-primary" asp-page="./User">Danh sách</a>
+                            <button type="submit" class="btn btn-danger">Cập nhật</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

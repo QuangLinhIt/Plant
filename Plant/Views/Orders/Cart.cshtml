@@ -20,33 +20,33 @@
 <!--shopping cart area start -->
 <div class="shopping_cart_area mt-100">
     <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="table_desc">
-                        <div class="cart_page table-responsive">
-                            <table style="width:100%;">
-                                <thead style="background:white; color:black;font-weight:600;">
-                                    <tr>
-                                        <th></th>
-                                        <th class="product_thumb">@Localizer["image"]</th>
-                                        <th class="product_name">@Localizer["product"]</th>
-                                        <th class="product-price">@Localizer["price"]</th>
-                                        <th class="product-color">@Localizer["color"]</th>
-                                        <th class="product_quantity">@Localizer["quantity"]</th>
-                                        <th class="product_remove">@Localizer["delete"]</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbodyListCart">
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="cart_submit">
-                            <a type="button" asp-area="" asp-controller="Orders" asp-action="Order">@Localizer["purchase"]</a>
-                        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table_desc">
+                    <div class="cart_page table-responsive">
+                        <table style="width:100%;">
+                            <thead style="background:white; color:black;font-weight:600;">
+                                <tr>
+                                    <th></th>
+                                    <th class="product_thumb">@Localizer["image"]</th>
+                                    <th class="product_name">@Localizer["product"]</th>
+                                    <th class="product-price">@Localizer["price"]</th>
+                                    <th class="product-color">@Localizer["color"]</th>
+                                    <th class="product_quantity">@Localizer["quantity"]</th>
+                                    <th class="product_remove">@Localizer["delete"]</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyListCart">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart_submit">
+                        <a type="button" asp-area="" asp-controller="Orders" asp-action="Order">@Localizer["purchase"]</a>
                     </div>
                 </div>
-
             </div>
+
+        </div>
 
     </div>
 </div>
@@ -86,14 +86,18 @@
         cartItems.forEach(function (item) {
             GetProductData(item.productId, item.color)
                 .then(function (product) {
-                    if (item.quantity > product.stock) {
-                        item.quantity = product.stock;
-                        UpdateToCartOnOrder(item.productId, item.quantity, item.color, item.choose);
-                    }
-                    var priceCartToMoney = product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-                    // Handle the received data
-                    var itemCartHtml = document.createElement('tr');
-                    itemCartHtml.innerHTML = `
+                    if (product.error) {
+                        console.log("Product not found: " + product.error);
+                        alert("product not found", product.error)
+                    } else if (product && product.price !== undefined) {
+                        if (item.quantity > product.stock) {
+                            item.quantity = product.stock;
+                            UpdateToCartOnOrder(item.productId, item.quantity, item.color, item.choose);
+                        }
+                        var priceCartToMoney = product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                        // Handle the received data
+                        var itemCartHtml = document.createElement('tr');
+                        itemCartHtml.innerHTML = `
                                                                         <td>
                                                                             <input class="table_desc_checkbox" type="checkbox"/>
                                                                         </td>
@@ -114,28 +118,28 @@
                                                                             <a onclick="RemoveCart(${item.productId},'${item.color}')"><i class="fa-solid fa-trash-can"></i></a>
                                                                         </td>
                                                                 `;
-                    //update when checkbox change
-                    var inputCheckbox = itemCartHtml.querySelector('input[type="checkbox"]');
-                    if (item.choose == false) {
-                        inputCheckbox.checked = false;
-                    } else {
-                        inputCheckbox.checked = true;
-                    }
-                    inputCheckbox.addEventListener('change', function () {
-                        UpdateToCartOnOrder(item.productId, item.quantity, item.color, inputCheckbox.checked);
-                    });
-                    //update when quantity change
-                    var inputNumberQuantity = itemCartHtml.querySelector('input[type="number"]');
-                    inputNumberQuantity.addEventListener('change', function () {
-                        UpdateToCartOnOrder(item.productId, parseInt(inputNumberQuantity.value), item.color, item.choose);
-                    });
-                    //display
-                    listCartHtml.appendChild(itemCartHtml);
+                        //update when checkbox change
+                        var inputCheckbox = itemCartHtml.querySelector('input[type="checkbox"]');
+                        if (item.choose == false) {
+                            inputCheckbox.checked = false;
+                        } else {
+                            inputCheckbox.checked = true;
+                        }
+                        inputCheckbox.addEventListener('change', function () {
+                            UpdateToCartOnOrder(item.productId, item.quantity, item.color, inputCheckbox.checked);
+                        });
+                        //update when quantity change
+                        var inputNumberQuantity = itemCartHtml.querySelector('input[type="number"]');
+                        inputNumberQuantity.addEventListener('change', function () {
+                            UpdateToCartOnOrder(item.productId, parseInt(inputNumberQuantity.value), item.color, item.choose);
+                        });
+                        //display
+                        listCartHtml.appendChild(itemCartHtml);
 
-                    // Handle the received data on phone
-                    var itemCartHtmlPhone = document.createElement('div');
-                    itemCartHtmlPhone.classList.add('shopping_cart_phone');
-                    itemCartHtmlPhone.innerHTML = `
+                        // Handle the received data on phone
+                        var itemCartHtmlPhone = document.createElement('div');
+                        itemCartHtmlPhone.classList.add('shopping_cart_phone');
+                        itemCartHtmlPhone.innerHTML = `
                                                             <div class="row">
                                                                 <div class="checkbox_cart col-1">
                                                                     <input class="table_desc_checkbox" type="checkbox" checked="${item.choose}" />
@@ -159,27 +163,33 @@
                                                             </div>
                                                 `
 
-                    //update when checkbox change
-                    var inputCheckboxPhone = itemCartHtmlPhone.querySelector('input[type="checkbox"]');
-                    if (item.choose == false) {
-                        inputCheckboxPhone.checked = false;
-                    } else {
-                        inputCheckboxPhone.checked = true;
+                        //update when checkbox change
+                        var inputCheckboxPhone = itemCartHtmlPhone.querySelector('input[type="checkbox"]');
+                        if (item.choose == false) {
+                            inputCheckboxPhone.checked = false;
+                        } else {
+                            inputCheckboxPhone.checked = true;
+                        }
+                        inputCheckboxPhone.addEventListener('change', function () {
+                            UpdateToCartOnOrder(item.productId, item.quantity, item.color, inputCheckboxPhone.checked);
+                        });
+                        //update when quantity change
+                        var inputNumberQuantityPhone = itemCartHtmlPhone.querySelector('input[type="number"]');
+                        inputNumberQuantityPhone.addEventListener('change', function () {
+                            UpdateToCartOnOrder(item.productId, parseInt(inputNumberQuantityPhone.value), item.color, item.choose);
+                        });
+                        //display
+                        listCartHtmlPhone.appendChild(itemCartHtmlPhone);
                     }
-                    inputCheckboxPhone.addEventListener('change', function () {
-                        UpdateToCartOnOrder(item.productId, item.quantity, item.color, inputCheckboxPhone.checked);
-                    });
-                    //update when quantity change
-                    var inputNumberQuantityPhone = itemCartHtmlPhone.querySelector('input[type="number"]');
-                    inputNumberQuantityPhone.addEventListener('change', function () {
-                        UpdateToCartOnOrder(item.productId, parseInt(inputNumberQuantityPhone.value), item.color, item.choose);
-                    });
-                    //display
-                    listCartHtmlPhone.appendChild(itemCartHtmlPhone);
+                    else {
+                        // Handle the case where the product is found but price is undefined
+                        console.log("Price not available for the product");
+                    }
+
                 })
                 .catch(function (error) {
                     // Handle errors
-                    alert(error);
+                    alert("cart.html",error);
                 });
 
         });

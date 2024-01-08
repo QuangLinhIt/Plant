@@ -76,7 +76,9 @@ namespace Plant.Pages.Role
                               select new UserInList()
                               {
                                   Id = u.Id,
-                                  UserName = u.UserName,
+                                  LastName=u.LastName,
+                                  FirstName=u.FirstName,
+                                  Email=u.Email
                               });
 
 

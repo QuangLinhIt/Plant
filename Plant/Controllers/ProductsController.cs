@@ -14,6 +14,7 @@ using Plant.ViewModels;
 
 namespace Plant.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ProductsController : Controller
     {
         private readonly plantContext _context;
@@ -24,6 +25,7 @@ namespace Plant.Controllers
         }
 
         // GET: Products
+        [HttpGet]
         public IActionResult Index(int page = 1)
         {
             //get selected languages
@@ -93,13 +95,24 @@ namespace Plant.Controllers
                     {
                         averageStar += (decimal)(listFeedback[i].Star * listFeedback[i].Quantity) / totalProductSell;
                     }
-                    item.CountProductSell = totalProductSell;
                     item.AverageStar = averageStar;
                 }
                 else
                 {
-                    item.CountProductSell = 0;
                     item.AverageStar = 0;
+                }
+
+                var productSell = (from p in _context.ProductOrders
+                                   join o in _context.Orders on p.OrderId equals o.OrderId
+                                   where p.ProductId == item.ProductId && o.OrderStatus == "Giao hàng thành công"
+                                   select new ProductVm()
+                                   {
+                                       ProductId = p.ProductId,
+                                       CountProductSell = p.Quantity
+                                   }).ToList();
+                foreach(var ps in productSell)
+                {
+                    item.CountProductSell += ps.CountProductSell;
                 }
             }
             PagedList<ProductVm> models = new PagedList<ProductVm>(result.AsQueryable(), pageNumber, pageSize);
@@ -108,6 +121,7 @@ namespace Plant.Controllers
         }
 
         //GET: ListProducts
+        [HttpGet]
         public IActionResult GetListProducts(int page = 1, int id = 0)
         {
             //get selected languages
@@ -179,13 +193,23 @@ namespace Plant.Controllers
                     {
                         averageStar += (decimal)(listFeedback[i].Star * listFeedback[i].Quantity) / totalProductSell;
                     }
-                    item.CountProductSell = totalProductSell;
                     item.AverageStar = averageStar;
                 }
                 else
                 {
-                    item.CountProductSell = 0;
                     item.AverageStar = 0;
+                }
+                var productSell = (from p in _context.ProductOrders
+                                   join o in _context.Orders on p.OrderId equals o.OrderId
+                                   where p.ProductId == item.ProductId && o.OrderStatus == "Giao hàng thành công"
+                                   select new ProductVm()
+                                   {
+                                       ProductId = p.ProductId,
+                                       CountProductSell = p.Quantity
+                                   }).ToList();
+                foreach (var ps in productSell)
+                {
+                    item.CountProductSell += ps.CountProductSell;
                 }
             }
 
@@ -195,6 +219,7 @@ namespace Plant.Controllers
         }
 
         //GET: DetailProduct
+        [HttpGet]
         public IActionResult GetDetailProduct(int id = 0, int htmlStar = 0,int page=1)
         {
             var pageNumber = page;
@@ -303,15 +328,24 @@ namespace Plant.Controllers
                 {
                     averageStar += (decimal)(listFeedback[i].Star * listFeedback[i].Quantity) / totalProductSell;
                 }
-                result.CountProductSell = totalProductSell;
                 result.AverageStar = averageStar;
             }
             else
             {
-                result.CountProductSell = 0;
                 result.AverageStar = 0;
             }
-
+            var productSell = (from p in _context.ProductOrders
+                               join o in _context.Orders on p.OrderId equals o.OrderId
+                               where p.ProductId == result.ProductId && o.OrderStatus == "Giao hàng thành công"
+                               select new ProductVm()
+                               {
+                                   ProductId = p.ProductId,
+                                   CountProductSell = p.Quantity
+                               }).ToList();
+            foreach (var ps in productSell)
+            {
+                result.CountProductSell += ps.CountProductSell;
+            }
             // hiển thị danh sách hình ảnh liên quan của sản phẩm
             var listImage = _context.ProductImgs.Where(x => x.ProductId == id).ToList();
             ViewData["ProductImg"] = listImage;
@@ -362,13 +396,23 @@ namespace Plant.Controllers
                     {
                         averageStarDifferent += (decimal)(listFeedbackDifferent[i].Star * listFeedbackDifferent[i].Quantity) / totalProductSellDifferent;
                     }
-                    item.CountProductSell = totalProductSellDifferent;
                     item.AverageStar = averageStarDifferent;
                 }
                 else
                 {
-                    item.CountProductSell = 0;
                     item.AverageStar = 0;
+                }
+                var productSellDifferent = (from p in _context.ProductOrders
+                                   join o in _context.Orders on p.OrderId equals o.OrderId
+                                   where p.ProductId == item.ProductId && o.OrderStatus == "Giao hàng thành công"
+                                   select new ProductVm()
+                                   {
+                                       ProductId = p.ProductId,
+                                       CountProductSell = p.Quantity
+                                   }).ToList();
+                foreach (var ps in productSellDifferent)
+                {
+                    item.CountProductSell += ps.CountProductSell;
                 }
             }
 

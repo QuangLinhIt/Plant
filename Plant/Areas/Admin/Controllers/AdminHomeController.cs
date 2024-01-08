@@ -11,6 +11,7 @@ namespace Plant.Areas.Admin.Controllers
     {
         [Area("Admin")]
         [Authorize(Roles = "Admin")]
+        [AutoValidateAntiforgeryToken]
 
         public IActionResult Dashboard()
         {

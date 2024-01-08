@@ -2,42 +2,75 @@
 @model Plant.Pages.Role.IndexModel
 @{
 }
-<h3>Danh sách các role</h3>
-<partial name="_StatusMessage" model="@Model.StatusMessage" />
 
-<form method="POST" class="my-1 d-inline">
-    <button class="btn btn-secondary" asp-page="./Add"
-            asp-page-handler="StartNewRole">
-        Thêm mới Role
-    </button>
-</form>
-<a class="btn btn-secondary" asp-page="./User">Gán role cho người dùng</a>
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Quản lí hệ thống</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Danh sách quyền truy cập</li>
+    </ol>
+</nav>
+<!-- /Breadcrumb -->
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header mb-10">
+        <div>
+            <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="book"></i></span></span>Danh sách quyền truy cập</h4>
+        </div>
+        <div class="d-flex">
+            <form method="POST" class="my-1 d-inline">
+                <button class="btn btn-outline-primary" asp-page="./Add"
+                        asp-page-handler="StartNewRole">
+                    Thêm mới
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- /Title -->
 
-<table class="table">
-    <tr>
-        <th>Role ID</th>
-        <th>Tên</th>
-        <th>Tác vụ</th>
-    </tr>
-    @foreach (var role in @Model.roles)
-    {
-        <tr>
-            <td>@role.Id</td>
-            <td>@role.Name</td>
-            <td>
-                <form method="POST" class="d-inline">
-                    <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
-                            asp-page="./Add" asp-page-handler="StartUpdate">
-                        Cập nhật Role
-                    </button>
-                </form>
-                <form method="POST" class="d-inline">
-                    <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
-                            asp-page="./Delete">
-                        Xóa Role
-                    </button>
-                </form>
-            </td>
-        </tr>
-    }
-</table>
+    <section class="hk-sec-wrapper mb-3">
+        <div class="row">
+            <div class="col-sm">
+                <div class="table-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="py-3">#Mã</th>
+                                    <th class="py-3">Tên</th>
+                                    <th class="py-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.roles)
+                                {
+                                    <tr>
+                                        <td>#@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>
+                                            <form method="POST" class="d-inline">
+                                                <button name="Input.ID" value="@item.Id" class="btn btn-light"
+                                                        asp-page="./Add" asp-page-handler="StartUpdate">
+                                                    <i class="far fa-sliders-h text-dark"></i>
+                                                </button>
+                                            </form>
+                                            <form method="POST" class="d-inline">
+                                                <button name="Input.ID" value="@item.Id" class="btn btn-light"
+                                                        asp-page="./Delete">
+                                                    <i class="far fa-trash-alt text-danger"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

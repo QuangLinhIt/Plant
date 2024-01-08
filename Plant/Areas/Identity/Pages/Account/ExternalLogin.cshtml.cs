@@ -140,6 +140,7 @@ namespace Plant.Areas.Identity.Pages.Account
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
+                        await _userManager.AddToRoleAsync(user, "User");
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
 
                         var userId = await _userManager.GetUserIdAsync(user);

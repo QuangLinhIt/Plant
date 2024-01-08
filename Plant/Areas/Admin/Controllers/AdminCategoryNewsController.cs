@@ -8,19 +8,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Plant.ModelDto;
 using Plant.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-
+    [AutoValidateAntiforgeryToken]
     public class AdminCategoryNewsController : Controller
     {
         private readonly plantContext _context;
-
-        public AdminCategoryNewsController(plantContext context)
+        public INotyfService _notyfService { get; }
+        public AdminCategoryNewsController(plantContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminCategoryNews
@@ -92,7 +94,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CategoryNewDto dto)
         {
             if (ModelState.IsValid)
@@ -115,8 +116,10 @@ namespace Plant.Areas.Admin.Controllers
                     _context.CategoryNewTranslations.Add(categoryNewTran);
                     _context.SaveChanges();
                 }
+                _notyfService.Success("Thêm mới danh mục tin tức thành công");
                 return RedirectToAction(nameof(Index));
             }
+            _notyfService.Warning("Thêm mới danh mục tin tức thất bại");
             return View(dto);
         }
 
@@ -146,7 +149,6 @@ namespace Plant.Areas.Admin.Controllers
         }
         //POST:Admin/AdminCategoryNews/AddLanguages
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult AddLanguages(int id, int langId, CategoryNewTranslation data)
         {
             if (id != data.CategoryNewId)
@@ -177,6 +179,7 @@ namespace Plant.Areas.Admin.Controllers
                         };
                         _context.CategoryNewTranslations.Add(result);
                         _context.SaveChanges();
+                        _notyfService.Success("Cập nhật bản dịch danh mục tin túc thành công");
                     }
                     else
                     {
@@ -188,6 +191,7 @@ namespace Plant.Areas.Admin.Controllers
                         };
                         _context.CategoryNewTranslations.Add(result);
                         _context.SaveChanges();
+                        _notyfService.Success("Thêm mới bản dịch danh mục tin tức thành công");
                     }
                 }
                 catch (DbUpdateConcurrencyException)
@@ -196,6 +200,7 @@ namespace Plant.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            _notyfService.Warning("Thêm mới danh mục tin tức thất bại");
             return View(data);
         }
         // GET: Admin/AdminCategoryNews/Edit/5
@@ -230,7 +235,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, int langId, CategoryNewDto dto)
         {
             if (id != dto.CategoryNewId || langId != dto.LangId)
@@ -258,6 +262,7 @@ namespace Plant.Areas.Admin.Controllers
                         };
                         _context.CategoryNewTranslations.Update(categoryNewTran);
                         _context.SaveChanges();
+                        _notyfService.Success("Chỉnh sửa danh mục tin tức thành công");
                     }
                 }
                 catch (DbUpdateConcurrencyException)
@@ -266,6 +271,7 @@ namespace Plant.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            _notyfService.Warning("Chỉnh sửa danh mục tin tức thất bại");
             return View(dto);
         }
 
@@ -288,7 +294,6 @@ namespace Plant.Areas.Admin.Controllers
 
         // POST: Admin/AdminCategoryNews/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var translation = _context.CategoryNewTranslations.Where(x => x.CategoryNewId == id).ToList();
@@ -297,6 +302,7 @@ namespace Plant.Areas.Admin.Controllers
             var categoryNews = _context.CategoryNews.Where(x => x.CategoryNewId == id).FirstOrDefault();
             _context.CategoryNews.Remove(categoryNews);
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa danh mục tin tức thành công");
             return RedirectToAction(nameof(Index));
         }
 

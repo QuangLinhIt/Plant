@@ -8,19 +8,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Plant.ModelDto;
 using Plant.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-
+    [AutoValidateAntiforgeryToken]
     public class AdminCategoriesController : Controller
     {
         private readonly plantContext _context;
-
-        public AdminCategoriesController(plantContext context)
+        public INotyfService _notyfService { get; }
+        public AdminCategoriesController(plantContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminCategories
@@ -81,7 +83,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CategoryDto dto)
         {
             if (ModelState.IsValid)
@@ -101,6 +102,7 @@ namespace Plant.Areas.Admin.Controllers
                 };
                 _context.CategoryTranslations.Add(categoryTranslation);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Thêm mới danh mục sản phẩm thành công");
                 return RedirectToAction(nameof(Index));
             }
             return View(dto);
@@ -133,7 +135,6 @@ namespace Plant.Areas.Admin.Controllers
         }
         //POST:Admin/AdminCategories/AddLanguages
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult AddLanguages(int id,int langId,CategoryTranslation data)
         {
             if (id != data.CategoryId)
@@ -158,6 +159,7 @@ namespace Plant.Areas.Admin.Controllers
                     };
                     _context.CategoryTranslations.Add(result);
                     _context.SaveChanges();
+                    _notyfService.Success("Cập nhật bản dịch danh mục sản phẩm thành công");
                 }
                 else
                 {
@@ -169,6 +171,7 @@ namespace Plant.Areas.Admin.Controllers
                     };
                     _context.CategoryTranslations.Add(result);
                     _context.SaveChanges();
+                    _notyfService.Success("Thêm mới bản dịch danh mục sản phẩm thành công");
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -205,7 +208,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, int langId, CategoryDto dto)
         {
             if (id != dto.CategoryId)
@@ -241,6 +243,7 @@ namespace Plant.Areas.Admin.Controllers
                             cartegoryTranslation.CategoryName = dto.CategoryName;
                             _context.CategoryTranslations.Update(cartegoryTranslation);
                             await _context.SaveChangesAsync();
+                            _notyfService.Success("Chỉnh sửa danh mục sản phẩm thành công");
                         }
                     }
                 }
@@ -250,6 +253,7 @@ namespace Plant.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            _notyfService.Warning("Chỉnh sửa danh mục sản phẩm thất bại");
             return View(dto);
         }
 
@@ -272,7 +276,6 @@ namespace Plant.Areas.Admin.Controllers
 
         // POST: Admin/AdminCategories/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id, int langId)
         {
             var categoryTranslation = await _context.CategoryTranslations.Where(x => x.CategoryId == id).ToListAsync();
@@ -297,6 +300,7 @@ namespace Plant.Areas.Admin.Controllers
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
             }
+            _notyfService.Success("Xóa danh mục sản phẩm thành công");
             return RedirectToAction(nameof(Index));
         }
 

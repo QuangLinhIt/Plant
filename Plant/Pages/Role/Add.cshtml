@@ -4,32 +4,51 @@
     var btnText = Model.IsUpdate ? "Cập nhật" : "Tạo mới";
 }
 
+<!-- Breadcrumb -->
+<nav class="hk-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light bg-transparent">
+        <li class="breadcrumb-item"><a href="#">Quản lí hệ thống</a></li>
+        <li class="breadcrumb-item"><a asp-page="/Role/Index">Danh sách quyền truy cập</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Thêm mới quyền truy cập</li>
+    </ol>
+</nav>
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+    <!-- Title -->
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="toggle-right"></i></span></span>Thêm mới quyền truy cập</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <div class="row">
+                    <div class="col-sm">
+                        <form method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <input type="hidden" asp-for="Input.ID">
+                            <input type="hidden" asp-for="IsUpdate">
+                            <div class="form-group">
+                                <label asp-for="Input.Name"></label>
+                                <input asp-for="Input.Name" class="form-control">
+                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                            </div>
 
-<h4>@ViewData["Title"]</h4>
-<partial name="_StatusMessage" model="@Model.StatusMessage" />
+                            <button id="add-or-edit-role" type="submit"
+                                    asp-page-handler="AddOrUpdate" class="btn btn-primary">
+                                @btnText
+                            </button>
 
-<div class="row">
-    <div class="col-md-6">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="Input.ID">
-            <input type="hidden" asp-for="IsUpdate">
-            <div class="form-group">
-                <label asp-for="Input.Name"></label>
-                <input asp-for="Input.Name" class="form-control">
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
-            </div>
-
-            <button id="add-or-edit-role" type="submit"
-                    asp-page-handler="AddOrUpdate" class="btn btn-primary">
-                @btnText
-                </button>
-
-                <a class="btn btn-primary" asp-page="./Index">Danh sách</a>
-            </form>
+                            <a class="btn btn-primary" asp-page="./Index">Danh sách</a>
+                        </form>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
-
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+</div>
+<!-- /Container -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

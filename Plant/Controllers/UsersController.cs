@@ -11,9 +11,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Plant.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class UsersController : Controller
     {
         private readonly plantContext _context;
@@ -27,12 +29,16 @@ namespace Plant.Controllers
             _signInManager = signInManager;
             _hostEnvironment = hostEnvironment;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-        public async Task<IActionResult> ManageOrder(string orderStatus="")
+
+        [HttpGet]
+        public async Task<IActionResult> ManageOrder(string orderStatus= "")
         {
+            string decodedOrderStatus = HttpUtility.UrlDecode(orderStatus);
             //set language
             CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
             var culture = cultureInfo.Name;
@@ -44,7 +50,7 @@ namespace Plant.Controllers
 
             foreach (var customer in listCustomer)
             {
-                if (string.IsNullOrEmpty(orderStatus))
+                if (string.IsNullOrEmpty(decodedOrderStatus))
                 {
                     var listOrder = _context.Orders.Where(x => x.CustomerId == customer.CustomerId).OrderByDescending(x=>x.OrderId).ToList();
                     foreach (var order in listOrder)
@@ -52,9 +58,6 @@ namespace Plant.Controllers
                         var orderVm = new OrderVm();
                         orderVm.OrderId = order.OrderId;
                         orderVm.CustomerId = order.CustomerId;
-                        orderVm.PaymentId = order.PaymentId;
-                        var payment = _context.Payments.Where(x => x.PaymentId == order.PaymentId).FirstOrDefault();
-                        orderVm.PaymentName = payment.PaymentName;
                         orderVm.CreateDate = order.CreateDate;
                         orderVm.Money = order.Money;
                         orderVm.ShipFee = order.ShipFee;
@@ -97,15 +100,12 @@ namespace Plant.Controllers
                 }
                 else
                 {
-                    var listOrder = _context.Orders.Where(x => x.CustomerId == customer.CustomerId && x.OrderStatus==orderStatus).ToList();
+                    var listOrder = _context.Orders.Where(x => x.CustomerId == customer.CustomerId && x.OrderStatus== decodedOrderStatus).ToList();
                     foreach (var order in listOrder)
                     {
                         var orderVm = new OrderVm();
                         orderVm.OrderId = order.OrderId;
                         orderVm.CustomerId = order.CustomerId;
-                        orderVm.PaymentId = order.PaymentId;
-                        var payment = _context.Payments.Where(x => x.PaymentId == order.PaymentId).FirstOrDefault();
-                        orderVm.PaymentName = payment.PaymentName;
                         orderVm.CreateDate = order.CreateDate;
                         orderVm.Money = order.Money;
                         orderVm.ShipFee = order.ShipFee;
@@ -149,6 +149,7 @@ namespace Plant.Controllers
             return View(listOrderVm);
         }
 
+        [HttpGet]
         public IActionResult AddFeedback(int? id)
         {
             if (id == null)
@@ -176,7 +177,6 @@ namespace Plant.Controllers
         }
        
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult AddFeedback(int id,AddFeedbackVm data)
         {
             if (id != data.ProductOrderId)
@@ -218,7 +218,8 @@ namespace Plant.Controllers
                 return RedirectToAction("ManageOrder", "Users", new { orderStatus = "" });
             }
         }
-        
+
+        [HttpGet]
         public IActionResult ReviewFeedback(int? id)
         {
             if (id == null)
@@ -273,6 +274,24 @@ namespace Plant.Controllers
                 return NotFound();
             }
             
+        }
+
+        [HttpPost]
+        public IActionResult DeleteOrder (int orderId)
+        {
+            var order = _context.Orders.Where(x => x.OrderId == orderId).FirstOrDefault();
+            if (order == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                order.OrderStatus = "Đã hủy";
+                order.Deleted = true;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+                return RedirectToAction("ManageOrder", "Users");
+            }
         }
     }
 }

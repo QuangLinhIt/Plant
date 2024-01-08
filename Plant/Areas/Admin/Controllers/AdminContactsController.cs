@@ -8,19 +8,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using Plant.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
 
     public class AdminContactsController : Controller
     {
         private readonly plantContext _context;
-
-        public AdminContactsController(plantContext context)
+        public INotyfService _notyfService { get; }
+        public AdminContactsController(plantContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminContacts

@@ -9,6 +9,7 @@ using Plant.Models;
 
 namespace Plant.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ContactsController : Controller
     {
         private readonly plantContext _context;
@@ -19,12 +20,13 @@ namespace Plant.Controllers
         }
 
         // GET: Contacts
+        [HttpGet]
+
         public IActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Index(Contact data)
         {
             if (ModelState.IsValid)

@@ -9,19 +9,22 @@ using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using Plant.ModelDto;
 using Plant.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Plant.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
 
     public class AdminFeedbacksController : Controller
     {
         private readonly plantContext _context;
-
-        public AdminFeedbacksController(plantContext context)
+        public INotyfService _notyfService { get; }
+        public AdminFeedbacksController(plantContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminFeedbacks
@@ -94,7 +97,6 @@ namespace Plant.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, FeedbackDto dto)
         {
             if (id != dto.FeedbackId)
@@ -111,6 +113,7 @@ namespace Plant.Areas.Admin.Controllers
                 feedback.ShopFeedbackId = shopFeedback.ShopFeedbackId;
                 _context.Feedbacks.Update(feedback);
                 _context.SaveChanges();
+                _notyfService.Success("Phản hồi cho đánh giá sản phẩm của khách hàng thành công ");
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");

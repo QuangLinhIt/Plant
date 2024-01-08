@@ -86,7 +86,14 @@ namespace Plant.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {
