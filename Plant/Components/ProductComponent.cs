@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Plant.Components
 {
+    [ViewComponent]
     public class ProductComponent1 : ViewComponent
     {
         private readonly plantContext _context;

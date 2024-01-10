@@ -70,9 +70,9 @@
                             @await Html.PartialAsync("_selectLanguagesPartial")
                         </div>
                         <div class="search_container">
-                            <form action="#">
+                            <form asp-area="" asp-controller="Products" asp-action="SearchProduct" method="get">
                                 <div class="search_box">
-                                    <input placeholder="@Localizer["search product"]" type="text">
+                                    <input placeholder="@Localizer["search product"]" type="text" name="productName" autocomplete="off">
                                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
                             </form>
@@ -150,9 +150,9 @@
                         <div class="col-lg-9 col-md-6 col-6">
                             <div class="header_right_info">
                                 <div class="search_container">
-                                    <form action="#">
+                                    <form asp-area="" asp-controller="Products" asp-action="SearchProduct" method="get">
                                         <div class="search_box">
-                                            <input placeholder="@Localizer["search product"]" type="text">
+                                            <input placeholder="@Localizer["search product"]" type="text" name="productName" autocomplete="off">
                                             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                                         </div>
                                     </form>

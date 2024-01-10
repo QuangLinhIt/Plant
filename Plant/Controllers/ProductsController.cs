@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,11 +24,11 @@ namespace Plant.Controllers
         {
             _context = context;
         }
-
-        // GET: Products
+        // GET: Produc
         [HttpGet]
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1,string sortProduct="")
         {
+            ViewData["TextSort"] = sortProduct;
             //get selected languages
             CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
             var culture = cultureInfo.Name;
@@ -115,15 +116,60 @@ namespace Plant.Controllers
                     item.CountProductSell += ps.CountProductSell;
                 }
             }
-            PagedList<ProductVm> models = new PagedList<ProductVm>(result.AsQueryable(), pageNumber, pageSize);
-            ViewBag.CurrentPage = pageNumber;
-            return View(models);
+           
+            if (sortProduct == "Lượt bán")
+            {
+                var sortProductBySellCount = result.OrderByDescending(x => x.CountProductSell).ToList();
+                PagedList<ProductVm> models = new PagedList<ProductVm>(sortProductBySellCount.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }else if (sortProduct == "Giá giảm")
+            {
+                var sortProductByPriceDescending = result.OrderByDescending(x => x.Price).ToList();
+                PagedList<ProductVm> models = new PagedList<ProductVm>(sortProductByPriceDescending.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }else if (sortProduct == "Giá tăng")
+            {
+                var sortProductByAscending = result.OrderBy(x => x.Price).ToList();
+                PagedList<ProductVm> models = new PagedList<ProductVm>(sortProductByAscending.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }else if (sortProduct == "Khuyễn mãi")
+            {
+                var sortProductByVoucher = result.OrderByDescending(x => x.Voucher).ToList();
+                PagedList<ProductVm> models = new PagedList<ProductVm>(sortProductByVoucher.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
+            else
+            {
+                PagedList<ProductVm> models = new PagedList<ProductVm>(result.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
         }
-
+        
+        public IActionResult SortListProduct( string sortProduct="")
+        {
+            if (String.IsNullOrEmpty(sortProduct))
+            {
+                var url = $"/Products/Index";
+                return Json(new { status = "success", redirectUrl = url });
+            }
+            else
+            {
+                var url = $"/Products/Index?sortProduct={sortProduct}";
+                return Json(new { status = "success", redirectUrl = url });
+            }
+        }
+      
         //GET: ListProducts
         [HttpGet]
-        public IActionResult GetListProducts(int page = 1, int id = 0)
+        public IActionResult GetListProducts(int page = 1, int id = 0,string sortCategoryProduct = "")
         {
+            ViewData["TextSortCategory"] = sortCategoryProduct;
+            ViewData["IdCategoryProduct"] = id;
             //get selected languages
             CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
             var culture = cultureInfo.Name;
@@ -213,11 +259,54 @@ namespace Plant.Controllers
                 }
             }
 
-            PagedList<ProductVm> models = new PagedList<ProductVm>(result.AsQueryable(), pageNumber, pageSize);
-            ViewBag.CurrentPage = pageNumber;
-            return View(models);
+            if (sortCategoryProduct == "Lượt bán")
+            {
+                var sortProductBySellCount = result.OrderByDescending(x => x.CountProductSell).ToList();
+                PagedList<ProductVm> models = new PagedList<ProductVm>(sortProductBySellCount.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
+            else if (sortCategoryProduct == "Giá giảm")
+            {
+                var sortProductByPriceDescending = result.OrderByDescending(x => x.Price).ToList();
+                PagedList<ProductVm> models = new PagedList<ProductVm>(sortProductByPriceDescending.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
+            else if (sortCategoryProduct == "Giá tăng")
+            {
+                var sortProductByAscending = result.OrderBy(x => x.Price).ToList();
+                PagedList<ProductVm> models = new PagedList<ProductVm>(sortProductByAscending.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
+            else if (sortCategoryProduct == "Khuyễn mãi")
+            {
+                var sortProductByVoucher = result.OrderByDescending(x => x.Voucher).ToList();
+                PagedList<ProductVm> models = new PagedList<ProductVm>(sortProductByVoucher.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
+            else
+            {
+                PagedList<ProductVm> models = new PagedList<ProductVm>(result.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
         }
-
+        public IActionResult SortListCategoryProduct(int id= 0,string sortCategoryProduct = "")
+        {
+            if (String.IsNullOrEmpty(sortCategoryProduct))
+            {
+                var url = $"/Products/GetListProducts?id={id}";
+                return Json(new { status = "success", redirectUrl = url });
+            }
+            else
+            {
+                var url = $"/Products/GetListProducts?id={id}&sortCategoryProduct={sortCategoryProduct}";
+                return Json(new { status = "success", redirectUrl = url });
+            }
+        }
         //GET: DetailProduct
         [HttpGet]
         public IActionResult GetDetailProduct(int id = 0, int htmlStar = 0,int page=1)
@@ -418,6 +507,24 @@ namespace Plant.Controllers
 
             ViewData["ProductDifferent"] = productDifferent;
             return View(result);
+        }
+        
+        [HttpGet]
+        public IActionResult SearchProduct(string productName = "")
+        {
+            if (string.IsNullOrEmpty(productName))
+            {
+                return RedirectToAction("Index", "Products");
+            }
+            var productTranslation = _context.ProductTranslations.Where(x => x.ProductName.ToLower() == productName.ToLower()).FirstOrDefault();
+            if (productTranslation != null)
+            {
+                return RedirectToAction("GetDetailProduct", "Products", new { id = productTranslation.ProductId });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Products");
+            }
         }
     }
 }

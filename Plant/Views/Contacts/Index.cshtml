@@ -52,19 +52,19 @@
                     <form id="contact-form" method="post" asp-action="Index">
                         <p>
                             <label> @Localizer["name"]</label>
-                            <input asp-for="Name" type="text">
+                            <input asp-for="Name" type="text" autocomplete="off">
                         </p>
                         <p>
                             <label> Email</label>
-                            <input asp-for="Email" type="email">
+                            <input asp-for="Email" type="email" autocomplete="off">
                         </p>
                         <p>
                             <label> Phone</label>
-                            <input asp-for="Phone" type="number">
+                            <input asp-for="Phone" type="number" autocomplete="off">
                         </p>
                         <p>
                             <label> @Localizer["title"]</label>
-                            <input asp-for="Title" type="text">
+                            <input asp-for="Title" type="text" autocomplete="off">
                         </p>
                         <div class="contact_textarea">
                             <label> @Localizer["message"]</label>

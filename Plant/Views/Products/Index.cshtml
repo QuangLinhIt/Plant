@@ -7,9 +7,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int CurrentPage = ViewBag.CurrentPage;
     List<CategoryVm> category = ViewBag.Category;
+    string TextSort = ViewBag.TextSort;
 }
-
-
 
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area" style=" background-image: url('../../LayoutAssets/img/slider/capturar-co2-atmosfera.jpg') ">
@@ -38,8 +37,8 @@
                         <div class="widget_title">
                             <h3>@Localizer["search"]</h3>
                         </div>
-                        <form action="#">
-                            <input placeholder="@Localizer["search"]..." type="text">
+                        <form asp-action="SearchProduct" method="get">
+                            <input placeholder="@Localizer["search"]..." type="text" name="productName" autocomplete="off">
                             <button type="submit">@Localizer["search"]</button>
                         </form>
                     </div>
@@ -99,16 +98,60 @@
                     <div class="shop_toolbar_btn">
                     </div>
                     <div class=" niceselect_option">
-                        <form class="select_option" action="#">
-                            <select name="orderby" id="short">
-                                <option selected value="1">Sort by average rating</option>
-                                <option value="2">Sort by popularity</option>
-                                <option value="3">Sort by newness</option>
-                                <option value="4">Sort by price: low to high</option>
-                                <option value="5">Sort by price: high to low</option>
-                                <option value="6">Product Name: Z</option>
+                        <div class="form-group">
+                            @{
+                                var encodeSortByPriceDescending = System.Web.HttpUtility.UrlEncode("Giá giảm");
+                                var encodeSortByPriceAscending = System.Web.HttpUtility.UrlEncode("Giá tăng");
+                                var encodeSortByVoucher = System.Web.HttpUtility.UrlEncode("Khuyễn mãi");
+                                var encodeSortBySellCount = System.Web.HttpUtility.UrlEncode("Lượt bán");
+                                var EncodeTextSort = System.Web.HttpUtility.UrlEncode(TextSort);
+                            }
+                            <select class="form-control" name="sortIndex" id="sortIndex">
+                                @{
+                                    if (EncodeTextSort == encodeSortByPriceDescending)
+                                    {
+                                        <option value="">Tất cả sản phẩm</option>
+                                        <option value="@Html.Raw(encodeSortByPriceAscending)">Giá: Thấp đến Cao</option>
+                                        <option value="@Html.Raw(encodeSortByPriceDescending)" selected>Giá: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortByVoucher)">Khuyến mãi: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortBySellCount)">Lượt bán: Cao đến Thấp</option>
+                                    }
+                                    else if (EncodeTextSort == encodeSortByPriceAscending)
+                                    {
+                                        <option value="">Tất cả sản phẩm</option>
+                                        <option value="@Html.Raw(encodeSortByPriceAscending)" selected>Giá: Thấp đến Cao</option>
+                                        <option value="@Html.Raw(encodeSortByPriceDescending)">Giá: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortByVoucher)">Khuyến mãi: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortBySellCount)">Lượt bán: Cao đến Thấp</option>
+                                    }
+                                    else if (EncodeTextSort == encodeSortByVoucher)
+                                    {
+                                        <option value="">Tất cả sản phẩm</option>
+                                        <option value="@Html.Raw(encodeSortByPriceAscending)">Giá: Thấp đến Cao</option>
+                                        <option value="@Html.Raw(encodeSortByPriceDescending)">Giá: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortByVoucher)" selected>Khuyến mãi: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortBySellCount)">Lượt bán: Cao đến Thấp</option>
+                                    }
+                                    else if (EncodeTextSort == encodeSortBySellCount)
+                                    {
+                                        <option value="">Tất cả sản phẩm</option>
+                                        <option value="@Html.Raw(encodeSortByPriceAscending)">Giá: Thấp đến Cao</option>
+                                        <option value="@Html.Raw(encodeSortByPriceDescending)">Giá: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortByVoucher)">Khuyến mãi: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortBySellCount)" selected>Lượt bán: Cao đến Thấp</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="" selected>Tất cả sản phẩm</option>
+                                        <option value="@Html.Raw(encodeSortByPriceAscending)">Giá: Thấp đến Cao</option>
+                                        <option value="@Html.Raw(encodeSortByPriceDescending)">Giá: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortByVoucher)">Khuyến mãi: Cao đến Thấp</option>
+                                        <option value="@Html.Raw(encodeSortBySellCount)" >Lượt bán: Cao đến Thấp</option>
+                                    }
+                                }
+
                             </select>
-                        </form>
+                        </div>
                     </div>
 
                 </div>
@@ -187,3 +230,29 @@
     </div>
 </div>
 <!--shop  area end-->
+@section Scripts{ 
+<script>
+    $(document).ready(function () {
+        $('#sortIndex').change(function () {
+            var selectedValue = $(this).val();
+            $.ajax({
+                url: '/Products/SortListProduct',
+                datatype: "json",
+                type: "GET",
+                data: {
+                    sortProduct: selectedValue
+                },
+                async: true,
+                success: function (results) {
+                    if (results.status == "success") {
+                        window.location.href = results.redirectUrl;
+                    }
+                },
+                error: function (xhr) {
+                    alert("error");
+                }
+            });
+        });
+    })
+</script>
+}

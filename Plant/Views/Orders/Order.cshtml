@@ -29,11 +29,11 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 mb-20">
                             <label>@Localizer["lastname"]</label>
-                            <input type="text" asp-for="LastName">
+                            <input type="text" asp-for="LastName" autocomplete="off">
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 mb-20">
                             <label>@Localizer["firstname"]</label>
-                            <input type="text" asp-for="FirstName">
+                            <input type="text" asp-for="FirstName" autocomplete="off">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 mb-20">
                             <label>Email</label>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 mb-20">
                             <label>PhoneNumber</label>
-                            <input type="number" asp-for="Phone">
+                            <input type="number" asp-for="Phone" autocomplete="off">
                         </div>
                     </div>
                     <h3>@Localizer["delivery address"]</h3>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12 mb-20">
                             <label>@Localizer["road"]</label>
-                            <input type="text" class="form-control" asp-for="Road" required>
+                            <input type="text" class="form-control" asp-for="Road" required autocomplete="off">
                         </div>
                     </div>
                 </div>

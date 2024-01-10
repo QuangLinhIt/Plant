@@ -14,6 +14,7 @@ using System.Threading;
 
 namespace Plant.Components
 {
+    [ViewComponent]
     public class BlogComponent1 : ViewComponent
     {
         private readonly plantContext _context;

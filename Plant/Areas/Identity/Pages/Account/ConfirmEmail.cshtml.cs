@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Plant.Areas.Identity.Data;
+using Plant.Components;
 
 namespace Plant.Areas.Identity.Pages.Account
 {
@@ -16,16 +17,18 @@ namespace Plant.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public ConfirmEmailModel(UserManager<ApplicationUser> userManager)
+        public ConfirmEmailModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string userId, string code)
+        public async Task<IActionResult> OnGetAsync(string userId, string code, string returnUrl)
         {
             if (userId == null || code == null)
             {
@@ -35,12 +38,32 @@ namespace Plant.Areas.Identity.Pages.Account
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userId}'.");
+                return NotFound($"Không tồn tại user - '{userId}'.");
             }
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            // Xác thực email
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+
+            if (result.Succeeded)
+            {
+
+                // Đăng nhập luôn nếu xác thực email thành công
+                await _signInManager.SignInAsync(user, false);
+
+                return ViewComponent(MessagePage.COMPONENTNAME,
+                    new MessagePage.Message()
+                    {
+                        title = "Xác thực email",
+                        htmlcontent = "Đã xác thực thành công, đang chuyển hướng",
+                        urlredirect = (returnUrl != null) ? returnUrl : Url.Page("/Index")
+                    }
+                );
+            }
+            else
+            {
+                StatusMessage = "Lỗi xác nhận email";
+            }
             return Page();
         }
     }

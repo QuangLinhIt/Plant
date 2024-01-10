@@ -86,7 +86,7 @@ namespace Plant.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,LastName=Input.LastName,FirstName=Input.FirstName };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, LastName = Input.LastName, FirstName = Input.FirstName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
