@@ -126,7 +126,7 @@
                 <div class="row">
                     <div class="product_carousel product_column4 owl-carousel">
 
-                        @for (int i = 0; i < listProduct.Count; i += 2)
+                        @for (int i = 0; i < listProduct.Count; i += 1)
                         {
                             <div class="col-lg-3">
                                 <div class="product_items">
@@ -157,7 +157,7 @@
                                             </figcaption>
                                         </figure>
                                     </article>
-                                    <article class="single_product">
+                                    @*<article class="single_product">
                                         <figure>
                                             <div class="product_thumb">
                                                 <a class="primary_img" asp-area="" asp-controller="Products" asp-action="GetDetailProduct" asp-route-id="@listProduct[i+1].ProductId">
@@ -183,7 +183,7 @@
                                                 </div>
                                             </figcaption>
                                         </figure>
-                                    </article>
+                                    </article>*@
 
                                 </div>
                             </div>

@@ -74,7 +74,6 @@ namespace Plant.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -86,14 +85,31 @@ namespace Plant.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    if (Url.IsLocalUrl(returnUrl))
+                    if (string.IsNullOrEmpty(returnUrl))
                     {
-                        return LocalRedirect(returnUrl);
+
+                        var user = await _userManager.FindByEmailAsync(Input.Email);
+                        if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        {
+                            return RedirectToAction("Dashboard", "AdminHome", new { area = "Admin" });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        if (Url.IsLocalUrl(returnUrl))
+                        {
+                            return LocalRedirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
+
                 }
                 if (result.RequiresTwoFactor)
                 {

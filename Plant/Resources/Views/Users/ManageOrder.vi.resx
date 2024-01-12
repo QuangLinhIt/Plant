@@ -117,22 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="had account" xml:space="preserve">
-    <value>Bạn đã có tài khoản?</value>
+  <data name="add feedback" xml:space="preserve">
+    <value>Thêm đánh giá</value>
   </data>
-  <data name="login" xml:space="preserve">
-    <value>Đăng nhập</value>
+  <data name="all" xml:space="preserve">
+    <value>Tất cả</value>
   </data>
-  <data name="name" xml:space="preserve">
-    <value>Họ tên</value>
+  <data name="cancel" xml:space="preserve">
+    <value>Hủy đơn hàng</value>
   </data>
-  <data name="password" xml:space="preserve">
-    <value>Mật khẩu</value>
+  <data name="cancelled" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="Cart Subtotal" xml:space="preserve">
+    <value>Tổng tiền hàng</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="confirm delete order" xml:space="preserve">
+    <value>Xác nhận xóa đơn hàng</value>
+  </data>
+  <data name="day" xml:space="preserve">
+    <value>Ngày đăt:</value>
+  </data>
+  <data name="delivered" xml:space="preserve">
+    <value>Đã giao</value>
+  </data>
+  <data name="delivering" xml:space="preserve">
+    <value>Đang giao hàng</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="my account" xml:space="preserve">
+    <value>Tài khoản của tôi</value>
+  </data>
+  <data name="order" xml:space="preserve">
+    <value>Đơn hàng:</value>
+  </data>
+  <data name="order detail" xml:space="preserve">
+    <value>Chi tiết đơn hàng</value>
+  </data>
+  <data name="Order Total" xml:space="preserve">
+    <value>Tổng thanh toán</value>
+  </data>
+  <data name="payment method" xml:space="preserve">
+    <value>Phương thức thanh toán</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>Người nhận</value>
   </data>
   <data name="phone" xml:space="preserve">
     <value>Số điện thoại</value>
   </data>
-  <data name="register" xml:space="preserve">
-    <value>Đăng kí</value>
+  <data name="purchase order" xml:space="preserve">
+    <value>Đơn mua</value>
+  </data>
+  <data name="see detail" xml:space="preserve">
+    <value>Xem chi tiết</value>
+  </data>
+  <data name="see feedback" xml:space="preserve">
+    <value>Xem đánh giá</value>
+  </data>
+  <data name="Transport fee" xml:space="preserve">
+    <value>Phí vận chuyển</value>
+  </data>
+  <data name="wait for confirmation" xml:space="preserve">
+    <value>Chờ xác nhận</value>
   </data>
 </root>

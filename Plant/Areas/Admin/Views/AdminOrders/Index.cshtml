@@ -33,17 +33,20 @@
                 }
             }
         }
-        <div class="d-flex">
-            <i class="far fa-bell fa-3x text-dark">
-                <span class="icon-number">@Count</span>
-            </i>
-        </div>
+        <form id="myForm" asp-action="Index" method="get">
+            <input type="hidden" value="true" name="isNoti" />
+            <div class="d-flex" id="isNotification" onclick="submitForm()">
+                <i class="far fa-bell fa-2x text-dark">
+                    <span class="icon-number">@Count</span>
+                </i>
+            </div>
+        </form>
     </div>
     <!-- /Title -->
     <section class="hk-sec-wrapper mb-3">
         <form asp-action="Index" method="get">
             <div class="input-group rounded mb-3">
-                <input type="search" class="form-control rounded" placeholder="Tìm kiếm đơn hàng theo email..." aria-label="Search" aria-describedby="search-addon" name="SearchEmail" />
+                <input type="search" class="form-control rounded" placeholder="Tìm kiếm đơn hàng theo email..." aria-label="Search" aria-describedby="search-addon" name="SearchEmail" autocomplete="off"/>
                 <span class="input-group-text border-0" id="search-addon">
                     <i class="fas fa-search"></i>
                 </span>
@@ -120,12 +123,16 @@
 
 @section Scripts{
     <script>
+        function submitForm() {
+            document.getElementById('myForm').submit();
+        }
+    </script>
+    <script>
         $(function () {
             $("#search-addon").click(function () {
                 $("form").submit();
             })
         })
-
     </script>
 
 }

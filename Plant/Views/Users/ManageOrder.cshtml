@@ -21,9 +21,8 @@
                     <!-- Nav tabs -->
                     <div class="dashboard_tab_button">
                         <ul role="tablist" class="nav flex-column dashboard-list">
-                            <li><a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link ">Tài khoản của tôi</a></li>
-                            <li><a asp-area="" asp-controller="Users" asp-action="ManageOrder" class="nav-link active">Đơn mua</a></li>
-                            <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">Thông báo</a></li>
+                            <li><a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link ">@Localizer["my account"]</a></li>
+                            <li><a asp-area="" asp-controller="Users" asp-action="ManageOrder" class="nav-link active">@Localizer["purchase order"]</a></li>
                         </ul>
                     </div>
                 </div>
@@ -45,31 +44,31 @@
                                                 <th style="min-width:100px;">
                                                     <form asp-action="ManageOrder" method="get">
                                                         <input type="hidden" value="" name="orderStatus" />
-                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Tất cả</button>
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">@Localizer["all"]</button>
                                                     </form>
                                                 </th>
                                                 <th style="min-width:120px;">
                                                     <form asp-action="ManageOrder" method="get">
                                                         <input type="hidden" value="@Html.Raw(encodedWaitConfirmation)" name="orderStatus" />
-                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Chờ xác nhận</button>
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">@Localizer["wait for confirmation"]</button>
                                                     </form>
                                                 </th>
                                                 <th style="min-width:140px;">
                                                     <form asp-action="ManageOrder" method="get">
                                                         <input type="hidden" value="@Html.Raw(encodedDelivering)" name="orderStatus" />
-                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Đang giao hàng</button>
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">@Localizer["delivering"]</button>
                                                     </form>
                                                 </th>
                                                 <th style="min-width:100px;">
                                                     <form asp-action="ManageOrder" method="get">
                                                         <input type="hidden" value="@Html.Raw(encodedDelivered)" name="orderStatus" />
-                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Đã giao</button>
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">@Localizer["delivered"]</button>
                                                     </form>
                                                 </th>
                                                 <th style="min-width:100px;">
                                                     <form asp-action="ManageOrder" method="get">
                                                         <input type="hidden" value="@Html.Raw(encodedCancel)" name="orderStatus" />
-                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">Đã hủy</button>
+                                                        <button type="submit" style=" border: none; background-color: transparent; font-size: 16px; font-weight: 600;">@Localizer["cancelled"]</button>
                                                     </form>
                                                 </th>
                                             </tr>
@@ -81,8 +80,8 @@
                             {
                                 <section class="hk-sec-wrapper mb-30">
                                     <div class="row">
-                                        <div class="col-3">Đơn hàng: #@order.OrderId </div>
-                                        <div class="col-5">Ngày đặt: @order.CreateDate.ToString("dd/MM/yyyy")</div>
+                                        <div class="col-3">@Localizer["order"] #@order.OrderId </div>
+                                        <div class="col-5">@Localizer["day"] @order.CreateDate.ToString("dd/MM/yyyy")</div>
                                         <div class="col-4">@order.OrderStatus</div>
                                     </div>
                                     <hr />
@@ -107,11 +106,11 @@
                                                     <div style="margin-top:15px;">
                                                         @if (cart.FeedbackId == null)
                                                         {
-                                                            <a type="button" class="btn btn-danger" asp-area="" asp-controller="Users" asp-action="AddFeedback" asp-route-id="@cart.Id">Thêm đánh giá</a>
+                                                            <a type="button" class="btn btn-danger" asp-area="" asp-controller="Users" asp-action="AddFeedback" asp-route-id="@cart.Id">@Localizer["add feedback"]</a>
                                                         }
                                                         else
                                                         {
-                                                            <a type="button" class="btn btn-secondary" asp-area="" asp-controller="Users" asp-action="ReviewFeedback" asp-route-id="@cart.Id">Xem đánh giá</a>
+                                                            <a type="button" class="btn btn-secondary" asp-area="" asp-controller="Users" asp-action="ReviewFeedback" asp-route-id="@cart.Id">@Localizer["see feedback"]</a>
                                                         }
                                                     </div>
                                                 </div>
@@ -147,10 +146,10 @@
                                             {
                                                 <div class="col-8">
                                                     <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modelDetailOrder-@order.OrderId">
-                                                        Xem chi tiết
+                                                        @Localizer["see detail"]
                                                     </button>
                                                     <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modelDeleteOrder-@order.OrderId">
-                                                        Hủy đơn hàng
+                                                        @Localizer["cancel"]
                                                     </button>
                                                 </div>
                                                 <!-- Modal detail order -->
@@ -158,15 +157,15 @@
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">Chi tiết đơn hàng #@order.OrderId</h4>
+                                                                <h4 class="modal-title">@Localizer["order detail"] #@order.OrderId</h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <p>Người nhận: @order.LastName @order.FirstName</p>
-                                                                <p>Số điện thoại: @order.Phone</p>
-                                                                <p>Ngày đặt: @order.CreateDate.ToString("dd/MM/yyyy")</p>
+                                                                <p>@Localizer["people"]: @order.LastName @order.FirstName</p>
+                                                                <p>@Localizer["phone"]: @order.Phone</p>
+                                                                <p>@Localizer["day"] @order.CreateDate.ToString("dd/MM/yyyy")</p>
                                                                 @foreach (var cart in order.ListCart)
                                                                 {
                                                                     <div class="row">
@@ -185,18 +184,18 @@
                                                                     </div>
                                                                 }
                                                                 <div class="row" style="margin-top:20px;">
-                                                                    <div class="col-8 text-end">Tổng tiền hàng</div>
+                                                                    <div class="col-8 text-end">@Localizer["Cart Subtotal"]</div>
                                                                     <div class="col-4">@order.Money.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
-                                                                    <div class="col-8 text-end">Phí vận chuyển</div>
+                                                                    <div class="col-8 text-end">@Localizer["Transport fee"]</div>
                                                                     <div class="col-4">@order.ShipFee.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
-                                                                    <div class="col-8 text-end">Thanh toán</div>
+                                                                    <div class="col-8 text-end">@Localizer["Order Total"]</div>
                                                                     <div class="col-4" style="color:red;">@order.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
-                                                                    <div class="col-8 text-end">Phương thức thanh toán</div>
+                                                                    <div class="col-8 text-end">@Localizer["payment method"]</div>
                                                                     <div class="col-4" style="color:red;">@order.PaymentStatus</div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["close"]</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -207,13 +206,13 @@
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">Xác nhận xóa đơn hàng #@order.OrderId</h4>
+                                                                <h4 class="modal-title">@Localizer["confirm delete order"] #@order.OrderId</h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["close"]</button>
                                                                 <form asp-action="DeleteOrder" method="post">
                                                                     <input type="hidden" name="orderId" value="@order.OrderId" />
                                                                     <input type="submit" name="" value="Delete &#xf00c" class="btn btn-danger mr-2 fa-input">
@@ -223,14 +222,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
-                                                    <div>Thành tiền: <span style="color:red;"> @order.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span></div>
+                                                    <div>@Localizer["Order Total"]: <span style="color:red;"> @order.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span></div>
                                                 </div>
                                             }
                                             else
                                             {
                                                 <div class="col-8">
                                                     <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modelDetailOrder-@order.OrderId">
-                                                        Xem chi tiết
+                                                        @Localizer["see detail"]
                                                     </button>
                                                 </div>
                                                 <!-- Modal detail order -->
@@ -238,15 +237,15 @@
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">Chi tiết đơn hàng #@order.OrderId</h4>
+                                                                <h4 class="modal-title">@Localizer["order detail"] #@order.OrderId</h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <p>Người nhận: @order.LastName @order.FirstName</p>
-                                                                <p>Số điện thoại: @order.Phone</p>
-                                                                <p>Ngày đặt: @order.CreateDate.ToString("dd/MM/yyyy")</p>
+                                                                <p>@Localizer["people"]: @order.LastName @order.FirstName</p>
+                                                                <p>@Localizer["phone"]: @order.Phone</p>
+                                                                <p>@Localizer["day"] @order.CreateDate.ToString("dd/MM/yyyy")</p>
                                                                 @foreach (var cart in order.ListCart)
                                                                 {
                                                                     <div class="row">
@@ -265,24 +264,24 @@
                                                                     </div>
                                                                 }
                                                                 <div class="row" style="margin-top:20px;">
-                                                                    <div class="col-8 text-end">Tổng tiền hàng</div>
+                                                                    <div class="col-8 text-end">@Localizer["Cart Subtotal"]</div>
                                                                     <div class="col-4">@order.Money.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
-                                                                    <div class="col-8 text-end">Phí vận chuyển</div>
+                                                                    <div class="col-8 text-end">@Localizer["Transport fee"]</div>
                                                                     <div class="col-4">@order.ShipFee.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
-                                                                    <div class="col-8 text-end">Thanh toán</div>
+                                                                    <div class="col-8 text-end">@Localizer["Order Total"]</div>
                                                                     <div class="col-4" style="color:red;">@order.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
-                                                                    <div class="col-8 text-end">Phương thức thanh toán</div>
+                                                                    <div class="col-8 text-end">@Localizer["payment method"]n</div>
                                                                     <div class="col-4" style="color:red;">@order.PaymentStatus</div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["close"]</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
-                                                    <div>Thành tiền: <span style="color:red;"> @order.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span></div>
+                                                    <div>@Localizer["Order Total"]: <span style="color:red;"> @order.Total.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span></div>
                                                 </div>
                                             }
                                         }

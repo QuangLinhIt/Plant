@@ -32,11 +32,14 @@
                     Count++;
                 }
             }
-            <div class="d-flex">
-                <i class="far fa-bell fa-3x text-dark">
-                    <span class="icon-number">@Count</span>
-                </i>
-            </div>
+            <form id="myForm" asp-action="Index" method="get">
+                <input type="hidden" value="true" name="isNoti" />
+                <div class="d-flex" id="isNotification" onclick="submitForm()">
+                    <i class="far fa-bell fa-2x text-dark">
+                        <span class="icon-number">@Count</span>
+                    </i>
+                </div>
+            </form>
         }
     </div>
     <!-- /Title -->
@@ -108,4 +111,9 @@
 
 
 @section Scripts{
+    <script>
+        function submitForm() {
+            document.getElementById('myForm').submit();
+        }
+    </script>
 }

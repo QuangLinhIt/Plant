@@ -28,7 +28,7 @@ namespace Plant.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminFeedbacks
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1,string isNoti="")
         {
             var pageNumber = page;
             var pageSize = 10;
@@ -47,9 +47,20 @@ namespace Plant.Areas.Admin.Controllers
                               FeedBackContent = f.FeedbackContent,
                               ShopFeedbackId = f.ShopFeedbackId
                           }).ToList();
-            var models = new PagedList<FeedbackDto>(result.AsQueryable(), pageNumber, pageSize);
-            ViewBag.CurrentPage = pageNumber;
-            return View(models);
+            if (isNoti == "true")
+            {
+                var newListFeedback = result.Where(x => x.ShopFeedbackId == null).ToList();
+                var models = new PagedList<FeedbackDto>(newListFeedback.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
+            else
+            {
+                var models = new PagedList<FeedbackDto>(result.AsQueryable(), pageNumber, pageSize);
+                ViewBag.CurrentPage = pageNumber;
+                return View(models);
+            }
+           
         }
 
         // GET: Admin/AdminFeedbacks/Edit/5

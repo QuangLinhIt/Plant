@@ -180,6 +180,9 @@
   <data name="phone" xml:space="preserve">
     <value>Phonenumber</value>
   </data>
+  <data name="phonenumber" xml:space="preserve">
+    <value>PhoneNumber</value>
+  </data>
   <data name="purchase" xml:space="preserve">
     <value>Purchase</value>
   </data>

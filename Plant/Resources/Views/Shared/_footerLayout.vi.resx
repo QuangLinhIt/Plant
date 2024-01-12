@@ -117,88 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cart subtotal" xml:space="preserve">
-    <value>Tổng tiền hàng</value>
+  <data name="account" xml:space="preserve">
+    <value>Tài khoản</value>
   </data>
-  <data name="choose city" xml:space="preserve">
-    <value>Chọn tỉnh, thành phố ...</value>
+  <data name="blog" xml:space="preserve">
+    <value>Kiến thức</value>
   </data>
-  <data name="choose district" xml:space="preserve">
-    <value>Chọn quận, huyện ...</value>
+  <data name="cart" xml:space="preserve">
+    <value>Giỏ hàng</value>
   </data>
-  <data name="choose ward" xml:space="preserve">
-    <value>Chọn phường, xã ...</value>
+  <data name="contact" xml:space="preserve">
+    <value>Liên hệ</value>
   </data>
-  <data name="city" xml:space="preserve">
-    <value>Tỉnh / Thành phố</value>
+  <data name="customer loyalty policy" xml:space="preserve">
+    <value>Chính sách khách hàng thân thiết</value>
   </data>
-  <data name="delivery address" xml:space="preserve">
-    <value>Địa chỉ nhận hàng</value>
+  <data name="customer support" xml:space="preserve">
+    <value>Hỗ trợ khách hàng</value>
   </data>
-  <data name="district" xml:space="preserve">
-    <value>Quận / Huyện</value>
-  </data>
-  <data name="firstname" xml:space="preserve">
-    <value>Tên</value>
+  <data name="delivery regulations" xml:space="preserve">
+    <value>Quy định giao hàng</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>Trang chủ</value>
   </data>
-  <data name="lastname" xml:space="preserve">
-    <value>Họ</value>
+  <data name="instructions for payment" xml:space="preserve">
+    <value>Hướng dẫn đặt trả</value>
   </data>
-  <data name="method payment" xml:space="preserve">
-    <value>Thanh toán với hình thức chuyển khoản qua Internet Banking</value>
+  <data name="introduction" xml:space="preserve">
+    <value>Giới thiệu</value>
   </data>
-  <data name="money" xml:space="preserve">
-    <value>Thành tiền</value>
+  <data name="mon-fri" xml:space="preserve">
+    <value>Thứ 2 - Thứ 6:</value>
   </data>
-  <data name="order" xml:space="preserve">
-    <value>Giỏ hàng</value>
+  <data name="opening time" xml:space="preserve">
+    <value>Thời gian mở cửa</value>
   </data>
-  <data name="order now" xml:space="preserve">
-    <value>Đặt hàng</value>
+  <data name="payment instructions" xml:space="preserve">
+    <value>Hướng dẫn thanh toán</value>
   </data>
-  <data name="payment" xml:space="preserve">
-    <value>Phương thức thanh toán</value>
+  <data name="product" xml:space="preserve">
+    <value>Sản phẩm</value>
   </data>
-  <data name="payment cod" xml:space="preserve">
-    <value>Thanh toán khi nhận hàng (COD)</value>
+  <data name="sat" xml:space="preserve">
+    <value>Thứ 7:</value>
   </data>
-  <data name="payment ibanking" xml:space="preserve">
-    <value>Thanh toán trước qua iBanking</value>
+  <data name="sun" xml:space="preserve">
+    <value>Chủ nhật:</value>
   </data>
-  <data name="payment infor" xml:space="preserve">
-    <value>Thông tin thanh toán:</value>
-  </data>
-  <data name="payment name" xml:space="preserve">
-    <value>Chủ tài khoản: Nguyễn Quang Linh</value>
-  </data>
-  <data name="person infor" xml:space="preserve">
-    <value>Thông tin cá nhân</value>
-  </data>
-  <data name="phone" xml:space="preserve">
-    <value>Số điện thoại</value>
-  </data>
-  <data name="phonenumber" xml:space="preserve">
-    <value>Số điện thoại</value>
-  </data>
-  <data name="purchase" xml:space="preserve">
-    <value>Thanh toán</value>
-  </data>
-  <data name="road" xml:space="preserve">
-    <value>Số nhà, tên đường</value>
-  </data>
-  <data name="shipping" xml:space="preserve">
-    <value>Phí vận chuyển</value>
-  </data>
-  <data name="total" xml:space="preserve">
-    <value>Tổng tiền hàng</value>
-  </data>
-  <data name="ward" xml:space="preserve">
-    <value>Phường / Xã</value>
-  </data>
-  <data name="your order" xml:space="preserve">
-    <value>Đơn hàng của bạn</value>
+  <data name="warranty" xml:space="preserve">
+    <value>Bảo hàng &amp; Đổi trả </value>
   </data>
 </root>

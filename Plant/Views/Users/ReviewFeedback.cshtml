@@ -14,9 +14,8 @@
                     <!-- Nav tabs -->
                     <div class="dashboard_tab_button">
                         <ul role="tablist" class="nav flex-column dashboard-list">
-                            <li><a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link ">Tài khoản của tôi</a></li>
-                            <li><a asp-area="" asp-controller="Users" asp-action="ManageOrder" class="nav-link active">Đơn mua</a></li>
-                            <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">Thông báo</a></li>
+                            <li><a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link ">@Localizer["my account"]</a></li>
+                            <li> <a asp-area="" asp-controller="Users" asp-action="ManageOrder" class="nav-link active">@Localizer["purchase order"]</a></li>
                         </ul>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ namespace Plant.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminOrders
-        public IActionResult Index(int page = 1, string SearchEmail = "")
+        public IActionResult Index(int page = 1, string SearchEmail = "",string isNoti="")
         {
             var pageNumber = page;
             var pageSize = 10;
@@ -49,9 +49,19 @@ namespace Plant.Areas.Admin.Controllers
                                   CreateDate = o.CreateDate,
                                   OrderStatus = o.OrderStatus
                               }).ToList();
-                PagedList<OrderDto> models = new PagedList<OrderDto>(result.AsQueryable(), pageNumber, pageSize);
-                ViewBag.CurrentPage = pageNumber;
-                return View(models);
+                if (isNoti == "true")
+                {
+                    var listOrderStatus = result.Where(x => x.OrderStatus == "Chờ xác nhận").ToList();
+                    PagedList<OrderDto> models = new PagedList<OrderDto>(listOrderStatus.AsQueryable(), pageNumber, pageSize);
+                    ViewBag.CurrentPage = pageNumber;
+                    return View(models);
+                }
+                else
+                {
+                    PagedList<OrderDto> models = new PagedList<OrderDto>(result.AsQueryable(), pageNumber, pageSize);
+                    ViewBag.CurrentPage = pageNumber;
+                    return View(models);
+                }
             }
             else
             {
@@ -69,9 +79,19 @@ namespace Plant.Areas.Admin.Controllers
                                   CreateDate = o.CreateDate,
                                   OrderStatus = o.OrderStatus
                               }).ToList();
-                PagedList<OrderDto> models = new PagedList<OrderDto>(result.AsQueryable(), pageNumber, pageSize);
-                ViewBag.CurrentPage = pageNumber;
-                return View(models);
+                if (isNoti == "true")
+                {
+                    var listOrderStatus = result.Where(x => x.OrderStatus == "Chờ xác nhận").ToList();
+                    PagedList<OrderDto> models = new PagedList<OrderDto>(listOrderStatus.AsQueryable(), pageNumber, pageSize);
+                    ViewBag.CurrentPage = pageNumber;
+                    return View(models);
+                }
+                else
+                {
+                    PagedList<OrderDto> models = new PagedList<OrderDto>(result.AsQueryable(), pageNumber, pageSize);
+                    ViewBag.CurrentPage = pageNumber;
+                    return View(models);
+                }
             }
         }
         // GET: Admin/AdminOrders/Edit/5

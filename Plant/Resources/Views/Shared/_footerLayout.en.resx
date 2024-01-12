@@ -117,22 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="emai/sdt" xml:space="preserve">
-    <value>Email/ PhoneNunber</value>
+  <data name="account" xml:space="preserve">
+    <value>Account</value>
   </data>
-  <data name="forgot" xml:space="preserve">
-    <value>Forgot password</value>
+  <data name="blog" xml:space="preserve">
+    <value>Blog</value>
   </data>
-  <data name="login" xml:space="preserve">
-    <value>Login</value>
+  <data name="cart" xml:space="preserve">
+    <value>Cart</value>
   </data>
-  <data name="new know" xml:space="preserve">
-    <value>New to Lucky Bamboo?</value>
+  <data name="contact" xml:space="preserve">
+    <value>Contact</value>
   </data>
-  <data name="password" xml:space="preserve">
-    <value>Password</value>
+  <data name="customer loyalty policy" xml:space="preserve">
+    <value>Customer loyalty policy</value>
   </data>
-  <data name="register" xml:space="preserve">
-    <value>Register</value>
+  <data name="customer support" xml:space="preserve">
+    <value>Customer support</value>
+  </data>
+  <data name="delivery regulations" xml:space="preserve">
+    <value>Delivery regulations</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="instructions for payment" xml:space="preserve">
+    <value>Instructions for payment</value>
+  </data>
+  <data name="introduction" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
+  <data name="mon-fri" xml:space="preserve">
+    <value>Mon - Fri:</value>
+  </data>
+  <data name="opening time" xml:space="preserve">
+    <value>Opening Time</value>
+  </data>
+  <data name="payment instructions" xml:space="preserve">
+    <value>Payment íntructions</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="sat" xml:space="preserve">
+    <value>Sat:</value>
+  </data>
+  <data name="sun" xml:space="preserve">
+    <value>Sun:</value>
+  </data>
+  <data name="warranty" xml:space="preserve">
+    <value>Warranty &amp; Return</value>
   </data>
 </root>

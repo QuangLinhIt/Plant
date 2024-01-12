@@ -67,28 +67,18 @@
                                     <a class="nav-link" asp-area="Admin" asp-controller="AdminCategories" asp-action="Index">Danh mục sản phẩm</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link"  asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách sản phẩm</a>
-                                </li>
-                             
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#forms_drp">
-                        <span class="feather-icon"><i data-feather="server"></i></span>
-                        <span class="nav-link-text">Đơn hàng</span>
-                    </a>
-                    <ul id="forms_drp" class="nav flex-column collapse collapse-level-1">
-                        <li class="nav-item">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index"> Danh sách đơn hàng</a>
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách sản phẩm</a>
                                 </li>
 
                             </ul>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index">
+                        <span class="feather-icon"><i data-feather="server"></i></span>
+                        <span class="nav-link-text">Đơn hàng</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" asp-area="Admin" asp-controller="AdminFeedbacks" asp-action="Index">
@@ -101,11 +91,11 @@
                         <span class="feather-icon"><i data-feather="pie-chart"></i></span>
                         <span class="nav-link-text">Liên hệ</span>
                     </a>
-                    
+
                 </li>
             </ul>
             <hr class="nav-separator">
-            
+
         </div>
     </div>
 </nav>

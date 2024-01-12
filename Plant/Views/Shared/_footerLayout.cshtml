@@ -1,56 +1,53 @@
-﻿<footer class="footer_widgets">
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<footer class="footer_widgets">
     <div class="footer_top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="widgets_container contact_us">
-                        <h3>Opening Time</h3>
-                        <p><span>Mon - Fri:</span> 8AM - 10PM</p>
-                        <p><span>Sat:</span> 9AM-8PM</p>
-                        <p><span>Suns:</span> 14hPM-18hPM</p>
-                        <p><b>We Work All The Holidays</b></p>
+                        <h3>@Localizer["opening time"]</h3>
+                        <p><span>@Localizer["mon-fri"]</span> 8AM - 10PM</p>
+                        <p><span>@Localizer["sat"]</span> 9AM-8PM</p>
+                        <p><span>@Localizer["sun"]</span> 14hPM-18hPM</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="widgets_container widget_menu">
-                        <h3>Information</h3>
+                        <h3>LuckyBamBoo Shop</h3>
                         <div class="footer_menu">
                             <ul>
-                                <li><a >About Us</a></li>
-                                <li><a >Checkout</a></li>
-                                <li><a >Contact</a></li>
-                                <li><a >Frequently Questions</a></li>
-                                <li><a>Wishlist</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["home"]</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Introduction">@Localizer["introduction"]</a></li>
+                                <li><a asp-area="" asp-controller="Products" asp-action="Index">@Localizer["product"]</a></li>
+                                <li><a asp-area="" asp-controller="Blogs" asp-action="Index">@Localizer["blog"]</a></li>
+                                <li><a asp-area="" asp-controller="Contacts" asp-action="Index">@Localizer["contact"]</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="widgets_container widget_menu">
-                        <h3>My Account</h3>
+                        <h3>@Localizer["account"]</h3>
                         <div class="footer_menu">
                             <ul>
-                                <li><a>My Account</a></li>
-                                <li><a>Contact</a></li>
-                                <li><a>Shopping cart</a></li>
-                                <li><a>Checkout</a></li>
-                                <li><a>Shop</a></li>
-                                <li><a >Order History</a></li>
+                                <li><a asp-area="" asp-controller="Contacts" asp-action="Index">@Localizer["contact"]</a></li>
+                                <li><a asp-area="" asp-controller="Orders" asp-action="Cart">@Localizer["cart"]</a></li>
+
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="widgets_container widget_menu">
-                        <h3>Customer Service</h3>
+                        <h3>@Localizer["customer support"]</h3>
                         <div class="footer_menu">
                             <ul>
-                                <li><a>Contact Us</a></li>
-                                <li><a >Terms of use</a></li>
-                                <li><a >Privacy Policy</a></li>
-                                <li><a>Site Map</a></li>
-                                <li><a >My Account</a></li>
-                                <li><a >Returns</a></li>
+                                <li><a>@Localizer["customer loyalty policy"]</a></li>
+                                <li><a>@Localizer["instructions for payment"]</a></li>
+                                <li><a>@Localizer["warranty"]</a></li>
+                                <li><a>@Localizer["delivery regulations"]</a></li>
+                                <li><a>@Localizer["payment instructions"]</a></li>
                             </ul>
                         </div>
                     </div>
@@ -72,7 +69,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="footer_payment">
-                        <a ><img src="~/LayoutAssets/img/icon/payment.png" alt=""></a>
+                        <a><img src="~/LayoutAssets/img/icon/payment.png" alt=""></a>
                     </div>
                 </div>
             </div>

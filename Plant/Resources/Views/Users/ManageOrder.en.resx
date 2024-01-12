@@ -117,22 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="emai/sdt" xml:space="preserve">
-    <value>Email/ Số điện thoại</value>
+  <data name="add feedback" xml:space="preserve">
+    <value>Add feedback</value>
   </data>
-  <data name="forgot" xml:space="preserve">
-    <value>Quên mật khẩu</value>
+  <data name="all" xml:space="preserve">
+    <value>All</value>
   </data>
-  <data name="login" xml:space="preserve">
-    <value>Đăng nhập</value>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel order</value>
   </data>
-  <data name="new know" xml:space="preserve">
-    <value>Bạn mới biết đến LuckyBamboo?</value>
+  <data name="cancelled" xml:space="preserve">
+    <value>Cancelled</value>
   </data>
-  <data name="password" xml:space="preserve">
-    <value>Mật khẩu</value>
+  <data name="Cart Subtotal" xml:space="preserve">
+    <value>Cart Subtotal</value>
   </data>
-  <data name="register" xml:space="preserve">
-    <value>Đăng kí</value>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="confirm delete order" xml:space="preserve">
+    <value>Confirmation delete order</value>
+  </data>
+  <data name="day" xml:space="preserve">
+    <value>Create Day:</value>
+  </data>
+  <data name="delivered" xml:space="preserve">
+    <value>Delivered</value>
+  </data>
+  <data name="delivering" xml:space="preserve">
+    <value>Delivering</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="my account" xml:space="preserve">
+    <value>My Account</value>
+  </data>
+  <data name="order" xml:space="preserve">
+    <value>Order:</value>
+  </data>
+  <data name="order detail" xml:space="preserve">
+    <value>Order detail</value>
+  </data>
+  <data name="Order Total" xml:space="preserve">
+    <value>Order Total</value>
+  </data>
+  <data name="payment method" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>Receiver</value>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>PhoneNumber</value>
+  </data>
+  <data name="purchase order" xml:space="preserve">
+    <value>Purchase Order</value>
+  </data>
+  <data name="see detail" xml:space="preserve">
+    <value>See detail</value>
+  </data>
+  <data name="see feedback" xml:space="preserve">
+    <value>See feedback</value>
+  </data>
+  <data name="Transport fee" xml:space="preserve">
+    <value>Transport fee</value>
+  </data>
+  <data name="wait for confirmation" xml:space="preserve">
+    <value>Wait for confirmation</value>
   </data>
 </root>

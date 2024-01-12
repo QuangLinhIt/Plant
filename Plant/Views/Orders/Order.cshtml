@@ -40,7 +40,7 @@
                             <input type="email" asp-for="Email" readonly>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 mb-20">
-                            <label>PhoneNumber</label>
+                            <label>@Localizer["phonenumber"] </label>
                             <input type="number" asp-for="Phone" autocomplete="off">
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                             <label>@Localizer["city"]</label>
                             <select class="form-control" id="addressCity" onchange="GetCitySelected()" asp-for="City">
                                 @if (Model.City != 0)
-                                {
+                                    {
                                     <option value="@Model.City" id="optionAddressCity"></option>
                                 }
                                 else
@@ -80,7 +80,7 @@
                                     <option value="@Model.Ward" id="optionAddressWard"></option>
                                 }
                                 else
-                                {
+                            {
                                     <option value="0">@Localizer["choose ward"]</option>
                                 }
                             </select>
