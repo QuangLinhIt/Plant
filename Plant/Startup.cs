@@ -67,6 +67,7 @@ namespace Plant
             });
 
             services.AddDbContext<PlantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PlantContextConnection")));
+
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<PlantContext>();
