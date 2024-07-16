@@ -43,7 +43,7 @@ namespace Plant
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
             services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
-            services.AddDbContextPool<plantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("plantConnectString")));
+            services.AddDbContextPool<plantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PlantConnectDb")));
             services.AddSession();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
@@ -66,7 +66,7 @@ namespace Plant
                 options.SupportedUICultures = cultures;
             });
 
-            services.AddDbContext<PlantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PlantContextConnection")));
+            services.AddDbContext<PlantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PlantConnectDb")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -109,21 +109,21 @@ namespace Plant
                 options.SlidingExpiration = true;
             });
 
-            services.AddAuthentication()
-                .AddFacebook(facebookOptions =>
-                    {
-                        facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                        facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                        facebookOptions.CallbackPath = new PathString("/signin-facebook");
-                        facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
-                    })
-                .AddGoogle(googleOptions =>
-                 {
-                     googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-                     googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                     googleOptions.CallbackPath = new PathString("/signin-google");
-                     googleOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
-                 });
+            //services.AddAuthentication()
+            //    .AddFacebook(facebookOptions =>
+            //        {
+            //            facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+            //            facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            //            facebookOptions.CallbackPath = new PathString("/signin-facebook");
+            //            facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
+            //        })
+            //    .AddGoogle(googleOptions =>
+            //     {
+            //         googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+            //         googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            //         googleOptions.CallbackPath = new PathString("/signin-google");
+            //         googleOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
+            //     });
             services.AddRazorPages();
 
             //VNPAY
@@ -179,10 +179,10 @@ namespace Plant
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=AdminHome}/{action=Dashboard}/{id?}"
-                );
+                //endpoints.MapControllerRoute(
+                //  name: "areas",
+                //  pattern: "{area:exists}/{controller=AdminHome}/{action=Dashboard}/{id?}"
+                //);
                 endpoints.MapControllerRoute(
                    name: "default",
                    pattern: "{controller=Home}/{action=Index}/{id?}"

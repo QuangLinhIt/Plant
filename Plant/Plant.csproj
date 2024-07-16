@@ -3,8 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>6d6dee09-da24-4292-b750-2e1dbf2f643b</UserSecretsId>
-   
-  
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <AllowUntrustedCertificate>true</AllowUntrustedCertificate>
+    <EnvironmentName>Production</EnvironmentName>
   </PropertyGroup>
 
   <ItemGroup>

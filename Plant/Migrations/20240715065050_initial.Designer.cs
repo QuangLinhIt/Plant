@@ -10,8 +10,8 @@ using Plant.Data;
 namespace Plant.Migrations
 {
     [DbContext(typeof(PlantContext))]
-    [Migration("20231125025927_identity")]
-    partial class identity
+    [Migration("20240715065050_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
